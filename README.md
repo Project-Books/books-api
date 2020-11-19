@@ -3,6 +3,9 @@
 </p>
 
 <p align="center">
+  <a href="https://travis-ci.com/github/Project-Books/book-project">
+     <img src="https://travis-ci.com/Project-Books/books-api.svg?branch=main" alt="Build Status"/>
+  </a>
   <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-i7lept44-rgJ9yB0A2vedJTLyyfkjKQ">
     <img src="https://img.shields.io/badge/chat%20on-slack-%233f0e40" alt="Slack" />
   </a>
