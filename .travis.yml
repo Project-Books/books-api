@@ -4,3 +4,4 @@ jdk:
 cache:
   directories:
   - "$HOME/.m2"
+script: ./mvnw test
