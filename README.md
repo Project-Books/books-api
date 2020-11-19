@@ -10,6 +10,11 @@
 
 GraphQL books API made using Spring Boot.
 
+## Setup
+
+Prerequisites: 
+- JDK 11 or higher
+
 ## Contributing
 
 If you wish to contribute (thanks!), please first see the [contributing document](https://github.com/Project-Books/books-api/blob/main/CONTRIBUTING.md).
