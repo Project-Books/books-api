@@ -1,8 +1,6 @@
 language: java
 jdk:
 - openjdk11
-- oraclejdk11
-install: 
 cache:
   directories:
   - "$HOME/.m2"
