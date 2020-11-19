@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 
 @Entity
 @Data
-public class Author extends BaseEntity {
-    private String firstName;
-
-    private String lastName;
+public class Publisher extends BaseEntity {
+    private String name;
 }

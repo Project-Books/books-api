@@ -1,29 +1,17 @@
 package com.karankumar.booksapi.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 @Entity
-@Getter
-public class Book {
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @Setter
+@Data
+public class Book extends BaseEntity {
     private String title;
 
-    @Setter
     private String isbn;
 
-    @Setter
     private BookGenre genre;
 
-    @Setter
     private Integer yearOfPublication;
-
 }
