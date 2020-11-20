@@ -13,31 +13,28 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.karankumar.booksapi;
+package com.karankumar.booksapi.resolver;
 
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.repository.AuthorRepository;
 import com.karankumar.booksapi.repository.BookRepository;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 
-@SpringBootApplication
-public class BooksApiApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(BooksApiApplication.class, args);
+public class Query implements GraphQLQueryResolver {
+    private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
+
+    public Query(AuthorRepository authorRepository, BookRepository bookRepository) {
+        this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
     }
 
-    @Bean
-    public CommandLineRunner populateData(AuthorRepository authorRepository,
-                                          BookRepository bookRepository) {
-        return args -> {
-            Author author = new Author("J.K.", "Rowling");
-            authorRepository.save(author);
+    public Iterable<Book> findAllBooks() {
+        return bookRepository.findAll();
+    }
 
-            bookRepository.save(new Book("Harry Potter and the Philosopher's stone", author));
-        };
+    public Iterable<Author> findAllAuthors() {
+        return authorRepository.findAll();
     }
 }
