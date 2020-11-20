@@ -15,6 +15,8 @@
 
 package com.karankumar.booksapi.model;
 
+import lombok.Getter;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -23,5 +25,6 @@ import javax.persistence.MappedSuperclass;
 public class BaseEntity {
     @Id
     @GeneratedValue
+    @Getter
     private Long id;
 }

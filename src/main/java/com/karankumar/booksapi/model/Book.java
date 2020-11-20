@@ -15,18 +15,31 @@
 
 package com.karankumar.booksapi.model;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book extends BaseEntity {
     private String title;
+
+    @ManyToOne
+    private Author author;
 
     private String isbn;
 
     private BookGenre genre;
 
     private Integer yearOfPublication;
+
+    public Book(@NonNull String title, @NonNull Author author) {
+        this.title = title;
+        this.author = author;
+    }
 }

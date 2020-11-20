@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<graphql.version>8.0.0</graphql.version>
 	</properties>
 
 	<dependencies>
@@ -36,8 +37,13 @@
 		<dependency>
 			<groupId>com.graphql-java-kickstart</groupId>
 			<artifactId>graphql-spring-boot-starter</artifactId>
-			<version>8.0.0</version>
+			<version>${graphql.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>playground-spring-boot-starter</artifactId>
+            <version>${graphql.version}</version>
+        </dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>

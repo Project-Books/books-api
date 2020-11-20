@@ -1,7 +1,7 @@
 type Book {
     id: ID!
     title: String!
-    genre: BookGenre
+    genre: Genre
     isbn: String
     yearOfPublication: Int
 }

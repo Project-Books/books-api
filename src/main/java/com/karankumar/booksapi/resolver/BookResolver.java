@@ -13,25 +13,21 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.karankumar.booksapi.model;
+package com.karankumar.booksapi.resolver;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import com.karankumar.booksapi.model.Author;
+import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.repository.AuthorRepository;
+import graphql.kickstart.tools.GraphQLResolver;
 
-import javax.persistence.Entity;
+public class BookResolver implements GraphQLResolver<Book> {
+    private final AuthorRepository authorRepository;
 
-@Entity
-@Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Author extends BaseEntity {
-    private String firstName;
+    public BookResolver(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
 
-    private String lastName;
-
-    public Author(@NonNull String firstName, @NonNull String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Author getAuthor(Book book) {
+        return authorRepository.findById(book.getAuthor().getId()).get();
     }
 }
