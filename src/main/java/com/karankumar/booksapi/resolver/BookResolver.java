@@ -18,9 +18,9 @@ package com.karankumar.booksapi.resolver;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.repository.AuthorRepository;
-import graphql.kickstart.tools.GraphQLResolver;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 
-public class BookResolver implements GraphQLResolver<Book> {
+public class BookResolver implements GraphQLQueryResolver {
     private final AuthorRepository authorRepository;
 
     public BookResolver(AuthorRepository authorRepository) {

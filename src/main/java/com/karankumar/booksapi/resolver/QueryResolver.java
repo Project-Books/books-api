@@ -20,12 +20,14 @@ import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.repository.AuthorRepository;
 import com.karankumar.booksapi.repository.BookRepository;
 import graphql.kickstart.tools.GraphQLQueryResolver;
+import org.springframework.stereotype.Component;
 
-public class Query implements GraphQLQueryResolver {
+@Component
+public class QueryResolver implements GraphQLQueryResolver {
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
 
-    public Query(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public QueryResolver(AuthorRepository authorRepository, BookRepository bookRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
     }
