@@ -19,6 +19,12 @@ Prerequisites:
 - JDK 11 or higher
 - Configure [Lombok](https://github.com/Project-Books/book-project/wiki/Troubleshooting#cannot-find-log-statements-or-the-entities-do-not-have-constructors-lombok-errors)
 
+## Running the app
+
+1. Import as a Maven project into your favourite IDE
+2. Run the app
+3. Go to `localhost:8080/playground`
+
 ## Contributing
 
 If you wish to contribute (thanks!), please first see the [contributing document](https://github.com/Project-Books/books-api/blob/main/CONTRIBUTING.md).
