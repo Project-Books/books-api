@@ -38,6 +38,8 @@ public class Book extends BaseEntity {
 
     private Integer yearOfPublication;
 
+    private String blurb;
+
     public Book(@NonNull String title, @NonNull Author author) {
         this.title = title;
         this.author = author;
