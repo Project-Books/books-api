@@ -3,6 +3,6 @@ type Book {
     author: Author!
     title: String!
     genre: Genre
-    isbn: String
+    isbn13: String
     yearOfPublication: Int
 }

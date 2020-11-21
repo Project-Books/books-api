@@ -32,7 +32,7 @@ public class Book extends BaseEntity {
     @ManyToOne
     private Author author;
 
-    private String isbn;
+    private String isbn13;
 
     private BookGenre genre;
 
