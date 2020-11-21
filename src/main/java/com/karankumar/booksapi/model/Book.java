@@ -40,6 +40,10 @@ public class Book extends BaseEntity {
 
     private String blurb;
 
+    private Publisher publishedBy;
+
+    private BookFormat format;
+
     public Book(@NonNull String title, @NonNull Author author) {
         this.title = title;
         this.author = author;

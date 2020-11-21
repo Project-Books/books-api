@@ -13,10 +13,21 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.karankumar.booksapi.repository;
+package com.karankumar.booksapi.model;
 
-import com.karankumar.booksapi.model.Publisher;
-import org.springframework.data.repository.CrudRepository;
+public enum BookFormat {
+    EBOOK("eBook"),
+    HARDCOVER("Hardcover"),
+    PAPERBACK("Paperback");
 
-public interface PublisherRepository extends CrudRepository<Publisher, Long> {
+    private final String type;
+
+    BookFormat(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return type;
+    }
 }
