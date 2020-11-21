@@ -19,6 +19,12 @@ Prerequisites:
 - JDK 11 or higher
 - Configure [Lombok](https://github.com/Project-Books/book-project/wiki/Troubleshooting#cannot-find-log-statements-or-the-entities-do-not-have-constructors-lombok-errors)
 
+## Running the app
+
+1. Import as a Maven project into your favourite IDE
+2. Run the app
+3. Go to `localhost:8080/playground`
+
 Sample query:
 ```
 {
@@ -37,11 +43,10 @@ Sample query:
 }
 ```
 
-## Running the app
+### Voyager
 
-1. Import as a Maven project into your favourite IDE
-2. Run the app
-3. Go to `localhost:8080/playground`
+To visualise the schema, go to `localhost:8080/voyager`. You will also need to comment out the `maxQueryDepth` line in
+application.properties.
 
 ## Contributing
 
