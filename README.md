@@ -11,12 +11,37 @@
   </a>
 </p>
 
-GraphQL books API made using Spring Boot.
+GraphQL books API made using Spring Boot. This is a sibling project of the [Book Project](https://github.com/Project-Books/book-project).
 
 ## Setup
 
 Prerequisites: 
 - JDK 11 or higher
+- Configure [Lombok](https://github.com/Project-Books/book-project/wiki/Troubleshooting#cannot-find-log-statements-or-the-entities-do-not-have-constructors-lombok-errors)
+
+Sample query:
+```
+{
+  findAllBooks {
+    title
+    author {
+      firstName
+      lastName
+    }
+    genre
+    isbn13
+    yearOfPublication
+    publishedBy
+    format
+  }
+}
+```
+
+## Running the app
+
+1. Import as a Maven project into your favourite IDE
+2. Run the app
+3. Go to `localhost:8080/playground`
 
 ## Contributing
 

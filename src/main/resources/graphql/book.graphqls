@@ -1,0 +1,12 @@
+type Book {
+    id: ID!
+    author: Author!
+    title: String!
+    blurb: String
+    genre: Genre
+    isbn13: String
+    yearOfPublication: Int
+    publishedBy: Publisher
+    format: BookFormat
+}
+
