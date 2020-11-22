@@ -21,17 +21,25 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Author extends BaseEntity {
+
     private String firstName;
 
     private String lastName;
 
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books;
+
     public Author(@NonNull String firstName, @NonNull String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        books = new HashSet<>();
     }
 }

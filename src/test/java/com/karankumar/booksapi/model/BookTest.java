@@ -30,7 +30,7 @@ class BookTest {
 
         // when and then
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> new Book(null, author));
+                .isThrownBy(() -> new Book(null, new Author[] { author} ));
     }
 
     @Test
