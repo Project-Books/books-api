@@ -2,6 +2,7 @@ type Book {
     id: ID!
     author: Author!
     title: String!
+   	language: Language!
     blurb: String
     genre: Genre
     isbn13: String
