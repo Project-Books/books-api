@@ -17,6 +17,7 @@ package com.karankumar.booksapi.model;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -25,12 +26,15 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper=false)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book extends BaseEntity {
     private String title;
 
     @ManyToOne
     private Author author;
+    
+    private Language language;
 
     private String isbn13;
 
@@ -44,8 +48,9 @@ public class Book extends BaseEntity {
 
     private BookFormat format;
 
-    public Book(@NonNull String title, @NonNull Author author) {
+    public Book(@NonNull String title, @NonNull Author author, @NonNull Language language) {
         this.title = title;
         this.author = author;
+        this.language = language;
     }
 }
