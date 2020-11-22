@@ -18,15 +18,27 @@ package com.karankumar.booksapi.model;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper=false)
+@Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book extends BaseEntity {
     private String title;
@@ -35,6 +47,14 @@ public class Book extends BaseEntity {
     private Author author;
     
     private Language language;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "book_authors",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private Set<Author> authors;
 
     private String isbn13;
 
@@ -48,9 +68,10 @@ public class Book extends BaseEntity {
 
     private BookFormat format;
 
-    public Book(@NonNull String title, @NonNull Author author, @NonNull Language language) {
+    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language) {
         this.title = title;
-        this.author = author;
+        this.authors = new HashSet<>(List.of(authors));
         this.language = language;
     }
+    
 }

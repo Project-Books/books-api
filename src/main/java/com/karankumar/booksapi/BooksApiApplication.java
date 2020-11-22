@@ -41,7 +41,8 @@ public class BooksApiApplication {
             Author author = new Author("J.K.", "Rowling");
             authorRepository.save(author);
 
-            Book book1 = new Book("Harry Potter and the Philosopher's stone", author, Language.ENGLISH);
+            Book book1 = new Book("Harry Potter and the Philosopher's stone",
+                    new Author[] {author}, Language.ENGLISH);
             book1.setGenre(BookGenre.FANTASY);
             book1.setYearOfPublication(1997);
             book1.setIsbn13("9781408810545");
@@ -49,7 +50,8 @@ public class BooksApiApplication {
             book1.setFormat(BookFormat.PAPERBACK);
             bookRepository.save(book1);
 
-            Book book2 = new Book("Harry Potter and the Chamber of Secrets", author, Language.ENGLISH);
+            Book book2 = new Book("Harry Potter and the Chamber of Secrets", 
+                  new Author[] {author}, Language.ENGLISH);
             book2.setGenre(BookGenre.FANTASY);
             book2.setPublishedBy(Publisher.BLOOMSBURY);
             book2.setFormat(BookFormat.PAPERBACK);
@@ -57,7 +59,7 @@ public class BooksApiApplication {
 
             Author author2 = new Author("J.R.R.", "Tolkien");
             authorRepository.save(author2);
-            Book book3 = new Book("The Hobbit", author2, Language.ENGLISH);
+            Book book3 = new Book("The Hobbit", new Author[] {author, author2}, Language.ENGLISH);
             book3.setYearOfPublication(1937);
             book3.setGenre(BookGenre.FANTASY);
             book3.setPublishedBy(Publisher.HARPER_COLLINS);
