@@ -27,16 +27,28 @@ class BookTest {
     void notAcceptNullTitle() {
         // given
         Author author = new Author("J.K.", "Rowling");
-
+        
         // when and then
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> new Book(null, author));
+                .isThrownBy(() -> new Book(null, author, Language.ENGLISH));
     }
 
     @Test
     @DisplayName("throw a Null Pointer Exception on an attempt to create with a null Author")
     void notAcceptNullAuthor() {
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> new Book("The Hobbit", null));
+                .isThrownBy(() -> new Book("The Hobbit", null, Language.ENGLISH));
     }
+    
+    @Test
+    @DisplayName("throw a Null Pointer Exception on an attempt to create with a null Language")
+    void notAcceptNullLanguage() {
+        // given
+        Author author = new Author("J.K.", "Rowling");
+
+      // when and then
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(() -> new Book("The Hobbit", author, null));
+    }
+    
 }
