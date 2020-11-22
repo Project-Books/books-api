@@ -30,7 +30,7 @@ Sample query:
 {
   findAllBooks {
     title
-    author {
+    authors {
       firstName
       lastName
     }
