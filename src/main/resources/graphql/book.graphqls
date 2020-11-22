@@ -1,6 +1,6 @@
 type Book {
     id: ID!
-    author: Author!
+    authors: [Author!]!
     title: String!
     blurb: String
     genre: Genre
