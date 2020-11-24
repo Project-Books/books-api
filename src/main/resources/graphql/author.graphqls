@@ -2,6 +2,7 @@ type Author {
     id: ID!
     firstName: String!
     lastName: String!
+    about: String
 #    books: [Book!]! TODO: bring this back
 }
 
