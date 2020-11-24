@@ -16,7 +16,13 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Author;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AuthorRepository extends CrudRepository<Author, Long> {
+  
+    @Query("SELECT DISTINCT a FROM Author a LEFT JOIN FETCH a.books")
+    List<Author> findAllAuthors();
+  
 }

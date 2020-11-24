@@ -33,10 +33,10 @@ public class QueryResolver implements GraphQLQueryResolver {
     }
 
     public Iterable<Book> findAllBooks() {
-        return bookRepository.findAll();
+        return bookRepository.findAllBooks();
     }
 
     public Iterable<Author> findAllAuthors() {
-        return authorRepository.findAll();
+        return authorRepository.findAllAuthors();
     }
 }
