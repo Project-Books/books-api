@@ -28,8 +28,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.List;
-
 @SpringBootApplication
 public class BooksApiApplication {
     public static void main(String[] args) {
@@ -61,7 +59,8 @@ public class BooksApiApplication {
 
             Author author2 = new Author("J.R.R.", "Tolkien");
             authorRepository.save(author2);
-            Book book3 = new Book("The Hobbit", new Author[] {author, author2}, Language.ENGLISH);
+            Book book3 =
+                    new Book("The Hobbit", new Author[] {author, author2}, Language.ENGLISH);
             book3.setYearOfPublication(1937);
             book3.setGenre(BookGenre.FANTASY);
             book3.setPublishedBy(Publisher.HARPER_COLLINS);
