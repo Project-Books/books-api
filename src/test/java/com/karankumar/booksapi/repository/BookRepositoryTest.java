@@ -28,6 +28,7 @@ import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
 import com.karankumar.booksapi.model.BookGenre;
+import com.karankumar.booksapi.model.Language;
 import com.karankumar.booksapi.model.Publisher;
 
 @ExtendWith(SpringExtension.class)
@@ -49,7 +50,7 @@ public class BookRepositoryTest {
         Author author1 = new Author("Kevlin", "Henney");
         Author author2 = new Author("Trisha", "Gee");
         Book book1 = new Book("97 Things Every Java Programmer Should Know",
-            new Author[] {author1, author2});
+            new Author[] {author1, author2}, Language.ENGLISH);
         book1.setGenre(BookGenre.REFERENCE);
         book1.setYearOfPublication(2019);
         book1.setIsbn13("9781408670545");

@@ -44,6 +44,8 @@ public class Book extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     private Set<Author> authors;
+    
+    private Language language;
 
     private String isbn13;
 
@@ -57,8 +59,9 @@ public class Book extends BaseEntity {
 
     private BookFormat format;
 
-    public Book(@NonNull String title, @NonNull Author[] authors) {
+    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language) {
         this.title = title;
         this.authors = new HashSet<>(List.of(authors));
+        this.language = language;
     }
 }
