@@ -39,6 +39,8 @@ public class Author extends BaseEntity {
 
     @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
     private Set<Book> books;
+    
+    private String about;
 
     public Author(@NonNull String firstName, @NonNull String lastName) {
         this.firstName = firstName;
