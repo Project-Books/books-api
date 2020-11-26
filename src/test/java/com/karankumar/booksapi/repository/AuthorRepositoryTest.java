@@ -15,61 +15,80 @@
 
 package com.karankumar.booksapi.repository;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
 import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.Language;
 import com.karankumar.booksapi.model.Publisher;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
+import static org.assertj.core.api.Assertions.assertThat;
+
 @DataJpaTest
+@ExtendWith(SpringExtension.class)
+@DisplayName("AuthorRepository should")
 public class AuthorRepositoryTest {
   
-    @Autowired
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
     
+    private final List<Book> books;
+    private final List<Author> authors; 
+  
     @Autowired
-    private AuthorRepository authorRepository;
-    
+    public AuthorRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
+        this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
+        this.books = new ArrayList<>();
+        this.authors = new ArrayList<>();
+    }
+  
     @Test
-    public void testFindAllBooks() {
-      
-        assertNotNull(bookRepository);
-        assertNotNull(authorRepository);
+    @DisplayName("find saved authors")
+    public void findSavedAuthors() {
+        saveBookAndAuthors();
+    
+        List<Author> result = authorRepository.findAllAuthors();
+    
+        assertThat(result.stream().anyMatch(e -> e.equals(authors.get(0))))
+            .isTrue();
         
+        assertThat(result.stream().anyMatch(e -> e.equals(authors.get(1))))
+            .isTrue();
+    }
+  
+    private void saveBookAndAuthors() {
         Author author1 = new Author("Kevlin", "Henney");
         Author author2 = new Author("Trisha", "Gee");
-        Book book1 = new Book("97 Things Every Java Programmer Should Know",
-            new Author[] {author1, author2}, Language.ENGLISH);
+        Book book1 = new Book("97 Things Every Java Programmer Should Know", 
+            new Author[] { author1, author2 }, Language.ENGLISH);
         book1.setGenre(BookGenre.REFERENCE);
         book1.setYearOfPublication(2019);
         book1.setIsbn13("9781408670545");
         book1.setPublishedBy(Publisher.CAMBRIDGE_UNIVERSITY_PRESS);
         book1.setFormat(BookFormat.PAPERBACK);
-        
-        authorRepository.save(author1);
-        authorRepository.save(author2);
-        bookRepository.save(book1);
-        
-        List<Author> result = authorRepository.findAllAuthors();
-        
-        assertTrue(result.stream().anyMatch(e -> e.equals(author1)));
-        assertTrue(result.stream().anyMatch(e -> e.equals(author2)));
-        
-        authorRepository.delete(author1);
-        authorRepository.delete(author2);
-        bookRepository.delete(book1);
-        
+    
+        authors.add(author1);
+        authors.add(author2);
+        books.add(book1);
+    
+        authorRepository.saveAll(authors);
+        bookRepository.saveAll(books);
+    }
+  
+    @AfterEach
+    public void tearDown() {
+        authorRepository.deleteAll(authors);
+        bookRepository.deleteAll(books);
     }
 
 }
