@@ -22,6 +22,7 @@ import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.Language;
 import com.karankumar.booksapi.model.Publisher;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
 @DisplayName("BookRepository should")
-public class BookRepositoryTest {
+class BookRepositoryTest {
     
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
@@ -45,7 +46,7 @@ public class BookRepositoryTest {
     private final List<Author> authors; 
   
     @Autowired
-    public BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
+    BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.books = new ArrayList<>();
@@ -54,7 +55,7 @@ public class BookRepositoryTest {
   
     @Test
     @DisplayName("find saved book and authors")
-    public void findSavedBookAndAuthors() {
+    void findSavedBookAndAuthors() {
         saveBookAndAuthors();
     
         List<Book> result = bookRepository.findAllBooks();
@@ -62,15 +63,21 @@ public class BookRepositoryTest {
         assertThat(result.stream().anyMatch(e -> e.equals(books.get(0))))
             .isTrue();
         
-        assertThat(result.stream()
-                         .map(Book::getAuthors)
-                         .anyMatch(e -> e.contains(authors.get(0))))
-            .isTrue();
+        assertThat(result.size())
+            .isGreaterThanOrEqualTo(1);
         
         assertThat(result.stream()
                          .map(Book::getAuthors)
-                         .anyMatch(e -> e.contains(authors.get(1))))
+                         .anyMatch(e -> e.containsAll(authors)))
             .isTrue();
+        
+        assertThat(result.stream()
+                         .filter(e -> e.equals(books.get(0)))
+                         .findFirst()
+                         .map(Book::getAuthors)
+                         .orElse(new HashSet<>())
+                         .size())
+            .isEqualTo(2);
     }
   
     private void saveBookAndAuthors() {
@@ -93,7 +100,7 @@ public class BookRepositoryTest {
     }
   
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         authorRepository.deleteAll(authors);
         bookRepository.deleteAll(books);
     }

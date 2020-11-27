@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
 @DisplayName("AuthorRepository should")
-public class AuthorRepositoryTest {
+class AuthorRepositoryTest {
   
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
@@ -45,7 +45,7 @@ public class AuthorRepositoryTest {
     private final List<Author> authors; 
   
     @Autowired
-    public AuthorRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
+    AuthorRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.books = new ArrayList<>();
@@ -54,15 +54,15 @@ public class AuthorRepositoryTest {
   
     @Test
     @DisplayName("find saved authors")
-    public void findSavedAuthors() {
+    void findSavedAuthors() {
         saveBookAndAuthors();
     
         List<Author> result = authorRepository.findAllAuthors();
     
-        assertThat(result.stream().anyMatch(e -> e.equals(authors.get(0))))
-            .isTrue();
+        assertThat(result.size())
+            .isGreaterThanOrEqualTo(2);
         
-        assertThat(result.stream().anyMatch(e -> e.equals(authors.get(1))))
+        assertThat(result.containsAll(result))
             .isTrue();
     }
   
@@ -86,7 +86,7 @@ public class AuthorRepositoryTest {
     }
   
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         authorRepository.deleteAll(authors);
         bookRepository.deleteAll(books);
     }
