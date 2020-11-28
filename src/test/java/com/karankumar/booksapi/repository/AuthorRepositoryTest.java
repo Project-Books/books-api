@@ -16,14 +16,8 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Author;
-import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.Publisher;
-import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -40,55 +35,41 @@ class AuthorRepositoryTest {
   
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
-    
-    private final List<Book> books;
-    private final List<Author> authors; 
-  
+
     @Autowired
     AuthorRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
-        this.books = new ArrayList<>();
-        this.authors = new ArrayList<>();
     }
-  
+
+    @BeforeEach
+    void setUp() {
+        authorRepository.deleteAll();
+        bookRepository.deleteAll();
+    }
+
     @Test
     @DisplayName("find saved authors")
     void findSavedAuthors() {
-        saveBookAndAuthors();
-    
+        // given
+        Author author1 = createAndSaveAuthor("Kevlin", "Henney");
+        Author author2 = createAndSaveAuthor("Trisha", "Gee");
+        saveBook(author1, author2);
+
+        // when
         List<Author> result = authorRepository.findAllAuthors();
-    
-        assertThat(result.size())
-            .isGreaterThanOrEqualTo(2);
-        
-        assertThat(result.containsAll(result))
-            .isTrue();
+
+        // then
+        assertThat(result).containsExactlyInAnyOrder(author1, author2);
     }
   
-    private void saveBookAndAuthors() {
-        Author author1 = new Author("Kevlin", "Henney");
-        Author author2 = new Author("Trisha", "Gee");
-        Book book1 = new Book("97 Things Every Java Programmer Should Know", 
-            new Author[] { author1, author2 }, Language.ENGLISH);
-        book1.setGenre(BookGenre.REFERENCE);
-        book1.setYearOfPublication(2019);
-        book1.setIsbn13("9781408670545");
-        book1.setPublishedBy(Publisher.CAMBRIDGE_UNIVERSITY_PRESS);
-        book1.setFormat(BookFormat.PAPERBACK);
-    
-        authors.add(author1);
-        authors.add(author2);
-        books.add(book1);
-    
-        authorRepository.saveAll(authors);
-        bookRepository.saveAll(books);
-    }
-  
-    @AfterEach
-    void tearDown() {
-        authorRepository.deleteAll(authors);
-        bookRepository.deleteAll(books);
+    private void saveBook(Author author1, Author author2) {
+        bookRepository.save(createBook(author1, author2));
     }
 
+    private Author createAndSaveAuthor(String firstName, String lastName) {
+        Author author = new Author(firstName, lastName);
+        authorRepository.save(author);
+        return author;
+    }
 }

@@ -17,14 +17,13 @@ package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.Publisher;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -42,67 +42,44 @@ class BookRepositoryTest {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     
-    private final List<Book> books;
-    private final List<Author> authors; 
-  
+    private Author author1;
+    private Author author2;
+
     @Autowired
     BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
-        this.books = new ArrayList<>();
-        this.authors = new ArrayList<>();
     }
-  
+    @BeforeEach
+    void setUp() {
+        authorRepository.deleteAll();
+        bookRepository.deleteAll();
+    }
+
     @Test
-    @DisplayName("find saved book and authors")
-    void findSavedBookAndAuthors() {
-        saveBookAndAuthors();
-    
+    @DisplayName("find saved books")
+    void findSavedBooks() {
+        // given
+        createAndSaveAuthors();
+        Book book = createBook(author1, author2);
+        bookRepository.save(book);
+
+        // when
         List<Book> result = bookRepository.findAllBooks();
-    
-        assertThat(result.stream().anyMatch(e -> e.equals(books.get(0))))
-            .isTrue();
-        
-        assertThat(result.size())
-            .isGreaterThanOrEqualTo(1);
-        
-        assertThat(result.stream()
-                         .map(Book::getAuthors)
-                         .anyMatch(e -> e.containsAll(authors)))
-            .isTrue();
-        
-        assertThat(result.stream()
-                         .filter(e -> e.equals(books.get(0)))
-                         .findFirst()
-                         .map(Book::getAuthors)
-                         .orElse(new HashSet<>())
-                         .size())
-            .isEqualTo(2);
+
+        // then
+        assertThat(result.size()).isOne();
+        assertThat(result).containsExactlyInAnyOrder(book);
     }
   
-    private void saveBookAndAuthors() {
-        Author author1 = new Author("Kevlin", "Henney");
-        Author author2 = new Author("Trisha", "Gee");
-        Book book1 = new Book("97 Things Every Java Programmer Should Know", 
-            new Author[] { author1, author2 }, Language.ENGLISH);
-        book1.setGenre(BookGenre.REFERENCE);
-        book1.setYearOfPublication(2019);
-        book1.setIsbn13("9781408670545");
-        book1.setPublishedBy(Publisher.CAMBRIDGE_UNIVERSITY_PRESS);
-        book1.setFormat(BookFormat.PAPERBACK);
-    
-        authors.add(author1);
-        authors.add(author2);
-        books.add(book1);
-    
-        authorRepository.saveAll(authors);
-        bookRepository.saveAll(books);
+    private void createAndSaveAuthors() {
+        author1 = new Author("Kevlin", "Henney");
+        author2 = new Author("Trisha", "Gee");
+        saveAllAuthors(author1, author2);
     }
-  
-    @AfterEach
-    void tearDown() {
-        authorRepository.deleteAll(authors);
-        bookRepository.deleteAll(books);
+
+    private void saveAllAuthors(Author... authors) {
+        Arrays.stream(authors).forEach(authorRepository::save);
     }
 
 }
