@@ -33,6 +33,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
@@ -68,8 +69,10 @@ class BookRepositoryTest {
         List<Book> result = bookRepository.findAllBooks();
 
         // then
-        assertThat(result.size()).isOne();
-        assertThat(result).containsExactlyInAnyOrder(book);
+        assertSoftly(softly -> {
+            softly.assertThat(result.size()).isOne();
+            softly.assertThat(result).containsExactlyInAnyOrder(book);
+        });
     }
   
     private void createAndSaveAuthors() {
