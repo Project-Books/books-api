@@ -53,6 +53,7 @@ public class Book extends BaseEntity {
 
     private Integer yearOfPublication;
 
+    @NonNull
     private String blurb;
 
     private Publisher publishedBy;

@@ -51,5 +51,15 @@ class BookTest {
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> new Book("The Hobbit", new Author[] {author}, null));
     }
-        
+
+    @Test
+    @DisplayName("throw a Null Pointer Exception on an attempt to create with a null blurb")
+    void notAcceptNullBlurb() {
+        // given
+        Author author = new Author("J.K.", "Rowling");
+
+        // when and then
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(() -> new Book("The Hobbit", new Author[] {author}, Language.ARABIC).setBlurb(null));
+    }
 }
