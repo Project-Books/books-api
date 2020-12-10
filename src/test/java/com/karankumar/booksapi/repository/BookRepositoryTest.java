@@ -18,7 +18,6 @@ package com.karankumar.booksapi.repository;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.Language;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +36,9 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 @ExtendWith(SpringExtension.class)
 @DisplayName("BookRepository should")
 class BookRepositoryTest {
-    
+
+    private static final String ISBN = "978-3-16-148410-0";
+
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     
@@ -80,8 +81,10 @@ class BookRepositoryTest {
         Book book = createBookwithISBN();
         bookRepository.save(book);
 
-        Book result = bookRepository.findBookByISBN("978-3-16-148410-0");
-        Assertions.assertEquals(book,result);
+        Book result = bookRepository.findBookByIsbn13(ISBN);
+        assertSoftly(softly -> {
+            softly.assertThat(result).isEqualTo(book);
+        });
 
     }
   
@@ -93,7 +96,7 @@ class BookRepositoryTest {
 
     private Book createBookwithISBN() {
         Book book = new Book("Game of APIs", new Author[]{author1, author2} , Language.ENGLISH);
-        book.setIsbn13("978-3-16-148410-0");
+        book.setIsbn13(ISBN);
         return book;
     }
 
