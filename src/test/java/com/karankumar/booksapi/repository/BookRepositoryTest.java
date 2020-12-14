@@ -30,13 +30,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
 @DisplayName("BookRepository should")
 class BookRepositoryTest {
-
     private static final String ISBN = "978-3-16-148410-0";
 
     private final BookRepository bookRepository;
@@ -77,15 +77,16 @@ class BookRepositoryTest {
     @Test
     @DisplayName("find book with isbn")
     void findBookByIsbn() {
+        // given
         createAndSaveAuthors();
         Book book = createBookwithISBN();
         bookRepository.save(book);
 
+        // when
         Book result = bookRepository.findBookByIsbn13(ISBN);
-        assertSoftly(softly -> {
-            softly.assertThat(result).isEqualTo(book);
-        });
 
+        // then
+        assertThat(result).isEqualTo(book);
     }
   
     private void createAndSaveAuthors() {
@@ -103,5 +104,4 @@ class BookRepositoryTest {
     private void saveAllAuthors(Author... authors) {
         Arrays.stream(authors).forEach(authorRepository::save);
     }
-
 }
