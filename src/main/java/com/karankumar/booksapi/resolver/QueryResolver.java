@@ -39,4 +39,8 @@ public class QueryResolver implements GraphQLQueryResolver {
     public Iterable<Author> findAllAuthors() {
         return authorRepository.findAllAuthors();
     }
+    
+    public Book findByTitle(String title) {
+    	return bookRepository.findByTitle(title);
+    }
 }

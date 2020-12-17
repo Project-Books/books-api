@@ -19,10 +19,13 @@ import com.karankumar.booksapi.model.Book;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
   
     @Query("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors")
     List<Book> findAllBooks();
   
+    @Query("FROM Book where title = :booktitle")
+    Book findByTitle(@Param("booktitle") String title);
 }
