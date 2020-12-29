@@ -1,4 +1,4 @@
 type Query {
     findAllBooks: [Book]!
-    findBookByIsbn13: Book!
+    findBookByIsbn13(isbn: String!): Book!
 }
