@@ -40,7 +40,7 @@ public class QueryResolver implements GraphQLQueryResolver {
         return authorRepository.findAllAuthors();
     }
 
-    public Book findBookByIsbn13(String isbn) {
-        return bookRepository.findBookByIsbn13(isbn);
+    public Book findBookByIsbn13(String isbn13) {
+        return bookRepository.findBookByIsbn13(isbn13);
     }
 }
