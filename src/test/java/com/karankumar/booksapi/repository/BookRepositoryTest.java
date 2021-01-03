@@ -96,7 +96,12 @@ class BookRepositoryTest {
     }
 
     private Book createBookwithISBN() {
-        Book book = new Book("Game of APIs", new Author[]{author1, author2} , Language.ENGLISH);
+        Book book = new Book(
+                "Game of APIs",
+                new Author[]{author1, author2},
+                Language.ENGLISH,
+                ""
+        );
         book.setIsbn13(ISBN);
         return book;
     }
