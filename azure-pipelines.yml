@@ -16,6 +16,7 @@ steps:
     SonarCloud: 'Books API SonarCloud'
     organization: 'project-books-1'
     scannerMode: 'Other'
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -26,8 +27,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'org.jacoco:jacoco-maven-plugin:prepare-agent package org.jacoco:jacoco-maven-plugin:report'
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
+    sonarQubeRunAnalysis: true
 
 - script: |
     bash <(curl -s https://codecov.io/bash)
