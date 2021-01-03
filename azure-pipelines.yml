@@ -35,6 +35,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'org.jacoco:jacoco-maven-plugin:prepare-agent package org.jacoco:jacoco-maven-plugin:report'
+    sonarQubeRunAnalysis: true
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
