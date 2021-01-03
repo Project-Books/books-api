@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-  <a href="https://dev.azure.com/karan0725/karan/_build/latest?definitionId=1&branchName=main">
-    <img src="https://dev.azure.com/karan0725/karan/_apis/build/status/Project-Books.books-api?branchName=main" alt="Build Status" />
+  <a href="https://dev.azure.com/project-books/Books%20API/_build/latest?definitionId=3&branchName=main">
+    <img src="https://dev.azure.com/project-books/Books%20API/_apis/build/status/Project-Books.books-api?branchName=main" alt="Build Status" />
   </a>
 	
   <a href="https://codecov.io/gh/Project-Books/books-api">
