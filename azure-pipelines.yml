@@ -27,7 +27,6 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'org.jacoco:jacoco-maven-plugin:prepare-agent package org.jacoco:jacoco-maven-plugin:report'
-    sonarQubeRunAnalysis: true
 
 - script: |
     bash <(curl -s https://codecov.io/bash)
