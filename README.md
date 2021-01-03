@@ -31,7 +31,7 @@ Prerequisites:
 3. Go to `localhost:8080/playground`
 
 Sample query:
-```
+```graphql
 {
   findAllBooks {
     title
