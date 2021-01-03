@@ -1,4 +1,12 @@
 # Maven
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Books API SonarCloud'
+    organization: 'project-books-1'
+    scannerMode: 'Other'
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
