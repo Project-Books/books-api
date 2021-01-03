@@ -5,3 +5,5 @@ coverage:
         target: 85%
         threshold: 0%
     patch: off
+ignore:
+  - "src/main/java/com/karankumar/booksapi/BooksApiApplication.java"
