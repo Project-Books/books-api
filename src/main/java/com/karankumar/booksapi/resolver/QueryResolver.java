@@ -41,6 +41,6 @@ public class QueryResolver implements GraphQLQueryResolver {
     }
     
     public Book findByTitle(String title) {
-    	return bookRepository.findByTitle(title);
+    	return bookRepository.findByBooktitle(title);
     }
 }
