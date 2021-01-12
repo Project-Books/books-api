@@ -38,6 +38,8 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 @DisplayName("BookRepository should")
 class BookRepositoryTest {
     private static final String ISBN = "978-3-16-148410-0";
+    private static final String TITLE = "Harry Potter";
+
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
@@ -105,8 +107,47 @@ class BookRepositoryTest {
         book.setIsbn13(ISBN);
         return book;
     }
+  @Test
+    @DisplayName("find book by title")
+    void findBookByTitle() {
+        // given
+        createAndSaveAuthors();
+        Book book = createBookWithTitle();
+        bookRepository.save(book);
 
+        // when
+        Book result = bookRepository.findBookByTitle(TITLE);
+
+        // then
+        assertThat(result).isEqualTo(book);
+    }
+
+    @Test
+    @DisplayName("find book by title case insensitive")
+    void findBookByTitleCaseInsensitive() {
+        // given
+        createAndSaveAuthors();
+        Book book = createBookWithTitle();
+        bookRepository.save(book);
+
+        // when
+        Book result = bookRepository.findBookByTitle(TITLE.toLowerCase());
+
+        // then
+        assertThat(result).isEqualTo(book);
+    }
+    private Book createBookWithTitle() {
+        Book book = new Book(
+                TITLE,
+                new Author[]{author1, author2},
+                Language.ENGLISH,
+                ""
+        );
+        return book;
+    }
     private void saveAllAuthors(Author... authors) {
         Arrays.stream(authors).forEach(authorRepository::save);
     }
+    
+    
 }
