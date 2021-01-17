@@ -111,7 +111,12 @@ class BookRepositoryTest {
     void findBookByTitle() {
         // given
         createAndSaveAuthors();
-        Book book = createBookWithTitle();
+        Book book = new Book(
+                TITLE,
+                new Author[]{author1, author2},
+                Language.ENGLISH,
+                ""
+        );
         bookRepository.save(book);
 
         // when
@@ -134,16 +139,6 @@ class BookRepositoryTest {
 
         // then
         assertThat(result).isEqualTo(book);
-    }
-    
-    private Book createBookWithTitle() {
-        Book book = new Book(
-                TITLE,
-                new Author[]{author1, author2},
-                Language.ENGLISH,
-                ""
-        );
-        return book;
     }
     
     private void saveAllAuthors(Author... authors) {
