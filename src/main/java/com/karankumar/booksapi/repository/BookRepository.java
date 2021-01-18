@@ -27,6 +27,5 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     Book findBookByIsbn13(String isbn13);
   
-   @Query("SELECT b FROM Book b where upper(b.title) = upper(?1)")
     Book findByTitleIgnoreCase(String title);
 }
