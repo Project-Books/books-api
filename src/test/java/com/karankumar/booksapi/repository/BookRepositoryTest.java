@@ -108,7 +108,7 @@ class BookRepositoryTest {
     }
     @Test
     @DisplayName("find book by title")
-    void findBookByTitle() {
+      void findBookByTitle() {
         // given
         createAndSaveAuthors();
         Book book = new Book(
@@ -120,7 +120,7 @@ class BookRepositoryTest {
         bookRepository.save(book);
 
         // when
-        Book result = bookRepository.findBookByTitle(TITLE);
+        Book result = bookRepository.findByTitleIgnoreCase(TITLE);
 
         // then
         assertThat(result).isEqualTo(book);
@@ -131,11 +131,16 @@ class BookRepositoryTest {
     void findBookByTitleCaseInsensitive() {
         // given
         createAndSaveAuthors();
-        Book book = createBookWithTitle();
+        Book book = new Book(
+                TITLE,
+                new Author[]{author1, author2},
+                Language.ENGLISH,
+                ""
+        );
         bookRepository.save(book);
 
         // when
-        Book result = bookRepository.findBookByTitle(TITLE.toLowerCase());
+        Book result = bookRepository.findByTitleIgnoreCase(TITLE.toLowerCase());
 
         // then
         assertThat(result).isEqualTo(book);
