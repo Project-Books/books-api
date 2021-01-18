@@ -106,8 +106,8 @@ class BookRepositoryTest {
         book.setIsbn13(ISBN);
         return book;
     }
+
     @Test
-    @DisplayName("find book by title")
       void findBookByTitle() {
         // given
         createAndSaveAuthors();
