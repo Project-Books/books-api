@@ -3,11 +3,20 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.com/github/Project-Books/book-project">
-     <img src="https://travis-ci.com/Project-Books/books-api.svg?branch=main" alt="Build Status"/>
+  <a href="https://dev.azure.com/project-books/Books%20API/_build/latest?definitionId=3&branchName=main">
+    <img src="https://dev.azure.com/project-books/Books%20API/_apis/build/status/Project-Books.books-api?branchName=main" alt="Build Status" />
   </a>
-  <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-jcijyenp-JiKFGBv62FIPoFnvOW6Ubg">
+	
+  <a href="https://codecov.io/gh/Project-Books/books-api">
+     <img src="https://codecov.io/gh/Project-Books/books-api/branch/main/graph/badge.svg?token=5OF8MVDZW7"/>
+  </a>
+	
+  <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-kss928q8-zT73FmmlV6HmXE1rhourbw">
     <img src="https://img.shields.io/badge/chat%20on-slack-%233f0e40" alt="Slack" />
+  </a>
+  
+  <a href="https://sonarcloud.io/dashboard?id=project-books_Books-API">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=project-books_Books-API&metric=alert_status" alt="Quality Gate Status" />
   </a>
 </p>
 
@@ -26,7 +35,7 @@ Prerequisites:
 3. Go to `localhost:8080/playground`
 
 Sample query:
-```
+```graphql
 {
   findAllBooks {
     title
