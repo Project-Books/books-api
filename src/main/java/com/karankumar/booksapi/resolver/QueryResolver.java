@@ -17,6 +17,7 @@ package com.karankumar.booksapi.resolver;
 
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.repository.AuthorRepository;
 import com.karankumar.booksapi.repository.BookRepository;
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -47,4 +48,8 @@ public class QueryResolver implements GraphQLQueryResolver {
      public Book findByTitleIgnoreCase(String title) {
         return bookRepository.findByTitleIgnoreCase(title);
     }
+     
+     public Iterable<Book> findByGenre(BookGenre genre){
+    	 return bookRepository.findByGenre(genre);
+     }
 }
