@@ -105,6 +105,22 @@ class BookRepositoryTest {
         book.setIsbn13(ISBN);
         return book;
     }
+    
+    @Test
+    @DisplayName("find by author")
+    void finByAuthor() {
+        // given
+        createAndSaveAuthors();
+        Book book = createBookwithISBN();
+        bookRepository.save(book);
+
+        // when
+        List<Book> result = bookRepository.findByAuthor("Kevlin", "Henney");
+
+        // then
+        assertThat(result.size()).isEqualTo(1);
+        assertThat(result.get(0)).isEqualTo(book);
+    }
 
     private void saveAllAuthors(Author... authors) {
         Arrays.stream(authors).forEach(authorRepository::save);
