@@ -22,6 +22,7 @@ import com.karankumar.booksapi.repository.BookRepository;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class QueryResolver implements GraphQLQueryResolver {
     private final AuthorRepository authorRepository;
@@ -30,6 +31,10 @@ public class QueryResolver implements GraphQLQueryResolver {
     public QueryResolver(AuthorRepository authorRepository, BookRepository bookRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+    }
+
+    public Iterable<Book> findByAuthor(String firstName, String lastName) {
+        return bookRepository.findByAuthor(firstName, lastName);
     }
 
     public Iterable<Book> findAllBooks() {
