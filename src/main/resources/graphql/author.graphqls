@@ -3,6 +3,6 @@ type Author {
     firstName: String!
     lastName: String!
     about: String
-#    books: [Book!]! TODO: bring this back
+    books: [Book!]!
 }
 
