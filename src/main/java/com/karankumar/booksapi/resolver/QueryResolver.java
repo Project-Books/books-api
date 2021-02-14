@@ -17,9 +17,13 @@ package com.karankumar.booksapi.resolver;
 
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.repository.AuthorRepository;
 import com.karankumar.booksapi.repository.BookRepository;
 import graphql.kickstart.tools.GraphQLQueryResolver;
+
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,7 +44,7 @@ public class QueryResolver implements GraphQLQueryResolver {
         return authorRepository.findAllAuthors();
     }
     
-    public Book findByGenre(String genre) {
+    public List<Book> findByGenre(BookGenre genre) {
     	return bookRepository.findByGenre(genre);
     }
 }
