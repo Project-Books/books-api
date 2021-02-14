@@ -51,7 +51,7 @@ public class QueryResolver implements GraphQLQueryResolver {
     
     public List<Book> findByGenre(BookGenre genre) {
     	return bookRepository.findByGenre(genre);
-
+    }
 
     public Book findBookByIsbn13(String isbn13) {
         return bookRepository.findBookByIsbn13(isbn13);
