@@ -17,12 +17,7 @@ package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import org.junit.jupiter.api.AfterEach;
+import com.karankumar.booksapi.model.Language;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,6 +25,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,7 +37,11 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 @ExtendWith(SpringExtension.class)
 @DisplayName("BookRepository should")
 class BookRepositoryTest {
-    
+    private static final String ISBN = "978-3-16-148410-0";
+    private static final String TITLE = "Harry Potter";
+    private static final String AUTHOR1_FIRST_NAME = "Kevlin";
+    private static final String AUTHOR1_LAST_NAME = "Henney";
+
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     
@@ -74,15 +76,97 @@ class BookRepositoryTest {
             softly.assertThat(result).containsExactlyInAnyOrder(book);
         });
     }
+
+    @Test
+    @DisplayName("find book with isbn")
+    void findBookByIsbn() {
+        // given
+        createAndSaveAuthors();
+        Book book = createBookwithISBN();
+        bookRepository.save(book);
+
+        // when
+        Book result = bookRepository.findBookByIsbn13(ISBN);
+
+        // then
+        assertThat(result).isEqualTo(book);
+    }
   
     private void createAndSaveAuthors() {
-        author1 = new Author("Kevlin", "Henney");
+        author1 = new Author(AUTHOR1_FIRST_NAME, AUTHOR1_LAST_NAME);
         author2 = new Author("Trisha", "Gee");
         saveAllAuthors(author1, author2);
     }
 
+    private Book createBookwithISBN() {
+        Book book = new Book(
+                "Game of APIs",
+                new Author[]{author1, author2},
+                Language.ENGLISH,
+                ""
+        );
+        book.setIsbn13(ISBN);
+        return book;
+    }
+    
+    @Test
+    @DisplayName("find by author")
+    void findByAuthor() {
+        // given
+        createAndSaveAuthors();
+        Book book = createBookwithISBN();
+        bookRepository.save(book);
+
+        // when
+        List<Book> result = bookRepository.findByAuthor(AUTHOR1_FIRST_NAME, AUTHOR1_LAST_NAME);
+
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(result.size()).isOne();
+            softly.assertThat(result.get(0)).isEqualTo(book);
+        });
+    }
+
+    @Test
+      void findBookByTitle() {
+        // given
+        createAndSaveAuthors();
+        Book book = new Book(
+                TITLE,
+                new Author[]{author1, author2},
+                Language.ENGLISH,
+                ""
+        );
+        bookRepository.save(book);
+
+        // when
+        Book result = bookRepository.findByTitleIgnoreCase(TITLE);
+
+        // then
+        assertThat(result).isEqualTo(book);
+    }
+
+    @Test
+    @DisplayName("find book by title case insensitive")
+    void findBookByTitleCaseInsensitive() {
+        // given
+        createAndSaveAuthors();
+        Book book = new Book(
+                TITLE,
+                new Author[]{author1, author2},
+                Language.ENGLISH,
+                ""
+        );
+        bookRepository.save(book);
+
+        // when
+        Book result = bookRepository.findByTitleIgnoreCase(TITLE.toLowerCase());
+
+        // then
+        assertThat(result).isEqualTo(book);
+    }
+    
     private void saveAllAuthors(Author... authors) {
         Arrays.stream(authors).forEach(authorRepository::save);
     }
-
 }

@@ -1,3 +1,7 @@
 type Query {
     findAllBooks: [Book]!
+    findBookByIsbn13(isbn13: String!): Book!
+    findByAuthor(firstName: String!, lastName: String!): [Book]!
+    findByTitleIgnoreCase(title: String!): Book
+
 }
