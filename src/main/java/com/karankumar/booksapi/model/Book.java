@@ -73,10 +73,13 @@ public class Book {
     @Column(nullable = false)
     private BookFormat format;
 
-    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language, @NonNull String blurb) {
+    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language, @NonNull String blurb,
+                @NonNull BookGenre genre, @NonNull BookFormat format) {
         this.title = title;
         this.authors = new HashSet<>(List.of(authors));
         this.language = language;
         this.blurb = blurb;
+        this.genre = genre;
+        this.format = format;
     }
 }
