@@ -15,16 +15,14 @@
 
 package com.karankumar.booksapi.repository;
 
+import com.karankumar.booksapi.annotations.DataJpaIntegrationTest;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.Language;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,8 +31,7 @@ import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
-@DataJpaTest
-@ExtendWith(SpringExtension.class)
+@DataJpaIntegrationTest
 @DisplayName("BookRepository should")
 class BookRepositoryTest {
     private static final String ISBN = "978-3-16-148410-0";
