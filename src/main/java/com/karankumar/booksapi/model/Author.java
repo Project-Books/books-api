@@ -32,7 +32,6 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper=false)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Author extends BaseEntity {
-
     private String firstName;
 
     private String lastName;
