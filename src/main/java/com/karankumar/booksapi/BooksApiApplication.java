@@ -39,32 +39,49 @@ public class BooksApiApplication {
                                           BookRepository bookRepository) {
         return args -> {
             Author author = new Author("J.K.", "Rowling");
+            author.setAbout("A fantastic author");
             authorRepository.save(author);
 
-            Book book1 = new Book("Harry Potter and the Philosopher's stone",
-                    new Author[] {author}, Language.ENGLISH, "Sample blurb value");
-            book1.setGenre(BookGenre.FANTASY);
+            Book book1 = new Book(
+                    "Harry Potter and the Philosopher's stone",
+                    new Author[] {author},
+                    Language.ENGLISH,
+                    "Sample blurb value",
+                    BookGenre.FANTASY,
+                    BookFormat.PAPERBACK
+            );
             book1.setYearOfPublication(1997);
             book1.setIsbn13("9781408810545");
             book1.setPublishedBy(Publisher.BLOOMSBURY);
-            book1.setFormat(BookFormat.PAPERBACK);
             bookRepository.save(book1);
 
-            Book book2 = new Book("Harry Potter and the Chamber of Secrets",
-                    new Author[] {author}, Language.ENGLISH,"Sample blurb value");
+            Book book2 = new Book(
+                    "Harry Potter and the Chamber of Secrets",
+                    new Author[] {author},
+                    Language.ENGLISH,
+                    "Sample blurb value",
+                    BookGenre.FANTASY,
+                    BookFormat.PAPERBACK
+            );
+            book2.setIsbn13("1234567898765");
             book2.setGenre(BookGenre.FANTASY);
             book2.setPublishedBy(Publisher.BLOOMSBURY);
             book2.setFormat(BookFormat.PAPERBACK);
             bookRepository.save(book2);
 
             Author author2 = new Author("J.R.R.", "Tolkien");
+            author2.setAbout("Another fantastic author");
             authorRepository.save(author2);
-            Book book3 =
-                    new Book("The Hobbit", new Author[] {author, author2}, Language.ENGLISH, "Sample blurb value");
+            Book book3 = new Book(
+                    "The Hobbit",
+                    new Author[] {author, author2},
+                    Language.ENGLISH,
+                    "Sample blurb value",
+                    BookGenre.FANTASY,
+                    BookFormat.PAPERBACK
+            );
             book3.setYearOfPublication(1937);
-            book3.setGenre(BookGenre.FANTASY);
             book3.setPublishedBy(Publisher.HARPER_COLLINS);
-            book3.setFormat(BookFormat.PAPERBACK);
             bookRepository.save(book3);
         };
     }

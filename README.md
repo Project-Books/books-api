@@ -27,12 +27,14 @@ GraphQL books API made using Spring Boot. This is a sibling project of the [Book
 Prerequisites: 
 - JDK 11 or higher
 - Configure [Lombok](https://github.com/Project-Books/book-project/wiki/Troubleshooting#cannot-find-log-statements-or-the-entities-do-not-have-constructors-lombok-errors)
+- MySQL 8.0.* or (better) Docker
 
 ## Running the app
 
 1. Import as a Maven project into your favourite IDE
-2. Run the app
-3. Go to `localhost:8080/playground`
+2. Start the MySQL Database or run the docker-compose file `docker-compose up`
+3. Run `BooksApiApplication.java`
+4. Go to `localhost:8080/playground`
 
 Sample query:
 ```graphql
@@ -56,6 +58,15 @@ Sample query:
 
 To visualise the schema, go to `localhost:8080/voyager`. You will also need to comment out the `maxQueryDepth` line in
 application.properties.
+
+### Access database
+
+To access the MySQL database when docker-compose is running:
+
+1. Go to `http://localhost:8081`
+2. Log in with the details below:
+    - Username: `root`
+    - Password: `rootpassword`
 
 ## Contributing
 

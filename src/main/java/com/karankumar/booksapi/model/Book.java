@@ -21,8 +21,12 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -34,35 +38,48 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Book extends BaseEntity {
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    private Long id;
+
+    @Column(nullable = false)
     private String title;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "book_authors",
+            name = "book_author",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     private Set<Author> authors;
-    
+
+    @Column(nullable = false)
     private Language language;
 
     private String isbn13;
 
+    @Column(nullable = false)
     private BookGenre genre;
 
     private Integer yearOfPublication;
 
+    @Column(nullable = false)
     private String blurb;
 
     private Publisher publishedBy;
 
+    @Column(nullable = false)
     private BookFormat format;
 
-    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language, @NonNull String blurb) {
+    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language, @NonNull String blurb,
+                @NonNull BookGenre genre, @NonNull BookFormat format) {
         this.title = title;
         this.authors = new HashSet<>(List.of(authors));
         this.language = language;
         this.blurb = blurb;
+        this.genre = genre;
+        this.format = format;
     }
 }

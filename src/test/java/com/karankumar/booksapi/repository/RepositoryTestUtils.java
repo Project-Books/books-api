@@ -30,7 +30,9 @@ final class RepositoryTestUtils {
                 "97 Things Every Java Programmer Should Know",
                 authors,
                 Language.ENGLISH,
-                "Sample blurb value"
+                "Sample blurb value",
+                BookGenre.CHILDREN,
+                BookFormat.EBOOK
         );
         book.setGenre(BookGenre.REFERENCE);
         book.setYearOfPublication(2019);
