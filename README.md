@@ -32,7 +32,7 @@ Prerequisites:
 ## Running the app
 
 1. Import as a Maven project into your favourite IDE
-2. Start the MySQL Database or run the docker-compose file `docker-compose up`
+2. Start the MySQL Database or run the docker-compose file `docker-compose up -d` (you may need to add `sudo` to this command)
 3. Run `BooksApiApplication.java`
 4. Go to `localhost:8080/playground`
 
