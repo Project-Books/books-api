@@ -39,6 +39,7 @@ public class BooksApiApplication {
                                           BookRepository bookRepository) {
         return args -> {
             Author author = new Author("J.K.", "Rowling");
+            author.setAbout("A fantastic author");
             authorRepository.save(author);
 
             Book book1 = new Book("Harry Potter and the Philosopher's stone",
@@ -52,12 +53,14 @@ public class BooksApiApplication {
 
             Book book2 = new Book("Harry Potter and the Chamber of Secrets",
                     new Author[] {author}, Language.ENGLISH,"Sample blurb value");
+            book2.setIsbn13("1234567898765");
             book2.setGenre(BookGenre.FANTASY);
             book2.setPublishedBy(Publisher.BLOOMSBURY);
             book2.setFormat(BookFormat.PAPERBACK);
             bookRepository.save(book2);
 
             Author author2 = new Author("J.R.R.", "Tolkien");
+            author2.setAbout("Another fantastic author");
             authorRepository.save(author2);
             Book book3 =
                     new Book("The Hobbit", new Author[] {author, author2}, Language.ENGLISH, "Sample blurb value");
