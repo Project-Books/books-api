@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021  Karan Kumar
+ * Copyright (C) 2020  Karan Kumar
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -16,13 +16,14 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Book;
+import java.util.List;
+
+import com.karankumar.booksapi.model.Publisher;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-
 public interface BookRepository extends CrudRepository<Book, Long> {
-    // TODO: this is kept in for quick testing, but will be removed at a later date
+  
     @Query("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors")
     List<Book> findAllBooks();
   
@@ -32,4 +33,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Book findBookByIsbn13(String isbn13);
   
     Book findByTitleIgnoreCase(String title);
+
+    List<Book> findAllByPublishedBy(Publisher publisher);
 }
