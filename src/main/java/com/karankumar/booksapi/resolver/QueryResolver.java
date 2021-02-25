@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  Karan Kumar
+ * Copyright (C) 2021  Karan Kumar
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -15,9 +15,7 @@
 
 package com.karankumar.booksapi.resolver;
 
-import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.repository.AuthorRepository;
 import com.karankumar.booksapi.repository.BookRepository;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.stereotype.Component;
@@ -25,24 +23,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class QueryResolver implements GraphQLQueryResolver {
-    private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
 
-    public QueryResolver(AuthorRepository authorRepository, BookRepository bookRepository) {
-        this.authorRepository = authorRepository;
+    public QueryResolver(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
     public Iterable<Book> findByAuthor(String firstName, String lastName) {
         return bookRepository.findByAuthor(firstName, lastName);
-    }
-
-    public Iterable<Book> findAllBooks() {
-        return bookRepository.findAllBooks();
-    }
-
-    public Iterable<Author> findAllAuthors() {
-        return authorRepository.findAllAuthors();
     }
 
     public Book findBookByIsbn13(String isbn13) {
