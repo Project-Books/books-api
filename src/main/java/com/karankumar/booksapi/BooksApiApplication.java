@@ -15,18 +15,8 @@
 
 package com.karankumar.booksapi;
 
-import com.karankumar.booksapi.model.Author;
-import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.Publisher;
-import com.karankumar.booksapi.repository.AuthorRepository;
-import com.karankumar.booksapi.repository.BookRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class BooksApiApplication {
@@ -34,55 +24,55 @@ public class BooksApiApplication {
         SpringApplication.run(BooksApiApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner populateData(AuthorRepository authorRepository,
-                                          BookRepository bookRepository) {
-        return args -> {
-            Author author = new Author("J.K.", "Rowling");
-            author.setAbout("A fantastic author");
-            authorRepository.save(author);
-
-            Book book1 = new Book(
-                    "Harry Potter and the Philosopher's stone",
-                    new Author[] {author},
-                    Language.ENGLISH,
-                    "Sample blurb value",
-                    BookGenre.FANTASY,
-                    BookFormat.PAPERBACK
-            );
-            book1.setYearOfPublication(1997);
-            book1.setIsbn13("9781408810545");
-            book1.setPublishedBy(Publisher.BLOOMSBURY);
-            bookRepository.save(book1);
-
-            Book book2 = new Book(
-                    "Harry Potter and the Chamber of Secrets",
-                    new Author[] {author},
-                    Language.ENGLISH,
-                    "Sample blurb value",
-                    BookGenre.FANTASY,
-                    BookFormat.PAPERBACK
-            );
-            book2.setIsbn13("1234567898765");
-            book2.setGenre(BookGenre.FANTASY);
-            book2.setPublishedBy(Publisher.BLOOMSBURY);
-            book2.setFormat(BookFormat.PAPERBACK);
-            bookRepository.save(book2);
-
-            Author author2 = new Author("J.R.R.", "Tolkien");
-            author2.setAbout("Another fantastic author");
-            authorRepository.save(author2);
-            Book book3 = new Book(
-                    "The Hobbit",
-                    new Author[] {author, author2},
-                    Language.ENGLISH,
-                    "Sample blurb value",
-                    BookGenre.FANTASY,
-                    BookFormat.PAPERBACK
-            );
-            book3.setYearOfPublication(1937);
-            book3.setPublishedBy(Publisher.HARPER_COLLINS);
-            bookRepository.save(book3);
-        };
-    }
+//    @Bean
+//    public CommandLineRunner populateData(AuthorRepository authorRepository,
+//                                          BookRepository bookRepository) {
+//        return args -> {
+//            Author author = new Author("J.K.", "Rowling");
+//            author.setAbout("A fantastic author");
+//            authorRepository.save(author);
+//
+//            Book book1 = new Book(
+//                    "Harry Potter and the Philosopher's stone",
+//                    new Author[] {author},
+//                    Language.ENGLISH,
+//                    "Sample blurb value",
+//                    BookGenre.FANTASY,
+//                    BookFormat.PAPERBACK
+//            );
+//            book1.setYearOfPublication(1997);
+//            book1.setIsbn13("9781408810545");
+//            book1.setPublishedBy(Publisher.BLOOMSBURY);
+//            bookRepository.save(book1);
+//
+//            Book book2 = new Book(
+//                    "Harry Potter and the Chamber of Secrets",
+//                    new Author[] {author},
+//                    Language.ENGLISH,
+//                    "Sample blurb value",
+//                    BookGenre.FANTASY,
+//                    BookFormat.PAPERBACK
+//            );
+//            book2.setIsbn13("1234567898765");
+//            book2.setGenre(BookGenre.FANTASY);
+//            book2.setPublishedBy(Publisher.BLOOMSBURY);
+//            book2.setFormat(BookFormat.PAPERBACK);
+//            bookRepository.save(book2);
+//
+//            Author author2 = new Author("J.R.R.", "Tolkien");
+//            author2.setAbout("Another fantastic author");
+//            authorRepository.save(author2);
+//            Book book3 = new Book(
+//                    "The Hobbit",
+//                    new Author[] {author, author2},
+//                    Language.ENGLISH,
+//                    "Sample blurb value",
+//                    BookGenre.FANTASY,
+//                    BookFormat.PAPERBACK
+//            );
+//            book3.setYearOfPublication(1937);
+//            book3.setPublishedBy(Publisher.HARPER_COLLINS);
+//            bookRepository.save(book3);
+//        };
+//    }
 }

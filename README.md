@@ -20,7 +20,7 @@
   </a>
 </p>
 
-GraphQL books API made using Spring Boot. This is a sibling project of the [Book Project](https://github.com/Project-Books/book-project).
+GraphQL books API made using Spring Boot and [DGS](https://netflix.github.io/dgs/). This is a sibling project of the [Book Project](https://github.com/Project-Books/book-project).
 
 ## Setup
 
