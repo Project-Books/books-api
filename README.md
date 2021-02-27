@@ -20,7 +20,7 @@
   </a>
 </p>
 
-GraphQL books API made using Spring Boot. This is a sibling project of the [Book Project](https://github.com/Project-Books/book-project).
+GraphQL books API made using Spring Boot and [DGS](https://netflix.github.io/dgs/). This is a sibling project of the [Book Project](https://github.com/Project-Books/book-project).
 
 ## Setup
 
@@ -29,12 +29,14 @@ Prerequisites:
 - Configure [Lombok](https://github.com/Project-Books/book-project/wiki/Troubleshooting#cannot-find-log-statements-or-the-entities-do-not-have-constructors-lombok-errors)
 - MySQL 8.0.* or (better) Docker
 
+Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)
+
 ## Running the app
 
-1. Import as a Maven project into your favourite IDE
+1. Import as a Gradle project into your favourite IDE
 2. Start the MySQL Database or run the docker-compose file `docker-compose up -d` (you may need to add `sudo` to this command)
 3. Run `BooksApiApplication.java`
-4. Go to `localhost:8080/playground`
+4. Go to `localhost:8080/graphiql`
 
 Sample query:
 ```graphql

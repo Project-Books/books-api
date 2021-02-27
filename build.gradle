@@ -1,0 +1,68 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'java-library' // can re be removed with dgs: 3.5.3
+	id 'jacoco'
+}
+
+group = 'com.karankumar'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+dependencies {
+//	implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter:latest.release"
+	// following two lines can be replaced with the above when dgs is updated to 3.5.3
+	implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter:3.5.2"
+	api("com.jayway.jsonpath:json-path:2.4.+")
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.flywaydb:flyway-core:7.5.4"
+
+	compileOnly 'org.projectlombok:lombok'
+
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'mysql:mysql-connector-java'
+
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
+    reports {
+		xml.enabled true
+		html.enabled false
+	}
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.7
+			}
+
+			failOnViolation false
+		}
+	}
+}
+
+// to run coverage verification during the build (and fail when appropriate)
+check.dependsOn jacocoTestCoverageVerification
