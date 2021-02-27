@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Package Files #
+*.jar
+
+target/
