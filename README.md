@@ -29,6 +29,8 @@ Prerequisites:
 - Configure [Lombok](https://github.com/Project-Books/book-project/wiki/Troubleshooting#cannot-find-log-statements-or-the-entities-do-not-have-constructors-lombok-errors)
 - MySQL 8.0.* or (better) Docker
 
+Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)
+
 ## Running the app
 
 1. Import as a Gradle project into your favourite IDE
