@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'java-library' // can re be removed with dgs: 3.5.3
+	id 'jacoco'
 }
 
 group = 'com.karankumar'
