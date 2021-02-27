@@ -1,0 +1,67 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+//	id "com.netflix.dgs.codegen" version "4.0.10"
+	id "org.flywaydb.flyway" version "7.5.4"
+}
+
+group = 'com.karankumar'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+//generateJava {
+//	schemaPaths = ["${projectDir}/src/main/resources/schema"] // List of directories containing schema files
+//	packageName = 'com.karankumar.booksapi' // The package name to use to generate sources
+//	generateClient = true // Enable generating the type safe query API
+//}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.flywaydb:flyway-core'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'mysql:mysql-connector-java'
+	annotationProcessor 'org.projectlombok:lombok'
+//	implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter:latest.release"
+
+	implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:11.0.0'
+
+	// to embed Altair tool
+	runtimeOnly 'com.graphql-java-kickstart:altair-spring-boot-starter:11.0.0'
+
+	// to embed GraphiQL tool
+	runtimeOnly 'com.graphql-java-kickstart:graphiql-spring-boot-starter:11.0.0'
+
+	// to embed Voyager tool
+	runtimeOnly 'com.graphql-java-kickstart:voyager-spring-boot-starter:11.0.0'
+
+	testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:11.0.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+flyway {
+	url = 'jdbc:mysql://localhost:3307/booksapi?useSsl=false'
+	user = 'root'
+	password = 'rootpassword'
+	locations = ['classpath:db/migration']
+}
+
+test {
+	useJUnitPlatform()
+}
+
+flywayMigrate.dependsOn classes
+
