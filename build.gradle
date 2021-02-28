@@ -2,8 +2,9 @@ plugins {
 	id 'org.springframework.boot' version '2.4.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'java-library' // can re be removed with dgs: 3.5.3
+	id 'java-library' // can be removed with dgs: 3.5.3
 	id 'jacoco'
+	id "com.netflix.dgs.codegen" version "4.0.10"
 }
 
 group = 'com.karankumar'
@@ -19,6 +20,12 @@ configurations {
 repositories {
 	mavenCentral()
 	jcenter()
+}
+
+generateJava {
+	schemaPaths = ["${projectDir}/src/main/resources/schema"] // List of directories containing schema files
+	packageName = 'com.karankumar.booksapi' // The package name to use to generate sources
+	generateClient = true // Enable generating the type safe query API
 }
 
 dependencies {
@@ -64,5 +71,5 @@ jacocoTestCoverageVerification {
 	}
 }
 
-// to run coverage verification during the build (and fail when appropriate)
+// run coverage verification during the build
 check.dependsOn jacocoTestCoverageVerification
