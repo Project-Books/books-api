@@ -46,13 +46,12 @@ public class Author {
     private String lastName;
 
     @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
-    private Set<Book> books;
+    private Set<Book> books = new HashSet<>();
 
     private String about;
 
     public Author(@NonNull String firstName, @NonNull String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        books = new HashSet<>();
     }
 }
