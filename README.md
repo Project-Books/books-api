@@ -50,7 +50,7 @@ Sample query:
     genre
     isbn13
     yearOfPublication
-    publishedBy
+    publisher
     format
   }
 }
