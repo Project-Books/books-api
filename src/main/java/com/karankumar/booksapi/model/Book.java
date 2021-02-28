@@ -68,7 +68,7 @@ public class Book {
     @Column(nullable = false)
     private String blurb;
 
-    private Publisher publishedBy;
+    private PublisherName publisher;
 
     @Column(nullable = false)
     private BookFormat format;

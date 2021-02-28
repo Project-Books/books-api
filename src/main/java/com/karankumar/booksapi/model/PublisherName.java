@@ -19,7 +19,7 @@ package com.karankumar.booksapi.model;
  * The publisher name represents the name displayed on the book (not necessarily the name of the
  * company). This can also include imprints
  */
-public enum Publisher {
+public enum PublisherName {
     // This should be kept in alphabetical order
     ALLEN_LANE("Allen Lane"),
     AMISTAD_PRESS("Amistad Press"),
@@ -41,7 +41,7 @@ public enum Publisher {
 
     private final String name;
 
-    Publisher(String name) {
+    PublisherName(String name) {
         this.name = name;
     }
 

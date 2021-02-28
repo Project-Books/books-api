@@ -5,6 +5,7 @@ plugins {
 	id 'java-library' // can be removed with dgs: 3.5.3
 	id 'jacoco'
 	id "com.netflix.dgs.codegen" version "4.0.10"
+	id "org.flywaydb.flyway" version "7.5.4"
 }
 
 group = 'com.karankumar'
@@ -69,6 +70,12 @@ jacocoTestCoverageVerification {
 			failOnViolation false
 		}
 	}
+}
+
+flyway {
+	url = 'jdbc:mysql://localhost:3307/booksapi?useSsl=false'
+	user = 'root'
+	password = 'rootpassword'
 }
 
 // run coverage verification during the build

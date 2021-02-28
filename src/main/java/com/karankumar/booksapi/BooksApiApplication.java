@@ -20,7 +20,7 @@ import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
 import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.Publisher;
+import com.karankumar.booksapi.model.PublisherName;
 import com.karankumar.booksapi.repository.AuthorRepository;
 import com.karankumar.booksapi.repository.BookRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -52,7 +52,7 @@ public class BooksApiApplication {
             );
             book1.setYearOfPublication(1997);
             book1.setIsbn13("9781408810545");
-            book1.setPublishedBy(Publisher.BLOOMSBURY);
+            book1.setPublisher(PublisherName.BLOOMSBURY);
             bookRepository.save(book1);
 
             Book book2 = new Book(
@@ -65,7 +65,7 @@ public class BooksApiApplication {
             );
             book2.setIsbn13("1234567898765");
             book2.setGenre(BookGenre.FANTASY);
-            book2.setPublishedBy(Publisher.BLOOMSBURY);
+            book2.setPublisher(PublisherName.BLOOMSBURY);
             book2.setFormat(BookFormat.PAPERBACK);
             bookRepository.save(book2);
 
@@ -81,7 +81,7 @@ public class BooksApiApplication {
                     BookFormat.PAPERBACK
             );
             book3.setYearOfPublication(1937);
-            book3.setPublishedBy(Publisher.HARPER_COLLINS);
+            book3.setPublisher(PublisherName.HARPER_COLLINS);
             bookRepository.save(book3);
         };
     }

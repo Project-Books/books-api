@@ -20,7 +20,7 @@ import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
 import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.Publisher;
+import com.karankumar.booksapi.model.PublisherName;
 
 final class RepositoryTestUtils {
     private RepositoryTestUtils() { }
@@ -37,7 +37,7 @@ final class RepositoryTestUtils {
         book.setGenre(BookGenre.REFERENCE);
         book.setYearOfPublication(2019);
         book.setIsbn13("9781408670545");
-        book.setPublishedBy(Publisher.CAMBRIDGE_UNIVERSITY_PRESS);
+        book.setPublisher(PublisherName.CAMBRIDGE_UNIVERSITY_PRESS);
         book.setFormat(BookFormat.PAPERBACK);
         return book;
     }
