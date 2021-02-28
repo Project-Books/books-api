@@ -1,7 +1,7 @@
 package com.karankumar.booksapi.mutations;
 
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.repository.BookRepository;
+import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import graphql.schema.DataFetchingEnvironment;
@@ -12,16 +12,16 @@ import java.util.Optional;
 
 @DgsComponent
 public class BookMutation {
-    private final BookRepository bookRepository;
+    private final BookService bookService;
 
-    public BookMutation(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public BookMutation(BookService bookService) {
+        this.bookService = bookService;
     }
 
     // TODO: change this to update a book rather than updating a specific field
     @DgsData(parentType = "Mutation", field = "addIsbn13")
     public Book addIsbn13(DataFetchingEnvironment dataFetchingEnvironment) {
-        Optional<Book> book = bookRepository.findById(
+        Optional<Book> book = bookService.findById(
                 dataFetchingEnvironment.getArgument("bookId")
         );
 
@@ -36,6 +36,6 @@ public class BookMutation {
         }
 
         book.get().setIsbn13(isbn13);
-        return bookRepository.save(book.get());
+        return bookService.save(book.get());
     }
 }
