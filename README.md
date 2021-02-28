@@ -56,11 +56,6 @@ Sample query:
 }
 ```
 
-### Voyager
-
-To visualise the schema, go to `localhost:8080/voyager`. You will also need to comment out the `maxQueryDepth` line in
-application.properties.
-
 ### Access database
 
 To access the MySQL database when docker-compose is running:
