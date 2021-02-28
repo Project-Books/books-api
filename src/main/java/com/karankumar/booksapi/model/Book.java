@@ -30,8 +30,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -53,7 +53,7 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
-    private Set<Author> authors;
+    private Set<Author> authors = new HashSet<>();
 
     @Column(nullable = false)
     private Language language;
@@ -73,13 +73,18 @@ public class Book {
     @Column(nullable = false)
     private BookFormat format;
 
-    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language, @NonNull String blurb,
-                @NonNull BookGenre genre, @NonNull BookFormat format) {
+    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language,
+                @NonNull String blurb, @NonNull BookGenre genre, @NonNull BookFormat format) {
         this.title = title;
-        this.authors = new HashSet<>(List.of(authors));
+        Arrays.stream(authors).forEach(this::addAuthor);
         this.language = language;
         this.blurb = blurb;
         this.genre = genre;
         this.format = format;
+    }
+
+    public void addAuthor(@NonNull Author author) {
+        authors.add(author);
+        author.getBooks().add(this);
     }
 }
