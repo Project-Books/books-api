@@ -12,7 +12,7 @@
   </a>
 	
   <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-kss928q8-zT73FmmlV6HmXE1rhourbw">
-    <img src="https://img.shields.io/badge/chat%20on-slack-%233f0e40" alt="Slack" />
+    <img src="https://img.shields.io/badge/slack-teambookproject-4A154B?logo=slack" alt="Slack" />
   </a>
   
   <a href="https://sonarcloud.io/dashboard?id=project-books_Books-API">
