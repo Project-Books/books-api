@@ -4,7 +4,7 @@ type Book {
     title: String!
     language: Language!
     blurb: String!
-    genre: Genre
+    genre: [Genre]
     isbn13: String
     yearOfPublication: Int
     publishedBy: Publisher

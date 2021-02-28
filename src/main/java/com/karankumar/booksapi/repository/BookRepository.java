@@ -16,6 +16,7 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.Publisher;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -32,4 +33,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Book findBookByIsbn13(String isbn13);
   
     Book findByTitleIgnoreCase(String title);
+
+    List<Book> findAllByPublishedBy(Publisher publisher);
 }
