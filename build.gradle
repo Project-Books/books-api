@@ -30,8 +30,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation "org.flywaydb:flyway-core:7.5.4"
+    // https://mvnrepository.com/artifact/commons-validator/commons-validator
+    implementation "commons-validator:commons-validator:1.7"
 
-	compileOnly 'org.projectlombok:lombok'
+
+
+    compileOnly 'org.projectlombok:lombok'
 
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'mysql:mysql-connector-java'
