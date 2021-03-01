@@ -1,2 +1,2 @@
 ALTER TABLE book
-CHANGE published_by publisher INTEGER;
+ADD isbn10 varchar(10);
