@@ -1,0 +1,5 @@
+type Mutation {
+    addIsbn13(bookId: Long!, isbn13: String): Book
+}
+
+scalar Long

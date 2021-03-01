@@ -7,7 +7,7 @@ type Book {
     genre: Genre
     isbn13: String
     yearOfPublication: Int
-    publishedBy: Publisher
+    publisher: PublisherName
     format: BookFormat
 }
 

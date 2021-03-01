@@ -16,7 +16,7 @@
 package com.karankumar.booksapi.datafetchers;
 
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.repository.BookRepository;
+import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.InputArgument;
@@ -25,30 +25,30 @@ import java.util.List;
 
 @DgsComponent
 public class BookDataFetcher {
-    private final BookRepository bookRepository;
+    private final BookService bookService;
 
-    public BookDataFetcher(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public BookDataFetcher(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @DgsData(parentType = "Query", field = "findAllBooks")
     public List<Book> findAllBooks() {
-        return bookRepository.findAllBooks();
+        return bookService.findAll();
     }
 
     @DgsData(parentType = "Query", field = "findBookByIsbn13")
     public Book findBookByIsbn13(@InputArgument("isbn13") String isbn13) {
-        return bookRepository.findBookByIsbn13(isbn13);
+        return bookService.findBookByIsbn13(isbn13);
     }
 
     @DgsData(parentType = "Query", field = "findByAuthor")
     public List<Book> findByAuthor(@InputArgument("firstName") String firstName,
                                    @InputArgument("lastName") String lastName) {
-        return bookRepository.findByAuthor(firstName, lastName);
+        return bookService.findByAuthor(firstName, lastName);
     }
 
     @DgsData(parentType = "Query", field = "findByTitleIgnoreCase")
     public Book findByTitle(@InputArgument("title") String title) {
-        return bookRepository.findByTitleIgnoreCase(title);
+        return bookService.findByTitle(title);
     }
 }
