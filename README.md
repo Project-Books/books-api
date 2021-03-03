@@ -11,7 +11,7 @@
      <img src="https://codecov.io/gh/Project-Books/books-api/branch/main/graph/badge.svg?token=5OF8MVDZW7"/>
   </a>
 	
-  <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-kss928q8-zT73FmmlV6HmXE1rhourbw">
+  <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-lvr8oi47-8BjZzov0QDsx4RvjkNjOcA">
     <img src="https://img.shields.io/badge/slack-teambookproject-4A154B?logo=slack" alt="Slack" />
   </a>
   

@@ -32,6 +32,7 @@ public class BookService {
     }
 
     public Book save(@NonNull Book book) {
+        // TODO: verify whether ISBN 13 is valid if not null
         return bookRepository.save(book);
     }
 
