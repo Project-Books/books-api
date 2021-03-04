@@ -15,9 +15,11 @@
 
 package com.karankumar.booksapi.service;
 
+import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.repository.BookRepository;
 import lombok.NonNull;
+import org.apache.commons.validator.routines.ISBNValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +33,11 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Book save(@NonNull Book book) {
-        // TODO: verify whether ISBN 13 is valid if not null
+    public Book save(@NonNull Book book) throws InvalidISBN13Exception {
+        ISBNValidator isbnValidator = new ISBNValidator();
+        if (!isbnValidator.isValidISBN13(book.getIsbn13())) {
+            throw new InvalidISBN13Exception("Not a valid ISBN 13: " + book.getIsbn13());
+        }
         return bookRepository.save(book);
     }
 

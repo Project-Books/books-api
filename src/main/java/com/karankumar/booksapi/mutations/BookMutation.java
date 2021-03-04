@@ -1,5 +1,6 @@
 package com.karankumar.booksapi.mutations;
 
+import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsComponent;
@@ -20,22 +21,18 @@ public class BookMutation {
 
     // TODO: change this to update a book rather than updating a specific field
     @DgsData(parentType = "Mutation", field = "addIsbn13")
-    public Book addIsbn13(DataFetchingEnvironment dataFetchingEnvironment) {
-        Optional<Book> book = bookService.findById(
+    public Book addIsbn13(DataFetchingEnvironment dataFetchingEnvironment) throws InvalidISBN13Exception {
+        Optional<Book> optionalBook = bookService.findById(
                 dataFetchingEnvironment.getArgument("bookId")
         );
 
-        if (book.isEmpty()) {
+        if (optionalBook.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found");
         }
 
         String isbn13 = dataFetchingEnvironment.getArgument("isbn13");
-
-        if (isbn13.isBlank()) {
-            throw new IllegalArgumentException("ISBN 13 cannot be empty");
-        }
-
-        book.get().setIsbn13(isbn13);
-        return bookService.save(book.get());
+        Book book = optionalBook.get();
+        book.setIsbn13(isbn13);
+        return bookService.save(optionalBook.get());
     }
 }
