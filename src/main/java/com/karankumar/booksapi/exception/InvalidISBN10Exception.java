@@ -15,8 +15,8 @@
 
 package com.karankumar.booksapi.exception;
 
-public class InvalidISBN13Exception extends Exception {
-    public InvalidISBN13Exception(String message) {
+public class InvalidISBN10Exception extends Exception {
+    public InvalidISBN10Exception(String message) {
         super(message);
     }
 }

@@ -1,5 +1,6 @@
 package com.karankumar.booksapi.mutations;
 
+import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.service.BookService;
@@ -21,7 +22,8 @@ public class BookMutation {
 
     // TODO: change this to update a book rather than updating a specific field
     @DgsData(parentType = "Mutation", field = "addIsbn13")
-    public Book addIsbn13(DataFetchingEnvironment dataFetchingEnvironment) throws InvalidISBN13Exception {
+    public Book addIsbn13(DataFetchingEnvironment dataFetchingEnvironment)
+            throws InvalidISBN10Exception, InvalidISBN13Exception {
         Optional<Book> optionalBook = bookService.findById(
                 dataFetchingEnvironment.getArgument("bookId")
         );

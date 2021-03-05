@@ -15,6 +15,7 @@
 
 package com.karankumar.booksapi.service;
 
+import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.repository.BookRepository;
@@ -33,12 +34,21 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Book save(@NonNull Book book) throws InvalidISBN13Exception {
-        ISBNValidator isbnValidator = new ISBNValidator();
-        if (!isbnValidator.isValidISBN13(book.getIsbn13())) {
+    public Book save(@NonNull Book book) throws InvalidISBN10Exception, InvalidISBN13Exception {
+        if (book.getIsbn10() != null && isIsbn10Invalid(book.getIsbn10())) {
+            throw new InvalidISBN10Exception("Not a valid ISBN 10: " + book.getIsbn10());
+        }
+        if (book.getIsbn13() != null && isIsbn13Invalid(book.getIsbn13())) {
             throw new InvalidISBN13Exception("Not a valid ISBN 13: " + book.getIsbn13());
         }
         return bookRepository.save(book);
+    }
+    private boolean isIsbn10Invalid(@NonNull String isbn10) {
+        return !(new ISBNValidator().isValidISBN10(isbn10));
+    }
+
+    private boolean isIsbn13Invalid(@NonNull String isbn13) {
+        return !(new ISBNValidator().isValidISBN13(isbn13));
     }
 
     public Optional<Book> findById(@NonNull Long id) {
