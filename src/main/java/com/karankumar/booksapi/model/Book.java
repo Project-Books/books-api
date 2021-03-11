@@ -30,7 +30,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -74,6 +77,9 @@ public class Book {
 
     @Column(nullable = false)
     private BookFormat format;
+
+    @OneToMany(mappedBy = "book")
+    private List<BookSeriesMapping> bookSeriesMapping;
 
     public Book(@NonNull String title, @NonNull Language language, @NonNull String blurb,
                 @NonNull BookGenre genre, @NonNull BookFormat format) {
