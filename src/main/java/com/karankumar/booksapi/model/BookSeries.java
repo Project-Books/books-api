@@ -18,6 +18,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,13 +33,13 @@ public class BookSeries {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "series_name")
     private String seriesName;
 
     @OneToMany(mappedBy = "bookSeries")
     private List<BookSeriesMapping> bookSeriesMapping;
 
-    public BookSeries(String seriesName){
+    public BookSeries(@NonNull String seriesName){
         this.seriesName = seriesName;
     }
 }
