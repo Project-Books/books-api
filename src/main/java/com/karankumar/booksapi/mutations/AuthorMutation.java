@@ -16,18 +16,17 @@
 package com.karankumar.booksapi.mutations;
 
 import com.karankumar.booksapi.model.Author;
-import com.karankumar.booksapi.repository.AuthorRepository;
+import com.karankumar.booksapi.service.AuthorService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import graphql.schema.DataFetchingEnvironment;
 
-
 @DgsComponent
 public class AuthorMutation {
-    private final AuthorRepository authorRepository;
+    private final AuthorService authorService;
 
-    public AuthorMutation(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
+    public AuthorMutation(AuthorService authorService) {
+        this.authorService = authorService;
     }
 
     @DgsData(parentType = "Mutation", field = "addAuthor")
@@ -35,6 +34,6 @@ public class AuthorMutation {
         String firstName = dataFetchingEnvironment.getArgument("firstName");
         String lastName = dataFetchingEnvironment.getArgument("lastName");
 
-        return authorRepository.save(new Author(firstName, lastName));
+        return authorService.save(new Author(firstName, lastName));
     }
 }
