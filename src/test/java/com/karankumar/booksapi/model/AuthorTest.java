@@ -23,16 +23,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 @DisplayName("Author should")
 class AuthorTest {
     @Test
-    @DisplayName("throw a Null Pointer Exception on an attempt to create with a null first name")
+    @DisplayName("throw a Null Pointer Exception on an attempt to create with a null name")
     void notAcceptNullFirstName() {
-        assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> new Author(null, "Rowling"));
-    }
-
-    @Test
-    @DisplayName("throw a Null Pointer Exception on an attempt to create with a null last name")
-    void notAcceptNullLastName() {
-        assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> new Author("J.K.", null));
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> new Author(null));
     }
 }

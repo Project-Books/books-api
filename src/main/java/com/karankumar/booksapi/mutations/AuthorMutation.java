@@ -31,9 +31,7 @@ public class AuthorMutation {
 
     @DgsData(parentType = "Mutation", field = "addAuthor")
     public Author addAuthor(DataFetchingEnvironment dataFetchingEnvironment) {
-        String firstName = dataFetchingEnvironment.getArgument("firstName");
-        String lastName = dataFetchingEnvironment.getArgument("lastName");
-
-        return authorService.save(new Author(firstName, lastName));
+        String fullName = dataFetchingEnvironment.getArgument("fullName");
+        return authorService.save(new Author(fullName));
     }
 }

@@ -38,7 +38,7 @@ public class BooksApiApplication {
     public CommandLineRunner populateData(AuthorRepository authorRepository,
                                           BookRepository bookRepository) {
         return args -> {
-            Author author = new Author("J.K.", "Rowling");
+            Author author = new Author("J.K. Rowling");
             author.setAbout("A fantastic author");
             authorRepository.save(author);
 
@@ -46,7 +46,7 @@ public class BooksApiApplication {
                     "Harry Potter and the Philosopher's stone",
                     new Author[] {author},
                     Language.ENGLISH,
-                    "Sample blurb value",
+                    "Philosopher's stone blurb",
                     BookGenre.FANTASY,
                     BookFormat.PAPERBACK
             );
@@ -59,7 +59,7 @@ public class BooksApiApplication {
                     "Harry Potter and the Chamber of Secrets",
                     new Author[] {author},
                     Language.ENGLISH,
-                    "Sample blurb value",
+                    "Chamber of secrets blurb",
                     BookGenre.FANTASY,
                     BookFormat.PAPERBACK
             );
@@ -69,14 +69,14 @@ public class BooksApiApplication {
             book2.setFormat(BookFormat.PAPERBACK);
             bookRepository.save(book2);
 
-            Author author2 = new Author("J.R.R.", "Tolkien");
+            Author author2 = new Author("J.R.R. Tolkien");
             author2.setAbout("Another fantastic author");
             authorRepository.save(author2);
             Book book3 = new Book(
                     "The Hobbit",
                     new Author[] {author, author2},
                     Language.ENGLISH,
-                    "Sample blurb value",
+                    "Hobbit blurb",
                     BookGenre.FANTASY,
                     BookFormat.PAPERBACK
             );

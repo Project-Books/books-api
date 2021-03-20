@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -42,17 +41,14 @@ public class Author {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    private String firstName;
-
-    private String lastName;
+    private String fullName;
 
     @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
     private Set<Book> books = new HashSet<>();
 
     private String about;
 
-    public Author(@NonNull String firstName, @NonNull String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Author(@NonNull String fullName) {
+        this.fullName = fullName;
     }
 }

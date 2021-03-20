@@ -66,7 +66,8 @@ class AuthorRepositoryTest {
     }
 
     private Author createAndSaveAuthor(String firstName, String lastName) {
-        Author author = new Author(firstName, lastName);
+        String fullName = firstName + " " + lastName;
+        Author author = new Author(fullName);
         authorRepository.save(author);
         return author;
     }

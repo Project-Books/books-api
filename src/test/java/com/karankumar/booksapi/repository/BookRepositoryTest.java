@@ -38,8 +38,7 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 class BookRepositoryTest {
     private static final String ISBN = "978-3-16-148410-0";
     private static final String TITLE = "Harry Potter";
-    private static final String AUTHOR1_FIRST_NAME = "Kevlin";
-    private static final String AUTHOR1_LAST_NAME = "Henney";
+    private static final String AUTHOR1_FULL_NAME = "Kevlin Henney";
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
@@ -92,8 +91,8 @@ class BookRepositoryTest {
     }
   
     private void createAndSaveAuthors() {
-        author1 = new Author(AUTHOR1_FIRST_NAME, AUTHOR1_LAST_NAME);
-        author2 = new Author("Trisha", "Gee");
+        author1 = new Author(AUTHOR1_FULL_NAME);
+        author2 = new Author("Trisha Gee");
         saveAllAuthors(author1, author2);
     }
 
@@ -119,7 +118,7 @@ class BookRepositoryTest {
         bookRepository.save(book);
 
         // when
-        List<Book> result = bookRepository.findByAuthor(AUTHOR1_FIRST_NAME, AUTHOR1_LAST_NAME);
+        List<Book> result = bookRepository.findByAuthor(AUTHOR1_FULL_NAME);
 
         // then
         assertSoftly(softly -> {

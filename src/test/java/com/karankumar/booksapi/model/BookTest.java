@@ -26,7 +26,7 @@ class BookTest {
     @DisplayName("throw a Null Pointer Exception on an attempt to create with a null title")
     void notAcceptNullTitle() {
         // given
-        Author author = new Author("J.K.", "Rowling");
+        Author author = new Author("J.K. Rowling");
 
         // when and then
         assertThatExceptionOfType(NullPointerException.class)
@@ -53,7 +53,7 @@ class BookTest {
     @DisplayName("throw a Null Pointer Exception on an attempt to create with a null language")
     void notAcceptNullLanguage() {
         // given
-        Author author = new Author("J.K.", "Rowling");
+        Author author = new Author("J.K. Rowling");
 
         // when and then
         assertThatExceptionOfType(NullPointerException.class)
