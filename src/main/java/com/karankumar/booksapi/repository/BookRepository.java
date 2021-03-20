@@ -26,8 +26,8 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     @Query("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors")
     List<Book> findAllBooks();
   
-    @Query("SELECT a.books FROM Author a where a.firstName=?1 and a.lastName=?2")
-    List<Book> findByAuthor(String firstName, String lastName);
+    @Query("SELECT a.books FROM Author a where a.fullName=?1")
+    List<Book> findByAuthor(String fullName);
 
     Book findBookByIsbn13(String isbn13);
   

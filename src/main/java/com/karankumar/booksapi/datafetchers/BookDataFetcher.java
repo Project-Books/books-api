@@ -42,9 +42,8 @@ public class BookDataFetcher {
     }
 
     @DgsData(parentType = "Query", field = "findByAuthor")
-    public List<Book> findByAuthor(@InputArgument("firstName") String firstName,
-                                   @InputArgument("lastName") String lastName) {
-        return bookService.findByAuthor(firstName, lastName);
+    public List<Book> findByAuthor(@InputArgument("fullName") String fullName) {
+        return bookService.findByAuthor(fullName);
     }
 
     @DgsData(parentType = "Query", field = "findByTitleIgnoreCase")

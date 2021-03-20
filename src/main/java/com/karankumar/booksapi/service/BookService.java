@@ -59,8 +59,8 @@ public class BookService {
         return bookRepository.findAllBooks();
     }
 
-    public List<Book> findByAuthor(@NonNull String firstName, @NonNull String lastName) {
-        return bookRepository.findByAuthor(firstName, lastName);
+    public List<Book> findByAuthor(@NonNull String fullName) {
+        return bookRepository.findByAuthor(fullName);
     }
 
     public Book findBookByIsbn13(@NonNull String isbn13) {
