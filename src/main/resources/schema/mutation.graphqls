@@ -1,5 +1,6 @@
 type Mutation {
     addIsbn13(bookId: Long!, isbn13: String): Book
+    addAuthor(firstName: String!, lastName: String!): Author
 }
 
 scalar Long
