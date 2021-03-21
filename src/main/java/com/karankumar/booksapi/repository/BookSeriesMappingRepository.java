@@ -15,8 +15,17 @@
 
 package com.karankumar.booksapi.repository;
 
+import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.BookSeries;
 import com.karankumar.booksapi.model.BookSeriesMapping;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface BookSeriesMappingRepository extends CrudRepository<BookSeriesMapping, Long> {
+
+    // Lists all Books in a Book Series
+    @Query("SELECT a.book FROM BookSeriesMapping a WHERE a.bookSeries = ?1")
+    List<Book> getAllBooksByBookSeries(BookSeries bookSeries);
 }
