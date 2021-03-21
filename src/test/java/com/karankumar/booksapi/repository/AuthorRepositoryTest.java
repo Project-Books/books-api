@@ -34,15 +34,18 @@ class AuthorRepositoryTest {
   
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final BookSeriesMappingRepository bookSeriesMappingRepository;
 
     @Autowired
-    AuthorRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
+    AuthorRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository, BookSeriesMappingRepository bookSeriesMappingRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.bookSeriesMappingRepository = bookSeriesMappingRepository;
     }
 
     @BeforeEach
     void setUp() {
+        bookSeriesMappingRepository.deleteAll();
         authorRepository.deleteAll();
         bookRepository.deleteAll();
     }
