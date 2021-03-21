@@ -23,7 +23,7 @@ import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.BookSeries;
 import com.karankumar.booksapi.model.BookSeriesMapping;
 import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.Publisher;
+import com.karankumar.booksapi.model.PublisherName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -204,7 +204,7 @@ class BookRepositoryTest {
     // Utility method
     private List<BookSeries> addBookToSeries(){
 
-        Author author = new Author("J.K.", "Rowling");
+        Author author = new Author("J.K. Rowling");
         author.setAbout("A fantastic author");
         authorRepository.save(author);
 
@@ -215,7 +215,7 @@ class BookRepositoryTest {
         );
         book1.setYearOfPublication(1997);
         book1.setIsbn13("9781408810545");
-        book1.setPublishedBy(Publisher.BLOOMSBURY);
+        book1.setPublisher(PublisherName.BLOOMSBURY);
         bookRepository.save(book1);
 
         Book book2 = new Book(
@@ -228,7 +228,7 @@ class BookRepositoryTest {
         );
         book2.setIsbn13("1234567898765");
         book2.setGenre(BookGenre.FANTASY);
-        book2.setPublishedBy(Publisher.BLOOMSBURY);
+        book2.setPublisher(PublisherName.BLOOMSBURY);
         book2.setFormat(BookFormat.PAPERBACK);
         bookRepository.save(book2);
 
