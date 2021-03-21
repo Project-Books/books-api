@@ -16,6 +16,8 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.BookSeries;
+import com.karankumar.booksapi.model.BookSeriesMapping;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -32,4 +34,13 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Book findBookByIsbn13(String isbn13);
   
     Book findByTitleIgnoreCase(String title);
+
+    // Lists all BookSeries for a Book entry
+    @Query("SELECT a.bookSeries FROM BookSeriesMapping a WHERE a.book = ?1")
+    List<BookSeries> getAllBookSeriesForBook(Book book);
+
+    // Returns position of a book in a Book Series
+    @Query("SELECT a.serialNumber FROM BookSeriesMapping a WHERE a.book = ?1 AND a.bookSeries = ?2")
+    Integer getBookPositionInBookSeries(Book book, BookSeries bookSeries);
+
 }
