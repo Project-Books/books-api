@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021  Karan Kumar
+ * Copyright (C) 2020  Karan Kumar
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -20,13 +20,17 @@ import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
 import com.karankumar.booksapi.model.BookGenre;
+import com.karankumar.booksapi.model.BookSeries;
+import com.karankumar.booksapi.model.BookSeriesMapping;
 import com.karankumar.booksapi.model.Language;
+import com.karankumar.booksapi.model.Publisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
@@ -38,19 +42,27 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 class BookRepositoryTest {
     private static final String ISBN = "978-3-16-148410-0";
     private static final String TITLE = "Harry Potter";
+    private static final String AUTHOR1_FULL_NAME = "Kevlin Henney";
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
-    
+    private final BookSeriesRepository bookSeriesRepository;
+    private final BookSeriesMappingRepository bookSeriesMappingRepository;
+
     @Autowired
-    BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
+    BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository,
+                       BookSeriesRepository bookSeriesRepository, BookSeriesMappingRepository bookSeriesMappingRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.bookSeriesRepository = bookSeriesRepository;
+        this.bookSeriesMappingRepository = bookSeriesMappingRepository;
     }
     @BeforeEach
     void setUp() {
+        bookSeriesMappingRepository.deleteAll();
         authorRepository.deleteAll();
         bookRepository.deleteAll();
+        bookSeriesRepository.deleteAll();
     }
 
     @Test
@@ -154,5 +166,88 @@ class BookRepositoryTest {
 
         // then
         assertThat(result).isEqualTo(book);
+    }
+    
+    private void saveAllAuthors(Author... authors) {
+        Arrays.stream(authors).forEach(authorRepository::save);
+    }
+
+    @Test
+    @DisplayName("find all Book Series for a Book")
+    void findBookSeriesForBook(){
+        List<BookSeries> assertion = addBookToSeries();
+        Book book = bookRepository.findBookByIsbn13("9781408810545");
+
+        List<BookSeries> result = bookRepository.getAllBookSeriesForBook(book);
+
+        assertThat(result).containsExactlyInAnyOrderElementsOf(assertion);
+    }
+
+    @Test
+    @DisplayName("find book position in Book Series")
+    void findBookPositionInSeries(){
+
+        // Get book and book series from repo
+        List <BookSeries> allSeries = addBookToSeries();
+        Book book = bookRepository.findBookByIsbn13("9781408810545");
+        BookSeries assertion = null;
+        for (BookSeries series : allSeries) {
+            if(series.getSeriesName().equals("Harry Potter Series")){
+                assertion = series;
+                break;
+            }
+        }
+
+        assertThat(bookRepository.getBookPositionInBookSeries(book, assertion)).isEqualTo(1);
+    }
+
+    // Utility method
+    private List<BookSeries> addBookToSeries(){
+
+        Author author = new Author("J.K.", "Rowling");
+        author.setAbout("A fantastic author");
+        authorRepository.save(author);
+
+        Book book1 = new Book(
+                "Harry Potter and the Philosopher's stone", new Author[]{author},
+                Language.ENGLISH, "Sample blurb value",
+                BookGenre.FANTASY, BookFormat.PAPERBACK
+        );
+        book1.setYearOfPublication(1997);
+        book1.setIsbn13("9781408810545");
+        book1.setPublishedBy(Publisher.BLOOMSBURY);
+        bookRepository.save(book1);
+
+        Book book2 = new Book(
+                "Harry Potter and the Chamber of Secrets",
+                new Author[]{author},
+                Language.ENGLISH,
+                "Sample blurb value",
+                BookGenre.FANTASY,
+                BookFormat.PAPERBACK
+        );
+        book2.setIsbn13("1234567898765");
+        book2.setGenre(BookGenre.FANTASY);
+        book2.setPublishedBy(Publisher.BLOOMSBURY);
+        book2.setFormat(BookFormat.PAPERBACK);
+        bookRepository.save(book2);
+
+        BookSeries bookSeries1 = new BookSeries("Harry Potter Series");
+        bookSeriesRepository.save(bookSeries1);
+
+        BookSeries bookSeries2 = new BookSeries("J.K. Rowling Specials");
+        bookSeriesRepository.save(bookSeries2);
+
+        bookSeriesMappingRepository.save(new BookSeriesMapping(bookSeries1, book1, 1));
+        bookSeriesMappingRepository.save(new BookSeriesMapping(bookSeries1, book2, 2));
+
+        bookSeriesMappingRepository.save(new BookSeriesMapping(bookSeries2, book1, 1));
+        bookSeriesMappingRepository.save(new BookSeriesMapping(bookSeries2, book2, 2));
+
+        List<BookSeries> bs = new ArrayList<>();
+        bs.add(bookSeries1);
+        bs.add(bookSeries2);
+
+        return bs;
     }
 }
