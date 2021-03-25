@@ -37,11 +37,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaIntegrationTest
 @DisplayName("BookSeriesMappingRepository should")
 class BookSeriesMappingRepositoryTest {
-
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final BookSeriesRepository bookSeriesRepository;
     private final BookSeriesMappingRepository bookSeriesMappingRepository;
+    private final String book1Title = "Harry Potter and the Philosopher's stone";
+    private final String book2Title = "Harry Potter and the Chamber of Secrets";
 
     @Autowired
     BookSeriesMappingRepositoryTest(BookRepository bookRepository,
@@ -70,21 +71,20 @@ class BookSeriesMappingRepositoryTest {
         List<Book> assertion = bookSeriesMappingRepository.getAllBooksByBookSeries(bs);
 
         List<Book> bookList = new ArrayList<>();
-        bookList.add(bookRepository.findBookByIsbn13("9781408810545"));
-        bookList.add(bookRepository.findBookByIsbn13("1234567898765"));
+        bookList.add(bookRepository.findByTitleIgnoreCase(book1Title));
+        bookList.add(bookRepository.findByTitleIgnoreCase(book2Title));
 
         assertThat(assertion).hasSize(bookList.size()).hasSameElementsAs(bookList);
     }
 
     private BookSeries createBookSeriesMapping() {
         Author author = new Author("J.K. Rowling");
-        author.setAbout("A fantastic author");
         authorRepository.save(author);
 
-        Book book1 = createBook(author, "Harry Potter and the Philosopher's stone");
+        Book book1 = createBook(author, book1Title);
         bookRepository.save(book1);
 
-        Book book2 = createBook(author, "Harry Potter and the Chamber of Secrets");
+        Book book2 = createBook(author, book2Title);
         bookRepository.save(book2);
 
         BookSeries bookSeries = new BookSeries("Harry Potter Series");
