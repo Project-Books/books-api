@@ -23,13 +23,11 @@ import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.BookSeries;
 import com.karankumar.booksapi.model.BookSeriesMapping;
 import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.PublisherName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,13 +46,16 @@ class BookRepositoryTest {
     private final AuthorRepository authorRepository;
     private final BookSeriesRepository bookSeriesRepository;
     private final BookSeriesMappingRepository bookSeriesMappingRepository;
-    
+    private final String harryPotter1Title = "Harry Potter and the Philosopher's stone";
+    private final String harryPotterSeriesName = "Harry Potter Series";
+
     private Author author1;
     private Author author2;
 
     @Autowired
     BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository,
-                       BookSeriesRepository bookSeriesRepository, BookSeriesMappingRepository bookSeriesMappingRepository) {
+                       BookSeriesRepository bookSeriesRepository,
+                       BookSeriesMappingRepository bookSeriesMappingRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.bookSeriesRepository = bookSeriesRepository;
@@ -189,7 +190,7 @@ class BookRepositoryTest {
     @DisplayName("find all Book Series for a Book")
     void findBookSeriesForBook(){
         List<BookSeries> assertion = addBookToSeries();
-        Book book = bookRepository.findBookByIsbn13("9781408810545");
+        Book book = bookRepository.findByTitleIgnoreCase(harryPotter1Title);
 
         List<BookSeries> result = bookRepository.getAllBookSeriesForBook(book);
 
@@ -198,14 +199,13 @@ class BookRepositoryTest {
 
     @Test
     @DisplayName("find book position in Book Series")
-    void findBookPositionInSeries(){
-
+    void findBookPositionInSeries() {
         // Get book and book series from repo
         List <BookSeries> allSeries = addBookToSeries();
-        Book book = bookRepository.findBookByIsbn13("9781408810545");
+        Book book = bookRepository.findByTitleIgnoreCase(harryPotter1Title);
         BookSeries assertion = null;
         for (BookSeries series : allSeries) {
-            if(series.getSeriesName().equals("Harry Potter Series")){
+            if (series.getSeriesName().equals(harryPotterSeriesName)) {
                 assertion = series;
                 break;
             }
@@ -214,38 +214,17 @@ class BookRepositoryTest {
         assertThat(bookRepository.getBookPositionInBookSeries(book, assertion)).isEqualTo(1);
     }
 
-    // Utility method
-    private List<BookSeries> addBookToSeries(){
-
+    private List<BookSeries> addBookToSeries() {
         Author author = new Author("J.K. Rowling");
-        author.setAbout("A fantastic author");
         authorRepository.save(author);
 
-        Book book1 = new Book(
-                "Harry Potter and the Philosopher's stone", new Author[]{author},
-                Language.ENGLISH, "Sample blurb value",
-                BookGenre.FANTASY, BookFormat.PAPERBACK
-        );
-        book1.setYearOfPublication(1997);
-        book1.setIsbn13("9781408810545");
-        book1.setPublisher(PublisherName.BLOOMSBURY);
+        Book book1 = createSeriesBook(author, harryPotter1Title);
         bookRepository.save(book1);
 
-        Book book2 = new Book(
-                "Harry Potter and the Chamber of Secrets",
-                new Author[]{author},
-                Language.ENGLISH,
-                "Sample blurb value",
-                BookGenre.FANTASY,
-                BookFormat.PAPERBACK
-        );
-        book2.setIsbn13("1234567898765");
-        book2.setGenre(BookGenre.FANTASY);
-        book2.setPublisher(PublisherName.BLOOMSBURY);
-        book2.setFormat(BookFormat.PAPERBACK);
+        Book book2 = createSeriesBook(author, "Harry Potter and the Chamber of Secrets");
         bookRepository.save(book2);
 
-        BookSeries bookSeries1 = new BookSeries("Harry Potter Series");
+        BookSeries bookSeries1 = new BookSeries(harryPotterSeriesName);
         bookSeriesRepository.save(bookSeries1);
 
         BookSeries bookSeries2 = new BookSeries("J.K. Rowling Specials");
@@ -257,10 +236,17 @@ class BookRepositoryTest {
         bookSeriesMappingRepository.save(new BookSeriesMapping(bookSeries2, book1, 1));
         bookSeriesMappingRepository.save(new BookSeriesMapping(bookSeries2, book2, 2));
 
-        List<BookSeries> bs = new ArrayList<>();
-        bs.add(bookSeries1);
-        bs.add(bookSeries2);
+        return List.of(bookSeries1, bookSeries2);
+    }
 
-        return bs;
+    private Book createSeriesBook(Author author, String title) {
+        return new Book(
+                title,
+                new Author[]{author},
+                Language.ENGLISH,
+                "Sample blurb value",
+                BookGenre.FANTASY,
+                BookFormat.PAPERBACK
+        );
     }
 }
