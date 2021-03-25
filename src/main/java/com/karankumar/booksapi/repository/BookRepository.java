@@ -35,11 +35,9 @@ public interface BookRepository extends CrudRepository<Book, Long> {
   
     Book findByTitleIgnoreCase(String title);
 
-    // Lists all BookSeries for a Book entry
     @Query("SELECT a.bookSeries FROM BookSeriesMapping a WHERE a.book = ?1")
     List<BookSeries> getAllBookSeriesForBook(Book book);
 
-    // Returns position of a book in a Book Series
     @Query("SELECT a.serialNumber FROM BookSeriesMapping a WHERE a.book = ?1 AND a.bookSeries = ?2")
     Integer getBookPositionInBookSeries(Book book, BookSeries bookSeries);
 
