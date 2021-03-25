@@ -80,8 +80,8 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private List<BookSeriesMapping> bookSeriesMapping;
 
-    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language, @NonNull String blurb,
-                @NonNull BookGenre genre, @NonNull BookFormat format) {
+    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language,
+                @NonNull String blurb, @NonNull BookGenre genre, @NonNull BookFormat format) {
         this.title = title;
         Arrays.stream(authors).forEach(this::addAuthor);
         this.language = language;
