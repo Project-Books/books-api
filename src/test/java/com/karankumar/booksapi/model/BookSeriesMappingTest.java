@@ -21,20 +21,22 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @DisplayName("Book Series Mapping should")
-public class BookSeriesMappingTest {
+class BookSeriesMappingTest {
 
     @Test
     @DisplayName("throw a Null Pointer Exception on an attempt to create with Null Serial Number")
-    void notAcceptNullSerialNumber(){
-
+    void notAcceptNullSerialNumber() {
         BookSeries bookSeries = new BookSeries("Harry Potter Series");
+        Book book = createBook();
 
-        Author author = new Author("J.K. Rowling");
-        author.setAbout("A fantastic author");
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(() -> new BookSeriesMapping(bookSeries, book, null));
+    }
 
+    private Book createBook() {
         Book book = new Book(
                 "Harry Potter and the Philosopher's stone",
-                new Author[] {author},
+                new Author[] {new Author("J.K. Rowling")},
                 Language.ENGLISH,
                 "Sample blurb value",
                 BookGenre.FANTASY,
@@ -43,14 +45,12 @@ public class BookSeriesMappingTest {
         book.setYearOfPublication(1997);
         book.setIsbn13("9781408810545");
         book.setPublisher(PublisherName.BLOOMSBURY);
-
-        assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(()->new BookSeriesMapping(bookSeries, book, null));
+        return book;
     }
 
     @Test
     @DisplayName("throw a Null Pointer Exception on an attempt to create with Null Book")
-    void notAcceptNullBook(){
+    void notAcceptNullBook() {
 
         BookSeries bookSeries = new BookSeries("Harry Potter Series");
 
@@ -58,29 +58,15 @@ public class BookSeriesMappingTest {
         author.setAbout("A fantastic author");
 
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(()->new BookSeriesMapping(bookSeries, null, 1));
+                .isThrownBy(() -> new BookSeriesMapping(bookSeries, null, 1));
     }
 
     @Test
     @DisplayName("throw a Null Pointer Exception on an attempt to create with Null Book Series.")
-    void notAcceptNullBookSeries(){
-
-        Author author = new Author("J.K. Rowling");
-        author.setAbout("A fantastic author");
-
-        Book book = new Book(
-                "Harry Potter and the Philosopher's stone",
-                new Author[] {author},
-                Language.ENGLISH,
-                "Sample blurb value",
-                BookGenre.FANTASY,
-                BookFormat.PAPERBACK
-        );
-        book.setYearOfPublication(1997);
-        book.setIsbn13("9781408810545");
-        book.setPublisher(PublisherName.BLOOMSBURY);
+    void notAcceptNullBookSeries() {
+        Book book = createBook();
 
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(()->new BookSeriesMapping(null, book, 1));
+                .isThrownBy(() -> new BookSeriesMapping(null, book, 1));
     }
 }
