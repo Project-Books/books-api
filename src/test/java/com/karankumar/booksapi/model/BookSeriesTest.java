@@ -22,12 +22,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @DisplayName("Book series should")
-public class BookSeriesTest {
+class BookSeriesTest {
 
     @Test
     @DisplayName("throw a null pointer exception on an attempt to create with a null Series Name.")
     void notAcceptNullSeriesName(){
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy( ()->new BookSeries(null) );
+                .isThrownBy(() -> new BookSeries(null));
     }
 }
