@@ -77,33 +77,14 @@ class BookSeriesMappingRepositoryTest {
     }
 
     private BookSeries createBookSeriesMapping() {
-
         Author author = new Author("J.K. Rowling");
         author.setAbout("A fantastic author");
         authorRepository.save(author);
 
-        Book book1 = new Book(
-                "Harry Potter and the Philosopher's stone", new Author[]{author},
-                Language.ENGLISH, "Sample blurb value",
-                BookGenre.FANTASY, BookFormat.PAPERBACK
-        );
-        book1.setYearOfPublication(1997);
-        book1.setIsbn13("9781408810545");
-        book1.setPublisher(PublisherName.BLOOMSBURY);
+        Book book1 = createBook(author, "Harry Potter and the Philosopher's stone");
         bookRepository.save(book1);
 
-        Book book2 = new Book(
-                "Harry Potter and the Chamber of Secrets",
-                new Author[]{author},
-                Language.ENGLISH,
-                "Sample blurb value",
-                BookGenre.FANTASY,
-                BookFormat.PAPERBACK
-        );
-        book2.setIsbn13("1234567898765");
-        book2.setGenre(BookGenre.FANTASY);
-        book2.setPublisher(PublisherName.BLOOMSBURY);
-        book2.setFormat(BookFormat.PAPERBACK);
+        Book book2 = createBook(author, "Harry Potter and the Chamber of Secrets");
         bookRepository.save(book2);
 
         BookSeries bookSeries = new BookSeries("Harry Potter Series");
@@ -113,5 +94,13 @@ class BookSeriesMappingRepositoryTest {
         bookSeriesMappingRepository.save(new BookSeriesMapping(bookSeries, book2, 2));
 
         return bookSeries;
+    }
+
+    private Book createBook(Author author, String title) {
+        return new Book(
+                title, new Author[]{author},
+                Language.ENGLISH, "Sample blurb value",
+                BookGenre.FANTASY, BookFormat.PAPERBACK
+        );
     }
 }
