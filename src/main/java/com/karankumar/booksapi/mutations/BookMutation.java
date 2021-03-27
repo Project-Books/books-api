@@ -30,6 +30,7 @@ import java.util.Optional;
 @DgsComponent
 public class BookMutation {
     private final BookService bookService;
+    private static final String NOT_FOUND_ERROR_MESSAGE = "Book not found";
 
     public BookMutation(BookService bookService) {
         this.bookService = bookService;
@@ -44,12 +45,28 @@ public class BookMutation {
         );
 
         if (optionalBook.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_ERROR_MESSAGE);
         }
 
         String isbn13 = dataFetchingEnvironment.getArgument("isbn13");
         Book book = optionalBook.get();
         book.setIsbn13(isbn13);
         return bookService.save(optionalBook.get());
+    }
+
+    @DgsData(parentType = "Mutation", field = "deleteBook")
+    public Book deleteBook(DataFetchingEnvironment dataFetchingEnvironment) {
+        Long id = dataFetchingEnvironment.getArgument("bookId");
+        if (id == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_ERROR_MESSAGE);
+        }
+
+        Optional<Book> book = bookService.findById(id);
+        if (book.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_ERROR_MESSAGE);
+        }
+
+        bookService.deleteBook(id);
+        return book.get();
     }
 }
