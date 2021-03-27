@@ -49,12 +49,12 @@ public class BookSeriesMapping {
     private Book book;
 
     @Column(nullable = false, name = "serial_number")
-    private Integer serialNumber;
+    private Integer seriesPosition;
 
     public BookSeriesMapping(@NonNull BookSeries bookSeries, @NonNull Book bookInSeries,
-                             @NonNull Integer serialNumber) {
+                             @NonNull Integer seriesPosition) {
         this.bookSeries = bookSeries;
         this.book = bookInSeries;
-        this.serialNumber = serialNumber;
+        this.seriesPosition = seriesPosition;
     }
 }
