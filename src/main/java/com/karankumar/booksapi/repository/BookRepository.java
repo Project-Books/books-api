@@ -38,7 +38,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     @Query("SELECT a.bookSeries FROM BookSeriesMapping a WHERE a.book = ?1")
     List<BookSeries> getAllBookSeriesForBook(Book book);
 
-    @Query("SELECT a.serialNumber FROM BookSeriesMapping a WHERE a.book = ?1 AND a.bookSeries = ?2")
+    @Query("SELECT a.seriesPosition FROM BookSeriesMapping a WHERE a.book = ?1 AND a.bookSeries = ?2")
     Integer getBookPositionInBookSeries(Book book, BookSeries bookSeries);
 
 }
