@@ -75,4 +75,8 @@ public class BookService {
     public Book findByTitle(@NonNull String title) {
         return bookRepository.findByTitleIgnoreCase(title);
     }
+
+    public void deleteBook(@NonNull Long id) {
+        bookRepository.deleteById(id);
+    }
 }
