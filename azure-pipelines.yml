@@ -35,12 +35,6 @@ steps:
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    testRunTitle: 'Test run'
-    buildPlatform: 'JUnit'
 
 - script: |
     bash <(curl -s https://codecov.io/bash)
