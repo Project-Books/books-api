@@ -38,13 +38,12 @@ steps:
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-- task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage results'
+- task: PublishTestResults@2
   inputs:
-    codeCoverageTool: 'JaCoCo' 
-    summaryFileLocation: '$(Build.SourcesDirectory)/build/reports/jacoco/test/jacocoTestReport.xml'
-    pathToSources: '$(System.DefaultWorkingDirectory)'      
-    additionalCodeCoverageFiles: '$(Build.SourcesDirectory)/build/jacoco/*.exec'
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+    testRunTitle: 'Test run'
+    buildPlatform: 'JUnit'
 
 - script: |
     bash <(curl -s https://codecov.io/bash)
