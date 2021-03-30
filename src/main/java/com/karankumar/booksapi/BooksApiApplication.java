@@ -20,9 +20,10 @@ import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
 import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.PublisherName;
+import com.karankumar.booksapi.model.Publisher;
 import com.karankumar.booksapi.repository.AuthorRepository;
 import com.karankumar.booksapi.repository.BookRepository;
+import com.karankumar.booksapi.repository.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,11 +37,15 @@ public class BooksApiApplication {
 
     @Bean
     public CommandLineRunner populateData(AuthorRepository authorRepository,
-                                          BookRepository bookRepository) {
+                                          BookRepository bookRepository,
+                                          PublisherRepository publisherRepository) {
         return args -> {
             Author author = new Author("J.K. Rowling");
             author.setAbout("A fantastic author");
             authorRepository.save(author);
+
+            Publisher publisher = new Publisher("Bloomsbury");
+            publisherRepository.save(publisher);
 
             Book book1 = new Book(
                     "Harry Potter and the Philosopher's stone",
@@ -52,8 +57,8 @@ public class BooksApiApplication {
             );
             book1.setYearOfPublication(1997);
             book1.setIsbn13("9781408810545");
-            book1.setPublisher(PublisherName.BLOOMSBURY);
             bookRepository.save(book1);
+            publisher.addBook(book1);
 
             Book book2 = new Book(
                     "Harry Potter and the Chamber of Secrets",
@@ -65,7 +70,6 @@ public class BooksApiApplication {
             );
             book2.setIsbn13("1234567898765");
             book2.setGenre(BookGenre.FANTASY);
-            book2.setPublisher(PublisherName.BLOOMSBURY);
             book2.setFormat(BookFormat.PAPERBACK);
             bookRepository.save(book2);
 
@@ -81,7 +85,6 @@ public class BooksApiApplication {
                     BookFormat.PAPERBACK
             );
             book3.setYearOfPublication(1937);
-            book3.setPublisher(PublisherName.HARPER_COLLINS);
             bookRepository.save(book3);
         };
     }

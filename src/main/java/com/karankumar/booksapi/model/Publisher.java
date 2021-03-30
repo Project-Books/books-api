@@ -42,17 +42,17 @@ public class Publisher {
     @Setter(AccessLevel.NONE)
     private Long id;
 
+    private String name;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "book_publisher",
+            name = "publisher_book",
             joinColumns = @JoinColumn(name = "publisher_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id")
     )
     private Set<Book> books = new HashSet<>();
 
-    private PublisherName name;
-
-    Publisher(@NonNull PublisherName name) {
+    public Publisher(@NonNull String name) {
         this.name = name;
     }
 

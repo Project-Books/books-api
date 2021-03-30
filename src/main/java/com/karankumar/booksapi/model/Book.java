@@ -73,8 +73,6 @@ public class Book {
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
     private Set<Publisher> publishers = new HashSet<>();
 
-    private PublisherName publisher;
-
     @Column(nullable = false)
     private BookFormat format;
 
