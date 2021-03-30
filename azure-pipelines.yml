@@ -1,6 +1,3 @@
-# Maven
-
-# Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
@@ -14,6 +11,16 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: Gradle@2
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    tasks: 'build test'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    codeCoverageToolOption: 'JaCoCo'
+    codeCoverageClassFilesDirectories: 'build/classes/main/'
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: false
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Books API SonarCloud'
@@ -25,26 +32,16 @@ steps:
       # sonar.exclusions=**/*.bin
       sonar.projectKey=project-books_Books-API
       sonar.projectName=Books API
-- task: Gradle@2
-  inputs:
-    gradleWrapperFile: 'gradlew'
-    tasks: 'build test'
-    publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
-    codeCoverageToolOption: 'JaCoCo'
-    codeCoverageClassFilesDirectories: 'build/classes/main/'
-    javaHomeOption: 'JDKVersion'
-    sonarQubeRunAnalysis: false
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
     testRunTitle: 'Test run'
     buildPlatform: 'JUnit'
 
 - script: |
-    ./gradlew jacocoTestReport && bash <(curl -s https://codecov.io/bash)
+    bash <(curl -s https://codecov.io/bash)
   displayName: 'Upload to codecov.io'
