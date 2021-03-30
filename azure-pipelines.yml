@@ -42,7 +42,7 @@ steps:
   displayName: 'Publish code coverage results'
   inputs:
     codeCoverageTool: 'JaCoCo' 
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/target/site/jacoco/jacoco.xml' 
+    summaryFileLocation: '$(Build.SourcesDirectory)/build/reports/jacoco/test/jacocoTestReport.xml'
     pathToSources: '$(System.DefaultWorkingDirectory)'      
     additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/target/jacoco.exec'    
 
