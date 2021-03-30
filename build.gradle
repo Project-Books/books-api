@@ -2,10 +2,11 @@ plugins {
 	id 'org.springframework.boot' version '2.4.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'jacoco'
 	id "com.netflix.dgs.codegen" version "4.0.10"
 	id "org.flywaydb.flyway" version "7.5.4"
 }
+
+apply plugin: 'jacoco'
 
 group = 'com.karankumar'
 version = '0.0.1-SNAPSHOT'
@@ -57,18 +58,6 @@ jacocoTestReport {
 	}
 }
 
-jacocoTestCoverageVerification {
-	violationRules {
-		rule {
-			limit {
-				minimum = 0.7
-			}
-
-			failOnViolation false
-		}
-	}
-}
-
 flyway {
 	url = 'jdbc:mysql://localhost:3307/booksapi?useSsl=false'
 	user = 'root'
@@ -76,4 +65,4 @@ flyway {
 }
 
 // run coverage verification during the build
-check.dependsOn jacocoTestCoverageVerification
+check.dependsOn jacocoTestReport
