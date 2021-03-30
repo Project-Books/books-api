@@ -80,7 +80,7 @@ class BookRepositoryTest {
     void findBookByIsbn() {
         // given
         createAndSaveAuthors();
-        Book book = createBookwithISBN();
+        Book book = createBookWithIsbn13();
         bookRepository.save(book);
 
         // when
@@ -96,7 +96,7 @@ class BookRepositoryTest {
         saveAllAuthors(author1, author2);
     }
 
-    private Book createBookwithISBN() {
+    private Book createBookWithIsbn13() {
         Book book = new Book(
                 "Game of APIs",
                 new Author[]{author1, author2},
@@ -114,7 +114,7 @@ class BookRepositoryTest {
     void findByAuthor() {
         // given
         createAndSaveAuthors();
-        Book book = createBookwithISBN();
+        Book book = createBookWithIsbn13();
         bookRepository.save(book);
 
         // when

@@ -12,16 +12,15 @@
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
  */
-
 package com.karankumar.booksapi.model;
 
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,64 +29,35 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode()
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Book {
+public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
+    private String name;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
+            name = "publisher_book",
+            joinColumns = @JoinColumn(name = "publisher_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
     )
-    private Set<Author> authors = new HashSet<>();
+    private Set<Book> books = new HashSet<>();
 
-    @Column(nullable = false)
-    private Language language;
-
-    private String isbn10;
-
-    private String isbn13;
-
-    @Column(nullable = false)
-    private BookGenre genre;
-
-    private Integer yearOfPublication;
-
-    @Column(nullable = false)
-    private String blurb;
-
-    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
-    private Set<Publisher> publishers = new HashSet<>();
-
-    @Column(nullable = false)
-    private BookFormat format;
-
-    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language,
-                @NonNull String blurb, @NonNull BookGenre genre, @NonNull BookFormat format) {
-        this.title = title;
-        Arrays.stream(authors).forEach(this::addAuthor);
-        this.language = language;
-        this.blurb = blurb;
-        this.genre = genre;
-        this.format = format;
+    public Publisher(@NonNull String name) {
+        this.name = name;
     }
 
-    public void addAuthor(@NonNull Author author) {
-        authors.add(author);
-        author.getBooks().add(this);
+    public void addBook(@NonNull Book book) {
+        books.add(book);
+        book.getPublishers().add(this);
     }
 }
