@@ -16,7 +16,7 @@ steps:
     gradleWrapperFile: 'gradlew'
     tasks: 'build test'
     publishJUnitResults: true
-    testResultsFiles: 'target/surefire-reports/TEST-*.xml'
+    testResultsFiles: '**/TEST-*.xml'
     codeCoverageToolOption: 'JaCoCo'
     codeCoverageClassFilesDirectories: 'build/classes/main/'
     javaHomeOption: 'JDKVersion'
