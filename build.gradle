@@ -46,6 +46,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+test {
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
 jacocoTestReport {
     reports {
 		xml.enabled true
