@@ -44,7 +44,7 @@ steps:
     codeCoverageTool: 'JaCoCo' 
     summaryFileLocation: '$(Build.SourcesDirectory)/build/reports/jacoco/test/jacocoTestReport.xml'
     pathToSources: '$(System.DefaultWorkingDirectory)'      
-    additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/target/jacoco.exec'    
+    additionalCodeCoverageFiles: '$(Build.SourcesDirectory)/build/jacoco/*.exec'
 
 - script: |
     bash <(curl -s https://codecov.io/bash)
