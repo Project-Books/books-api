@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  Karan Kumar
+ * Copyright (C) 2021  Karan Kumar
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
@@ -38,14 +38,10 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 class BookRepositoryTest {
     private static final String ISBN = "978-3-16-148410-0";
     private static final String TITLE = "Harry Potter";
-    private static final String AUTHOR1_FULL_NAME = "Kevlin Henney";
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     
-    private Author author1;
-    private Author author2;
-
     @Autowired
     BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
@@ -61,8 +57,7 @@ class BookRepositoryTest {
     @DisplayName("find saved books")
     void findSavedBooks() {
         // given
-        createAndSaveAuthors();
-        Book book = createBook(author1, author2);
+        Book book = createBook();
         bookRepository.save(book);
 
         // when
@@ -79,7 +74,6 @@ class BookRepositoryTest {
     @DisplayName("find book with isbn")
     void findBookByIsbn() {
         // given
-        createAndSaveAuthors();
         Book book = createBookWithIsbn13();
         bookRepository.save(book);
 
@@ -90,16 +84,9 @@ class BookRepositoryTest {
         assertThat(result).isEqualTo(book);
     }
   
-    private void createAndSaveAuthors() {
-        author1 = new Author(AUTHOR1_FULL_NAME);
-        author2 = new Author("Trisha Gee");
-        saveAllAuthors(author1, author2);
-    }
-
     private Book createBookWithIsbn13() {
         Book book = new Book(
                 "Game of APIs",
-                new Author[]{author1, author2},
                 Language.ENGLISH,
                 "",
                 BookGenre.SATIRE,
@@ -113,12 +100,15 @@ class BookRepositoryTest {
     @DisplayName("find by author")
     void findByAuthor() {
         // given
-        createAndSaveAuthors();
         Book book = createBookWithIsbn13();
         bookRepository.save(book);
+        String authorName = "Kevlin Henney";
+        Author author = new Author(authorName, new HashSet<>());
+        author.addBook(book);
+        authorRepository.save(author);
 
         // when
-        List<Book> result = bookRepository.findByAuthor(AUTHOR1_FULL_NAME);
+        List<Book> result = bookRepository.findByAuthor(authorName);
 
         // then
         assertSoftly(softly -> {
@@ -130,10 +120,8 @@ class BookRepositoryTest {
     @Test
       void findBookByTitle() {
         // given
-        createAndSaveAuthors();
         Book book = new Book(
                 TITLE,
-                new Author[]{author1, author2},
                 Language.ENGLISH,
                 "",
                 BookGenre.ART,
@@ -152,10 +140,8 @@ class BookRepositoryTest {
     @DisplayName("find book by title case insensitive")
     void findBookByTitleCaseInsensitive() {
         // given
-        createAndSaveAuthors();
         Book book = new Book(
                 TITLE,
-                new Author[]{author1, author2},
                 Language.ENGLISH,
                 "",
                 BookGenre.MYSTERY,
@@ -168,9 +154,5 @@ class BookRepositoryTest {
 
         // then
         assertThat(result).isEqualTo(book);
-    }
-    
-    private void saveAllAuthors(Author... authors) {
-        Arrays.stream(authors).forEach(authorRepository::save);
     }
 }

@@ -22,6 +22,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
@@ -52,7 +53,7 @@ class AuthorRepositoryTest {
         // given
         Author author1 = createAndSaveAuthor("Kevlin", "Henney");
         Author author2 = createAndSaveAuthor("Trisha", "Gee");
-        saveBook(author1, author2);
+        saveBook();
 
         // when
         List<Author> result = authorRepository.findAllAuthors();
@@ -61,13 +62,13 @@ class AuthorRepositoryTest {
         assertThat(result).containsExactlyInAnyOrder(author1, author2);
     }
   
-    private void saveBook(Author author1, Author author2) {
-        bookRepository.save(createBook(author1, author2));
+    private void saveBook() {
+        bookRepository.save(createBook());
     }
 
     private Author createAndSaveAuthor(String firstName, String lastName) {
         String fullName = firstName + " " + lastName;
-        Author author = new Author(fullName);
+        Author author = new Author(fullName, new HashSet<>());
         authorRepository.save(author);
         return author;
     }

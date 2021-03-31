@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  Karan Kumar
+ * Copyright (C) 2021  Karan Kumar
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -24,10 +24,9 @@ import com.karankumar.booksapi.model.Language;
 final class RepositoryTestUtils {
     private RepositoryTestUtils() { }
 
-    static Book createBook(Author... authors) {
+    static Book createBook() {
         Book book = new Book(
                 "97 Things Every Java Programmer Should Know",
-                authors,
                 Language.ENGLISH,
                 "Sample blurb value",
                 BookGenre.CHILDREN,

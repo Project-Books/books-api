@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  Karan Kumar
+ * Copyright (C) 2021  Karan Kumar
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -25,14 +25,9 @@ class BookTest {
     @Test
     @DisplayName("throw a Null Pointer Exception on an attempt to create with a null title")
     void notAcceptNullTitle() {
-        // given
-        Author author = new Author("J.K. Rowling");
-
-        // when and then
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> new Book(
                         null,
-                        new Author[] { author },
                         Language.ENGLISH,
                         "Sample blurb value", BookGenre.FANTASY,
                         BookFormat.HARDCOVER
@@ -40,26 +35,11 @@ class BookTest {
     }
 
     @Test
-    @DisplayName("throw a Null Pointer Exception on an attempt to create with a null Author")
-    void notAcceptNullAuthor() {
-        assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> new Book(
-                        "The Hobbit", null, Language.ARABIC, "Sample blurb value", BookGenre.FANTASY,
-                        BookFormat.EBOOK
-                ));
-    }
-
-    @Test
     @DisplayName("throw a Null Pointer Exception on an attempt to create with a null language")
     void notAcceptNullLanguage() {
-        // given
-        Author author = new Author("J.K. Rowling");
-
-        // when and then
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> new Book(
                         "The Hobbit",
-                        new Author[] {author},
                         null,
                         "Sample blurb value",
                         BookGenre.FANTASY,

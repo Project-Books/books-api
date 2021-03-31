@@ -21,6 +21,8 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import graphql.schema.DataFetchingEnvironment;
 
+import java.util.HashSet;
+
 @DgsComponent
 public class AuthorMutation {
     private final AuthorService authorService;
@@ -32,6 +34,6 @@ public class AuthorMutation {
     @DgsData(parentType = "Mutation", field = "addAuthor")
     public Author addAuthor(DataFetchingEnvironment dataFetchingEnvironment) {
         String fullName = dataFetchingEnvironment.getArgument("fullName");
-        return authorService.save(new Author(fullName));
+        return authorService.save(new Author(fullName, new HashSet<>()));
     }
 }

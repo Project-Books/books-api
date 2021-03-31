@@ -29,6 +29,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+import java.util.Set;
+
 @SpringBootApplication
 public class BooksApiApplication {
     public static void main(String[] args) {
@@ -40,52 +43,53 @@ public class BooksApiApplication {
                                           BookRepository bookRepository,
                                           PublisherRepository publisherRepository) {
         return args -> {
-            Author author = new Author("J.K. Rowling");
-            author.setAbout("A fantastic author");
-            authorRepository.save(author);
-
             Publisher publisher = new Publisher("Bloomsbury");
             publisherRepository.save(publisher);
 
-            Book book1 = new Book(
+            Book book1 = createBook(
                     "Harry Potter and the Philosopher's stone",
-                    new Author[] {author},
-                    Language.ENGLISH,
                     "Philosopher's stone blurb",
-                    BookGenre.FANTASY,
-                    BookFormat.PAPERBACK
+                    1997,
+                    "9781408810545"
             );
-            book1.setYearOfPublication(1997);
-            book1.setIsbn13("9781408810545");
             bookRepository.save(book1);
             publisher.addBook(book1);
 
-            Book book2 = new Book(
+            Book book2 = createBook(
                     "Harry Potter and the Chamber of Secrets",
-                    new Author[] {author},
-                    Language.ENGLISH,
                     "Chamber of secrets blurb",
-                    BookGenre.FANTASY,
-                    BookFormat.PAPERBACK
+                    1998,
+                    "1234567898765"
             );
-            book2.setIsbn13("1234567898765");
-            book2.setGenre(BookGenre.FANTASY);
-            book2.setFormat(BookFormat.PAPERBACK);
             bookRepository.save(book2);
 
-            Author author2 = new Author("J.R.R. Tolkien");
+            Book book3 = createBook(
+                    "The Hobbit",
+                    "Hobbit blurb",
+                    1937,
+                    "1234567898761"
+            );
+            bookRepository.save(book3);
+            Author author2 = new Author("J.R.R. Tolkien", Set.of(book3));
             author2.setAbout("Another fantastic author");
             authorRepository.save(author2);
-            Book book3 = new Book(
-                    "The Hobbit",
-                    new Author[] {author, author2},
-                    Language.ENGLISH,
-                    "Hobbit blurb",
-                    BookGenre.FANTASY,
-                    BookFormat.PAPERBACK
-            );
-            book3.setYearOfPublication(1937);
-            bookRepository.save(book3);
+
+            Author author = new Author("J.K. Rowling", Set.of(book1, book2, book3));
+            author.setAbout("A fantastic author");
+            authorRepository.save(author);
         };
+    }
+
+    private Book createBook(String title, String blurb, int yearOfPublication, String isbn13) {
+        Book book = new Book(
+                title,
+                Language.ENGLISH,
+                blurb,
+                BookGenre.FANTASY,
+                BookFormat.PAPERBACK
+        );
+        book.setYearOfPublication(yearOfPublication);
+        book.setIsbn13(isbn13);
+        return book;
     }
 }
