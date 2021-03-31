@@ -24,10 +24,9 @@ import com.karankumar.booksapi.model.Language;
 final class RepositoryTestUtils {
     private RepositoryTestUtils() { }
 
-    static Book createBook(Author... authors) {
+    static Book createBook() {
         Book book = new Book(
                 "97 Things Every Java Programmer Should Know",
-                authors,
                 Language.ENGLISH,
                 "Sample blurb value",
                 BookGenre.CHILDREN,

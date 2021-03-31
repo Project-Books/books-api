@@ -52,7 +52,7 @@ class AuthorRepositoryTest {
         // given
         Author author1 = createAndSaveAuthor("Kevlin", "Henney");
         Author author2 = createAndSaveAuthor("Trisha", "Gee");
-        saveBook(author1, author2);
+        saveBook();
 
         // when
         List<Author> result = authorRepository.findAllAuthors();
@@ -61,8 +61,8 @@ class AuthorRepositoryTest {
         assertThat(result).containsExactlyInAnyOrder(author1, author2);
     }
   
-    private void saveBook(Author author1, Author author2) {
-        bookRepository.save(createBook(author1, author2));
+    private void saveBook() {
+        bookRepository.save(createBook());
     }
 
     private Author createAndSaveAuthor(String firstName, String lastName) {

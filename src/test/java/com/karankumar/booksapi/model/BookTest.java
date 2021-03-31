@@ -32,20 +32,9 @@ class BookTest {
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> new Book(
                         null,
-                        new Author[] { author },
                         Language.ENGLISH,
                         "Sample blurb value", BookGenre.FANTASY,
                         BookFormat.HARDCOVER
-                ));
-    }
-
-    @Test
-    @DisplayName("throw a Null Pointer Exception on an attempt to create with a null Author")
-    void notAcceptNullAuthor() {
-        assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> new Book(
-                        "The Hobbit", null, Language.ARABIC, "Sample blurb value", BookGenre.FANTASY,
-                        BookFormat.EBOOK
                 ));
     }
 
@@ -59,7 +48,6 @@ class BookTest {
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> new Book(
                         "The Hobbit",
-                        new Author[] {author},
                         null,
                         "Sample blurb value",
                         BookGenre.FANTASY,
