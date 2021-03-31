@@ -30,6 +30,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class BooksApiApplication {
@@ -69,14 +70,12 @@ public class BooksApiApplication {
                     "1234567898761"
             );
             bookRepository.save(book3);
-            Author author2 = new Author("J.R.R. Tolkien");
+            Author author2 = new Author("J.R.R. Tolkien", Set.of(book3));
             author2.setAbout("Another fantastic author");
-            author2.addBook(book3);
             authorRepository.save(author2);
 
-            Author author = new Author("J.K. Rowling");
+            Author author = new Author("J.K. Rowling", Set.of(book1, book2, book3));
             author.setAbout("A fantastic author");
-            List.of(book1, book2, book3).forEach(author::addBook);
             authorRepository.save(author);
         };
     }

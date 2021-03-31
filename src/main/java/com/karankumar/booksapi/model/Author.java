@@ -48,8 +48,9 @@ public class Author {
 
     private String about;
 
-    public Author(@NonNull String fullName) {
+    public Author(@NonNull String fullName, Set<Book> books) {
         this.fullName = fullName;
+        books.forEach(this::addBook);
     }
 
     public void addBook(@NonNull Book book) {

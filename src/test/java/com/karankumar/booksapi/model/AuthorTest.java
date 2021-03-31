@@ -15,6 +15,7 @@
 
 package com.karankumar.booksapi.model;
 
+import org.assertj.core.util.Sets;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +25,9 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 class AuthorTest {
     @Test
     @DisplayName("throw a Null Pointer Exception on an attempt to create with a null name")
-    void notAcceptNullFirstName() {
-        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> new Author(null));
+    void notAcceptNullName() {
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() ->
+                        new Author(null, Sets.newHashSet())
+        );
     }
 }

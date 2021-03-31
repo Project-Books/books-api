@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  Karan Kumar
+ * Copyright (C) 2021  Karan Kumar
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -26,6 +26,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
@@ -102,7 +103,7 @@ class BookRepositoryTest {
         Book book = createBookWithIsbn13();
         bookRepository.save(book);
         String authorName = "Kevlin Henney";
-        Author author = new Author(authorName);
+        Author author = new Author(authorName, new HashSet<>());
         author.addBook(book);
         authorRepository.save(author);
 

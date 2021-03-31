@@ -22,6 +22,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
@@ -67,7 +68,7 @@ class AuthorRepositoryTest {
 
     private Author createAndSaveAuthor(String firstName, String lastName) {
         String fullName = firstName + " " + lastName;
-        Author author = new Author(fullName);
+        Author author = new Author(fullName, new HashSet<>());
         authorRepository.save(author);
         return author;
     }
