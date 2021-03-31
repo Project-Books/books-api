@@ -29,6 +29,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class BooksApiApplication {
     public static void main(String[] args) {
@@ -40,16 +42,11 @@ public class BooksApiApplication {
                                           BookRepository bookRepository,
                                           PublisherRepository publisherRepository) {
         return args -> {
-            Author author = new Author("J.K. Rowling");
-            author.setAbout("A fantastic author");
-            authorRepository.save(author);
-
             Publisher publisher = new Publisher("Bloomsbury");
             publisherRepository.save(publisher);
 
             Book book1 = new Book(
                     "Harry Potter and the Philosopher's stone",
-                    new Author[] {author},
                     Language.ENGLISH,
                     "Philosopher's stone blurb",
                     BookGenre.FANTASY,
@@ -62,7 +59,6 @@ public class BooksApiApplication {
 
             Book book2 = new Book(
                     "Harry Potter and the Chamber of Secrets",
-                    new Author[] {author},
                     Language.ENGLISH,
                     "Chamber of secrets blurb",
                     BookGenre.FANTASY,
@@ -78,7 +74,6 @@ public class BooksApiApplication {
             authorRepository.save(author2);
             Book book3 = new Book(
                     "The Hobbit",
-                    new Author[] {author, author2},
                     Language.ENGLISH,
                     "Hobbit blurb",
                     BookGenre.FANTASY,
@@ -86,6 +81,11 @@ public class BooksApiApplication {
             );
             book3.setYearOfPublication(1937);
             bookRepository.save(book3);
+
+            Author author = new Author("J.K. Rowling");
+            author.setAbout("A fantastic author");
+            List.of(book1, book2, book3).forEach(author::addBook);
+            authorRepository.save(author);
         };
     }
 }

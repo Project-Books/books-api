@@ -43,6 +43,7 @@ public class BookService {
         }
         return bookRepository.save(book);
     }
+
     private boolean isIsbn10Invalid(@NonNull String isbn10) {
         return !(new ISBNValidator().isValidISBN10(isbn10));
     }

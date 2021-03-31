@@ -30,7 +30,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -76,18 +75,12 @@ public class Book {
     @Column(nullable = false)
     private BookFormat format;
 
-    public Book(@NonNull String title, @NonNull Author[] authors, @NonNull Language language,
-                @NonNull String blurb, @NonNull BookGenre genre, @NonNull BookFormat format) {
+    public Book(@NonNull String title, @NonNull Language language, @NonNull String blurb,
+                @NonNull BookGenre genre, @NonNull BookFormat format) {
         this.title = title;
-        Arrays.stream(authors).forEach(this::addAuthor);
         this.language = language;
         this.blurb = blurb;
         this.genre = genre;
         this.format = format;
-    }
-
-    public void addAuthor(@NonNull Author author) {
-        authors.add(author);
-        author.getBooks().add(this);
     }
 }

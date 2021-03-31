@@ -51,4 +51,9 @@ public class Author {
     public Author(@NonNull String fullName) {
         this.fullName = fullName;
     }
+
+    public void addBook(@NonNull Book book) {
+        books.add(book);
+        book.getAuthors().add(this);
+    }
 }
