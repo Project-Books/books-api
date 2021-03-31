@@ -44,8 +44,7 @@ Sample query:
   findAllBooks {
     title
     authors {
-      firstName
-      lastName
+      fullName
     }
     genre
     isbn13
