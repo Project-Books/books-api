@@ -36,7 +36,6 @@ class BookSeriesMappingTest {
     private Book createBook() {
         Book book = new Book(
                 "Harry Potter and the Philosopher's stone",
-                new Author[] {new Author("J.K. Rowling")},
                 Language.ENGLISH,
                 "Sample blurb value",
                 BookGenre.FANTASY,
@@ -44,7 +43,6 @@ class BookSeriesMappingTest {
         );
         book.setYearOfPublication(1997);
         book.setIsbn13("9781408810545");
-        book.setPublisher(PublisherName.BLOOMSBURY);
         return book;
     }
 
@@ -53,9 +51,6 @@ class BookSeriesMappingTest {
     void notAcceptNullBook() {
 
         BookSeries bookSeries = new BookSeries("Harry Potter Series");
-
-        Author author = new Author("J.K. Rowling");
-        author.setAbout("A fantastic author");
 
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> new BookSeriesMapping(bookSeries, null, 1));
