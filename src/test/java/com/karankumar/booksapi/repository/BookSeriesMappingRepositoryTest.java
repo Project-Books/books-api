@@ -16,14 +16,12 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.annotations.DataJpaIntegrationTest;
-import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
 import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.BookSeries;
 import com.karankumar.booksapi.model.BookSeriesMapping;
 import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.PublisherName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -78,13 +76,11 @@ class BookSeriesMappingRepositoryTest {
     }
 
     private BookSeries createBookSeriesMapping() {
-        Author author = new Author("J.K. Rowling");
-        authorRepository.save(author);
 
-        Book book1 = createBook(author, book1Title);
+        Book book1 = createBook(book1Title);
         bookRepository.save(book1);
 
-        Book book2 = createBook(author, book2Title);
+        Book book2 = createBook(book2Title);
         bookRepository.save(book2);
 
         BookSeries bookSeries = new BookSeries("Harry Potter Series");
@@ -96,11 +92,13 @@ class BookSeriesMappingRepositoryTest {
         return bookSeries;
     }
 
-    private Book createBook(Author author, String title) {
+    private Book createBook(String title) {
         return new Book(
-                title, new Author[]{author},
-                Language.ENGLISH, "Sample blurb value",
-                BookGenre.FANTASY, BookFormat.PAPERBACK
+                title,
+                Language.ENGLISH,
+                "Sample blurb value",
+                BookGenre.FANTASY,
+                BookFormat.PAPERBACK
         );
     }
 }

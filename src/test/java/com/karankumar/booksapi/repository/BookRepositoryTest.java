@@ -23,6 +23,7 @@ import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.BookSeries;
 import com.karankumar.booksapi.model.BookSeriesMapping;
 import com.karankumar.booksapi.model.Language;
+import java.util.HashSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -205,13 +206,11 @@ class BookRepositoryTest {
     }
 
     private List<BookSeries> addBookToSeries() {
-        Author author = new Author("J.K. Rowling");
-        authorRepository.save(author);
 
-        Book book1 = createSeriesBook(author, harryPotter1Title);
+        Book book1 = createSeriesBook(harryPotter1Title);
         bookRepository.save(book1);
 
-        Book book2 = createSeriesBook(author, "Harry Potter and the Chamber of Secrets");
+        Book book2 = createSeriesBook("Harry Potter and the Chamber of Secrets");
         bookRepository.save(book2);
 
         BookSeries bookSeries1 = new BookSeries(harryPotterSeriesName);
@@ -229,10 +228,9 @@ class BookRepositoryTest {
         return List.of(bookSeries1, bookSeries2);
     }
 
-    private Book createSeriesBook(Author author, String title) {
+    private Book createSeriesBook(String title) {
         return new Book(
                 title,
-                new Author[]{author},
                 Language.ENGLISH,
                 "Sample blurb value",
                 BookGenre.FANTASY,
