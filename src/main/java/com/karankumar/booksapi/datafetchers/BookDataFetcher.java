@@ -38,17 +38,17 @@ public class BookDataFetcher {
     }
 
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindBookByIsbn13)
-    public Book findBookByIsbn13(@InputArgument("isbn13") String isbn13) {
+    public Book findBookByIsbn13(@InputArgument(DgsConstants.BOOK.Isbn13) String isbn13) {
         return bookService.findBookByIsbn13(isbn13);
     }
 
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByAuthor)
-    public List<Book> findByAuthor(@InputArgument("fullName") String fullName) {
+    public List<Book> findByAuthor(@InputArgument(DgsConstants.AUTHOR.FullName) String fullName) {
         return bookService.findByAuthor(fullName);
     }
 
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByTitleIgnoreCase)
-    public Book findByTitle(@InputArgument("title") String title) {
+    public Book findByTitle(@InputArgument(DgsConstants.BOOK.Title) String title) {
         return bookService.findByTitle(title);
     }
 }
