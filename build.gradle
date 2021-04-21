@@ -1,11 +1,19 @@
+buildscript {
+	dependencies {
+		classpath 'com.netflix.graphql.dgs.codegen:graphql-dgs-codegen-gradle:4.5.2'
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.4.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'jacoco'
-	id "com.netflix.dgs.codegen" version "4.0.10"
+//	id "com.netflix.dgs.codegen" version "4.5.2"
 	id "org.flywaydb.flyway" version "7.5.4"
 }
+
+apply plugin: 'com.netflix.dgs.codegen'
 
 group = 'com.karankumar'
 version = '0.0.1-SNAPSHOT'
@@ -24,7 +32,7 @@ repositories {
 generateJava {
 	schemaPaths = ["${projectDir}/src/main/resources/schema"] // List of directories containing schema files
 	packageName = 'com.karankumar.booksapi' // The package name to use to generate sources
-	generateClient = true // Enable generating the type safe query API
+	generateClient = false // Enable generating the type safe query API
 }
 
 dependencies {
