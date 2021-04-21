@@ -32,9 +32,9 @@ public class AuthorMutation {
         this.authorService = authorService;
     }
 
-    @DgsData(parentType = "Mutation", field = DgsConstants.MUTATION.AddAuthor)
+    @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.AddAuthor)
     public Author addAuthor(DataFetchingEnvironment dataFetchingEnvironment) {
-        String fullName = dataFetchingEnvironment.getArgument("fullName");
+        String fullName = dataFetchingEnvironment.getArgument(DgsConstants.AUTHOR.FullName);
         return authorService.save(new Author(fullName, new HashSet<>()));
     }
 }

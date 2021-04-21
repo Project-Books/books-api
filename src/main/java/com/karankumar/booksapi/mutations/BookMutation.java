@@ -38,26 +38,26 @@ public class BookMutation {
     }
 
     // TODO: change this to update a book rather than updating a specific field
-    @DgsData(parentType = "Mutation", field = DgsConstants.MUTATION.AddIsbn13)
+    @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.AddIsbn13)
     public Book addIsbn13(DataFetchingEnvironment dataFetchingEnvironment)
             throws InvalidISBN10Exception, InvalidISBN13Exception {
         Optional<Book> optionalBook = bookService.findById(
-                dataFetchingEnvironment.getArgument("bookId")
+                dataFetchingEnvironment.getArgument(DgsConstants.BOOK.Id)
         );
 
         if (optionalBook.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_ERROR_MESSAGE);
         }
 
-        String isbn13 = dataFetchingEnvironment.getArgument("isbn13");
+        String isbn13 = dataFetchingEnvironment.getArgument(DgsConstants.BOOK.Isbn13);
         Book book = optionalBook.get();
         book.setIsbn13(isbn13);
         return bookService.save(optionalBook.get());
     }
 
-    @DgsData(parentType = "Mutation", field = DgsConstants.MUTATION.DeleteBook)
+    @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.DeleteBook)
     public Book deleteBook(DataFetchingEnvironment dataFetchingEnvironment) {
-        Long id = dataFetchingEnvironment.getArgument("bookId");
+        Long id = dataFetchingEnvironment.getArgument(DgsConstants.BOOK.Id);
         if (id == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_ERROR_MESSAGE);
         }
