@@ -1,1 +1,1 @@
-See our code of conduct [here](https://github.com/Project-Books/book-project/blob/master/CODE_OF_CONDUCT.md).
+See our [code of conduct](https://project-books.github.io/docs/code-of-conduct/).
