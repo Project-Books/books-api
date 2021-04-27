@@ -3,4 +3,5 @@ type Query {
     findBookByIsbn13(isbn13: String!): Book!
     findByAuthor(firstName: String!, lastName: String!): [Book]!
     findByTitleIgnoreCase(title: String!): Book
+#    findSeriesForBook(book: Book!): [BookSeries]! // TODO: fix. Cannot use Book as an input type
 }
