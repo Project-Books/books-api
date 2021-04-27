@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020  Karan Kumar
+ * Copyright (C) 2021  Karan Kumar
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -41,7 +41,6 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 class BookRepositoryTest {
     private static final String ISBN = "978-3-16-148410-0";
     private static final String TITLE = "Harry Potter";
-    private static final String AUTHOR1_FULL_NAME = "Kevlin Henney";
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
@@ -49,9 +48,6 @@ class BookRepositoryTest {
     private final BookSeriesMappingRepository bookSeriesMappingRepository;
     private final String harryPotter1Title = "Harry Potter and the Philosopher's stone";
     private final String harryPotterSeriesName = "Harry Potter Series";
-
-    private Author author1;
-    private Author author2;
 
     @Autowired
     BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository,
