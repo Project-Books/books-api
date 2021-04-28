@@ -1,7 +1,5 @@
 type Mutation {
-    addIsbn13(id: Long!, isbn13: String): Book
+    addIsbn13(id: ID!, isbn13: String): Book
     addAuthor(fullName: String!): Author
-    deleteBook(id: Long!): Book
+    deleteBook(id: ID!): Book
 }
-
-scalar Long

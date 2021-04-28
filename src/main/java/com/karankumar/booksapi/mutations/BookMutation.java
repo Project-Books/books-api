@@ -57,10 +57,11 @@ public class BookMutation {
 
     @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.DeleteBook)
     public Book deleteBook(DataFetchingEnvironment dataFetchingEnvironment) {
-        Long id = dataFetchingEnvironment.getArgument(DgsConstants.BOOK.Id);
-        if (id == null) {
+        String stringId = dataFetchingEnvironment.getArgument(DgsConstants.BOOK.Id);
+        if (stringId == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_ERROR_MESSAGE);
         }
+        Long id = Long.parseLong(stringId);
 
         Optional<Book> book = bookService.findById(id);
         if (book.isEmpty()) {
