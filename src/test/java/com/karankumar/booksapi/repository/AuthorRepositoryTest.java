@@ -25,26 +25,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.HashSet;
 import java.util.List;
 
-import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaIntegrationTest
 @DisplayName("AuthorRepository should")
 class AuthorRepositoryTest {
   
-    private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
 
     @Autowired
-    AuthorRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
-        this.bookRepository = bookRepository;
+    AuthorRepositoryTest(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
     @BeforeEach
     void setUp() {
         authorRepository.deleteAll();
-        bookRepository.deleteAll();
     }
 
     @Test
@@ -53,17 +49,12 @@ class AuthorRepositoryTest {
         // given
         Author author1 = createAndSaveAuthor("Kevlin", "Henney");
         Author author2 = createAndSaveAuthor("Trisha", "Gee");
-        saveBook();
 
         // when
         List<Author> result = authorRepository.findAllAuthors();
 
         // then
         assertThat(result).containsExactlyInAnyOrder(author1, author2);
-    }
-  
-    private void saveBook() {
-        bookRepository.save(createBook());
     }
 
     private Author createAndSaveAuthor(String firstName, String lastName) {
