@@ -15,10 +15,13 @@
 
 package com.karankumar.booksapi.datafetcher;
 
+import com.karankumar.booksapi.DgsConstants;
 import com.karankumar.booksapi.client.FindAllBooksGraphQLQuery;
 import com.karankumar.booksapi.client.FindAllBooksProjectionRoot;
 import com.karankumar.booksapi.client.FindBookByIsbn13GraphQLQuery;
 import com.karankumar.booksapi.client.FindBookByIsbn13ProjectionRoot;
+import com.karankumar.booksapi.client.FindByTitleIgnoreCaseGraphQLQuery;
+import com.karankumar.booksapi.client.FindByTitleIgnoreCaseProjectionRoot;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
@@ -49,6 +52,8 @@ class BookDataFetcherTest {
     @MockBean
     BookService bookService;
 
+    private final String ROOT = "data.";
+
     @Test
     void findAllBooks_returnsEmptyList_whenNoBooksExist() {
         // Given
@@ -61,7 +66,7 @@ class BookDataFetcherTest {
         // When
         List<String> bookTitles = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
-                "data.findAllBooks[*].title"
+                ROOT + DgsConstants.QUERY.FindAllBooks + "[*]." + DgsConstants.BOOK.Title
         );
 
         // Then
@@ -84,7 +89,7 @@ class BookDataFetcherTest {
         // When
         List<String> bookTitles = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
-                "data.findAllBooks[*].title"
+                ROOT + DgsConstants.QUERY.FindAllBooks + "[*]." + DgsConstants.BOOK.Title
         );
 
         // Then
@@ -108,10 +113,51 @@ class BookDataFetcherTest {
         // When
         String actual = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
-                "data.findBookByIsbn13.isbn13"
+                ROOT + DgsConstants.QUERY.FindBookByIsbn13 + "." + DgsConstants.BOOK.Isbn13
         );
 
         // Then
         assertThat(actual).isEqualTo(isbn13);
     }
+
+    @Test
+    void findBookByIsbn13_returnsNullBook_whenIsbnDoesNotMatchABook() {
+        // Given
+        final String isbn13 = "1234567898765";
+        given(bookService.findBookByIsbn13(isbn13)).willReturn(null);
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                new FindBookByIsbn13GraphQLQuery(isbn13),
+                new FindBookByIsbn13ProjectionRoot().isbn13()
+        );
+
+        // When
+        String actual = queryExecutor.executeAndExtractJsonPath(
+                graphQLQueryRequest.serialize(),
+                ROOT + DgsConstants.QUERY.FindBookByIsbn13
+        );
+
+        // Then
+        assertThat(actual).isNull();
+    }
+
+    @Test
+    void findByTitle_returnsNullBook_whenTitleNotFound() {
+        // Given
+        String title = "title";
+        given(bookService.findByTitle(title)).willReturn(null);
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                new FindByTitleIgnoreCaseGraphQLQuery(title),
+                new FindByTitleIgnoreCaseProjectionRoot().title()
+        );
+
+        // When
+        String actual = queryExecutor.executeAndExtractJsonPath(
+                graphQLQueryRequest.serialize(),
+                ROOT + DgsConstants.QUERY.FindByTitleIgnoreCase
+        );
+
+        // Then
+        assertThat(actual).isNull();
+    }
+
 }
