@@ -17,6 +17,8 @@ package com.karankumar.booksapi.datafetcher;
 
 import com.karankumar.booksapi.client.FindAllBooksGraphQLQuery;
 import com.karankumar.booksapi.client.FindAllBooksProjectionRoot;
+import com.karankumar.booksapi.client.FindBookByIsbn13GraphQLQuery;
+import com.karankumar.booksapi.client.FindBookByIsbn13ProjectionRoot;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
@@ -70,7 +72,10 @@ class BookDataFetcherTest {
     void findAllBooks_returnsNonEmptyList_whenBooksExist() {
         // Given
         final String title = "How to avoid a climate disaster";
-        given(bookService.findAll()).willReturn(List.of(createBook(title)));
+        Book book = new Book(
+                title, Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
+        );
+        given(bookService.findAll()).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 new FindAllBooksGraphQLQuery(),
                 new FindAllBooksProjectionRoot().title()
@@ -86,9 +91,27 @@ class BookDataFetcherTest {
         assertThat(bookTitles).containsExactly(title);
     }
 
-    private Book createBook(String title) {
-        return new Book(
-                title, Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
+    @Test
+    void findBookByIsbn13_returnsNonNullBook_whenIsbnMatchesABook() {
+        // Given
+        final String isbn13 = "1234567898765";
+        Book book = new Book(
+                "title", Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
         );
+        book.setIsbn13(isbn13);
+        given(bookService.findBookByIsbn13(isbn13)).willReturn(book);
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                new FindBookByIsbn13GraphQLQuery(isbn13),
+                new FindBookByIsbn13ProjectionRoot().isbn13()
+        );
+
+        // When
+        String actual = queryExecutor.executeAndExtractJsonPath(
+                graphQLQueryRequest.serialize(),
+                "data.findBookByIsbn13.isbn13"
+        );
+
+        // Then
+        assertThat(actual).isEqualTo(isbn13);
     }
 }
