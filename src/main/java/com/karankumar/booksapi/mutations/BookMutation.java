@@ -15,6 +15,7 @@
 
 package com.karankumar.booksapi.mutations;
 
+import com.karankumar.booksapi.DgsConstants;
 import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
@@ -37,29 +38,30 @@ public class BookMutation {
     }
 
     // TODO: change this to update a book rather than updating a specific field
-    @DgsData(parentType = "Mutation", field = "addIsbn13")
+    @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.AddIsbn13)
     public Book addIsbn13(DataFetchingEnvironment dataFetchingEnvironment)
             throws InvalidISBN10Exception, InvalidISBN13Exception {
         Optional<Book> optionalBook = bookService.findById(
-                dataFetchingEnvironment.getArgument("bookId")
+                dataFetchingEnvironment.getArgument(DgsConstants.BOOK.Id)
         );
 
         if (optionalBook.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_ERROR_MESSAGE);
         }
 
-        String isbn13 = dataFetchingEnvironment.getArgument("isbn13");
+        String isbn13 = dataFetchingEnvironment.getArgument(DgsConstants.BOOK.Isbn13);
         Book book = optionalBook.get();
         book.setIsbn13(isbn13);
         return bookService.save(optionalBook.get());
     }
 
-    @DgsData(parentType = "Mutation", field = "deleteBook")
+    @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.DeleteBook)
     public Book deleteBook(DataFetchingEnvironment dataFetchingEnvironment) {
-        Long id = dataFetchingEnvironment.getArgument("bookId");
-        if (id == null) {
+        String stringId = dataFetchingEnvironment.getArgument(DgsConstants.BOOK.Id);
+        if (stringId == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_ERROR_MESSAGE);
         }
+        Long id = Long.parseLong(stringId);
 
         Optional<Book> book = bookService.findById(id);
         if (book.isEmpty()) {

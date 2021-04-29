@@ -15,6 +15,7 @@
 
 package com.karankumar.booksapi.datafetchers;
 
+import com.karankumar.booksapi.DgsConstants;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsComponent;
@@ -31,23 +32,23 @@ public class BookDataFetcher {
         this.bookService = bookService;
     }
 
-    @DgsData(parentType = "Query", field = "findAllBooks")
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindAllBooks)
     public List<Book> findAllBooks() {
         return bookService.findAll();
     }
 
-    @DgsData(parentType = "Query", field = "findBookByIsbn13")
-    public Book findBookByIsbn13(@InputArgument("isbn13") String isbn13) {
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindBookByIsbn13)
+    public Book findBookByIsbn13(@InputArgument(DgsConstants.BOOK.Isbn13) String isbn13) {
         return bookService.findBookByIsbn13(isbn13);
     }
 
-    @DgsData(parentType = "Query", field = "findByAuthor")
-    public List<Book> findByAuthor(@InputArgument("fullName") String fullName) {
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByAuthor)
+    public List<Book> findByAuthor(@InputArgument(DgsConstants.AUTHOR.FullName) String fullName) {
         return bookService.findByAuthor(fullName);
     }
 
-    @DgsData(parentType = "Query", field = "findByTitleIgnoreCase")
-    public Book findByTitle(@InputArgument("title") String title) {
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByTitleIgnoreCase)
+    public Book findByTitle(@InputArgument(DgsConstants.BOOK.Title) String title) {
         return bookService.findByTitle(title);
     }
 }

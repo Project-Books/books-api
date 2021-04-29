@@ -1,11 +1,18 @@
+buildscript {
+	dependencies {
+		classpath 'com.netflix.graphql.dgs.codegen:graphql-dgs-codegen-gradle:4.5.2'
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.4.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'jacoco'
-	id "com.netflix.dgs.codegen" version "4.0.10"
 	id "org.flywaydb.flyway" version "7.5.4"
 }
+
+apply plugin: 'com.netflix.dgs.codegen'
 
 group = 'com.karankumar'
 version = '0.0.1-SNAPSHOT'
@@ -33,7 +40,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     	implementation "org.flywaydb:flyway-core:7.5.4"
-    	// https://mvnrepository.com/artifact/commons-validator/commons-validator
     	implementation "commons-validator:commons-validator:1.7"
 
     	compileOnly 'org.projectlombok:lombok'
