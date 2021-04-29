@@ -20,6 +20,8 @@ import com.karankumar.booksapi.client.FindAllBooksGraphQLQuery;
 import com.karankumar.booksapi.client.FindAllBooksProjectionRoot;
 import com.karankumar.booksapi.client.FindBookByIsbn13GraphQLQuery;
 import com.karankumar.booksapi.client.FindBookByIsbn13ProjectionRoot;
+import com.karankumar.booksapi.client.FindByAuthorGraphQLQuery;
+import com.karankumar.booksapi.client.FindByAuthorProjectionRoot;
 import com.karankumar.booksapi.client.FindByTitleIgnoreCaseGraphQLQuery;
 import com.karankumar.booksapi.client.FindByTitleIgnoreCaseProjectionRoot;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
@@ -41,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest(classes = {DgsAutoConfiguration.class, BookDataFetcher.class})
@@ -141,6 +144,28 @@ class BookDataFetcherTest {
     }
 
     @Test
+    void findByAuthor_returnsNonEmptyList_whenBookNotFound() {
+        // Given
+        Book book = new Book(
+                "title", Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
+        );
+        given(bookService.findByAuthor(any(String.class))).willReturn(List.of(book));
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                new FindByAuthorGraphQLQuery("name"),
+                new FindByAuthorProjectionRoot().title()
+        );
+
+        // When
+        List<String> actual = queryExecutor.executeAndExtractJsonPath(
+                graphQLQueryRequest.serialize(),
+                ROOT + DgsConstants.QUERY.FindByAuthor + "[*]." + DgsConstants.BOOK.Title
+        );
+
+        // Then
+        assertThat(actual).isNotEmpty();
+    }
+
+    @Test
     void findByTitle_returnsNullBook_whenTitleNotFound() {
         // Given
         String title = "title";
@@ -160,4 +185,26 @@ class BookDataFetcherTest {
         assertThat(actual).isNull();
     }
 
+    @Test
+    void findByTitle_returnsNonNullBook_whenTitleFound() {
+        // Given
+        String title = "title";
+        Book book = new Book(
+                title, Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
+        );
+        given(bookService.findByTitle(title)).willReturn(book);
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                new FindByTitleIgnoreCaseGraphQLQuery(title),
+                new FindByTitleIgnoreCaseProjectionRoot().title()
+        );
+
+        // When
+        String actual = queryExecutor.executeAndExtractJsonPath(
+                graphQLQueryRequest.serialize(),
+                ROOT + DgsConstants.QUERY.FindByTitleIgnoreCase + ".title"
+        );
+
+        // Then
+        assertThat(actual).isNotNull();
+    }
 }
