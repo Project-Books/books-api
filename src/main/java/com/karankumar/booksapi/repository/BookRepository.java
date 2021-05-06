@@ -20,6 +20,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import com.karankumar.booksapi.model.Publisher;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
     // TODO: this is kept in for quick testing, but will be removed at a later date
@@ -32,4 +33,8 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Book findBookByIsbn13(String isbn13);
   
     Book findByTitleIgnoreCase(String title);
+    
+//    @Query("SELECT b FROM Publisher_book pb join pb.books b")
+    @Query("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors")
+    List<Book> findByPublisher(String publisher);
 }

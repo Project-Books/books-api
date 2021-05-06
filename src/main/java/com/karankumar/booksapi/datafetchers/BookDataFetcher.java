@@ -46,6 +46,11 @@ public class BookDataFetcher {
     public List<Book> findByAuthor(@InputArgument(DgsConstants.AUTHOR.FullName) String fullName) {
         return bookService.findByAuthor(fullName);
     }
+    
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByPublisher)
+    public List<Book> findByPublisher(@InputArgument(DgsConstants.PUBLISHER.Name) String name) {
+        return bookService.findByPublisher(name);
+    }
 
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByTitleIgnoreCase)
     public Book findByTitle(@InputArgument(DgsConstants.BOOK.Title) String title) {
