@@ -18,9 +18,9 @@ package com.karankumar.booksapi.repository;
 import com.karankumar.booksapi.model.Book;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import com.karankumar.booksapi.model.Publisher;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
     // TODO: this is kept in for quick testing, but will be removed at a later date
@@ -34,7 +34,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
   
     Book findByTitleIgnoreCase(String title);
     
-//    @Query("SELECT b FROM Publisher_book pb join pb.books b")
-    @Query("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors")
-    List<Book> findByPublisher(String publisher);
+    @Query(value="SELECT b.* from book b left join publisher_book pb on pb.book_id = b.id left join publisher p on p.id = pb.publisher_id where p.name like :name", nativeQuery=true)
+    List<Book> findByPublisher(@Param("name") String publisher);
 }
