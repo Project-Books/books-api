@@ -40,5 +40,6 @@ steps:
     pollingTimeoutSec: '300'
 
 - script: |
-    bash <(curl -s https://codecov.io/bash)
+    # bash <(curl -s https://codecov.io/bash)
+    bash <(curl -s https://codecov.io/bash) -f build/reports/jacoco/test/jacocoTestReport.xml
   displayName: 'Upload to codecov.io'
