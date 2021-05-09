@@ -29,6 +29,8 @@ import java.util.Optional;
 @Service
 public class BookService {
     private final BookRepository bookRepository;
+    private static final String INVALID_ISBN10_MESSAGE = "%s is not a valid ISBN 10";
+    private static final String INVALID_ISBN13_MESSAGE = "%s is not a valid ISBN 13";
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -36,10 +38,14 @@ public class BookService {
 
     public Book save(@NonNull Book book) throws InvalidISBN10Exception, InvalidISBN13Exception {
         if (book.getIsbn10() != null && isIsbn10Invalid(book.getIsbn10())) {
-            throw new InvalidISBN10Exception("Not a valid ISBN 10: " + book.getIsbn10());
+            throw new InvalidISBN10Exception(
+                    String.format(INVALID_ISBN10_MESSAGE, book.getIsbn10())
+            );
         }
         if (book.getIsbn13() != null && isIsbn13Invalid(book.getIsbn13())) {
-            throw new InvalidISBN13Exception("Not a valid ISBN 13: " + book.getIsbn13());
+            throw new InvalidISBN13Exception(
+                    String.format(INVALID_ISBN13_MESSAGE, book.getIsbn13())
+            );
         }
         return bookRepository.save(book);
     }
