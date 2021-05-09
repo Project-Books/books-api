@@ -43,7 +43,6 @@ public class BooksApiApplication {
                                           PublisherRepository publisherRepository) {
         return args -> {
             Publisher publisher = new Publisher("Bloomsbury");
-//            publisherRepository.save(publisher);
 
             Book book1 = createBook(
                     "Harry Potter and the Philosopher's stone",
@@ -76,6 +75,8 @@ public class BooksApiApplication {
             Author author = new Author("J.K. Rowling", Set.of(book1, book2, book3));
             author.setAbout("A fantastic author");
             authorRepository.save(author);
+
+            publisherRepository.save(publisher);
         };
     }
 

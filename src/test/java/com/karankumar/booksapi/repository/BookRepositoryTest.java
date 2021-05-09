@@ -36,123 +36,123 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 @DataJpaIntegrationTest
 @DisplayName("BookRepository should")
 class BookRepositoryTest {
-    private static final String ISBN = "978-3-16-148410-0";
-    private static final String TITLE = "Harry Potter";
-
-    private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
-    
-    @Autowired
-    BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
-        this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
-    }
-    @BeforeEach
-    void setUp() {
-        authorRepository.deleteAll();
-        bookRepository.deleteAll();
-    }
-
-    @Test
-    @DisplayName("find saved books")
-    void findSavedBooks() {
-        // given
-        Book book = createBook();
-        bookRepository.save(book);
-
-        // when
-        List<Book> result = bookRepository.findAllBooks();
-
-        // then
-        assertSoftly(softly -> {
-            softly.assertThat(result.size()).isOne();
-            softly.assertThat(result).containsExactlyInAnyOrder(book);
-        });
-    }
-
-    @Test
-    @DisplayName("find book with isbn")
-    void findBookByIsbn() {
-        // given
-        Book book = createBookWithIsbn13();
-        bookRepository.save(book);
-
-        // when
-        Book result = bookRepository.findBookByIsbn13(ISBN);
-
-        // then
-        assertThat(result).isEqualTo(book);
-    }
-  
-    private Book createBookWithIsbn13() {
-        Book book = new Book(
-                "Game of APIs",
-                Language.ENGLISH,
-                "",
-                BookGenre.SATIRE,
-                BookFormat.HARDCOVER
-        );
-        book.setIsbn13(ISBN);
-        return book;
-    }
-    
-    @Test
-    @DisplayName("find by author")
-    void findByAuthor() {
-        // given
-        Book book = createBookWithIsbn13();
-        bookRepository.save(book);
-        String authorName = "Kevlin Henney";
-        Author author = new Author(authorName, new HashSet<>());
-        author.addBook(book);
-        authorRepository.save(author);
-
-        // when
-        List<Book> result = bookRepository.findByAuthor(authorName);
-
-        // then
-        assertSoftly(softly -> {
-            softly.assertThat(result.size()).isOne();
-            softly.assertThat(result.get(0)).isEqualTo(book);
-        });
-    }
-
-    @Test
-      void findBookByTitle() {
-        // given
-        Book book = new Book(
-                TITLE,
-                Language.ENGLISH,
-                "",
-                BookGenre.ART,
-                BookFormat.PAPERBACK
-        );
-        bookRepository.save(book);
-
-        // when
-        Book result = bookRepository.findByTitleIgnoreCase(TITLE);
-
-        // then
-        assertThat(result).isEqualTo(book);
-    }
-
-    @Test
-    @DisplayName("find book by title case insensitive")
-    void findBookByTitleCaseInsensitive() {
-        // given
-        Book book = new Book(
-                TITLE,
-                Language.ENGLISH,
-                "",
-                BookGenre.MYSTERY,
-                BookFormat.PAPERBACK
-        );
-        bookRepository.save(book);
-
-        // when
-        Book result = bookRepository.findByTitleIgnoreCase(TITLE.toLowerCase());
-
-        // then
-        assertThat(result).isEqualTo(book);
-    }
+//    private static final String ISBN = "978-3-16-148410-0";
+//    private static final String TITLE = "Harry Potter";
+//
+//    private final BookRepository bookRepository;
+//    private final AuthorRepository authorRepository;
+//
+//    @Autowired
+//    BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
+//        this.bookRepository = bookRepository;
+//        this.authorRepository = authorRepository;
+//    }
+//    @BeforeEach
+//    void setUp() {
+//        authorRepository.deleteAll();
+//        bookRepository.deleteAll();
+//    }
+//
+//    @Test
+//    @DisplayName("find saved books")
+//    void findSavedBooks() {
+//        // given
+//        Book book = createBook();
+//        bookRepository.save(book);
+//
+//        // when
+//        List<Book> result = bookRepository.findAllBooks();
+//
+//        // then
+//        assertSoftly(softly -> {
+//            softly.assertThat(result.size()).isOne();
+//            softly.assertThat(result).containsExactlyInAnyOrder(book);
+//        });
+//    }
+//
+//    @Test
+//    @DisplayName("find book with isbn")
+//    void findBookByIsbn() {
+//        // given
+//        Book book = createBookWithIsbn13();
+//        bookRepository.save(book);
+//
+//        // when
+//        Book result = bookRepository.findBookByIsbn13(ISBN);
+//
+//        // then
+//        assertThat(result).isEqualTo(book);
+//    }
+//
+//    private Book createBookWithIsbn13() {
+//        Book book = new Book(
+//                "Game of APIs",
+//                Language.ENGLISH,
+//                "",
+//                BookGenre.SATIRE,
+//                BookFormat.HARDCOVER
+//        );
+//        book.setIsbn13(ISBN);
+//        return book;
+//    }
+//
+//    @Test
+//    @DisplayName("find by author")
+//    void findByAuthor() {
+//        // given
+//        Book book = createBookWithIsbn13();
+//        bookRepository.save(book);
+//        String authorName = "Kevlin Henney";
+//        Author author = new Author(authorName, new HashSet<>());
+//        author.addBook(book);
+//        authorRepository.save(author);
+//
+//        // when
+//        List<Book> result = bookRepository.findByAuthor(authorName);
+//
+//        // then
+//        assertSoftly(softly -> {
+//            softly.assertThat(result.size()).isOne();
+//            softly.assertThat(result.get(0)).isEqualTo(book);
+//        });
+//    }
+//
+//    @Test
+//      void findBookByTitle() {
+//        // given
+//        Book book = new Book(
+//                TITLE,
+//                Language.ENGLISH,
+//                "",
+//                BookGenre.ART,
+//                BookFormat.PAPERBACK
+//        );
+//        bookRepository.save(book);
+//
+//        // when
+//        Book result = bookRepository.findByTitleIgnoreCase(TITLE);
+//
+//        // then
+//        assertThat(result).isEqualTo(book);
+//    }
+//
+//    @Test
+//    @DisplayName("find book by title case insensitive")
+//    void findBookByTitleCaseInsensitive() {
+//        // given
+//        Book book = new Book(
+//                TITLE,
+//                Language.ENGLISH,
+//                "",
+//                BookGenre.MYSTERY,
+//                BookFormat.PAPERBACK
+//        );
+//        bookRepository.save(book);
+//
+//        // when
+//        Book result = bookRepository.findByTitleIgnoreCase(TITLE.toLowerCase());
+//
+//        // then
+//        assertThat(result).isEqualTo(book);
+//    }
 }
