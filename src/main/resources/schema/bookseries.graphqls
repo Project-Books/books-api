@@ -1,0 +1,5 @@
+type BookSeries {
+    id: ID!
+    seriesName: String!
+    books: [Book]!
+}
