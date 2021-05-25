@@ -129,13 +129,12 @@ class BookRepositoryTest {
         Book book = createBookWithIsbn13();
         String publisherName = "Bmoomsbury";
         Publisher publisher = new Publisher(publisherName);
-        bookRepository.save(book);
         publisherRepository.save(publisher);
+        bookRepository.save(book);
+        publisher.addBook(book);
         
-      
         // when
         List<Book> result = bookRepository.findByPublisher(publisherName);
-
         // then
         assertSoftly(softly -> {
             softly.assertThat(result.size()).isOne();
