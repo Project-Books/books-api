@@ -34,6 +34,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
   
     Book findByTitleIgnoreCase(String title);
     
-    @Query(value="SELECT b.* from book b left join publisher_book pb on pb.book_id = b.id left join publisher p on p.id = pb.publisher_id where p.name like :name", nativeQuery=true)
+//    @Query(value="SELECT b.* from book b left join publisher_book pb on pb.book_id = b.id left join publisher p on p.id = pb.publisher_id where p.name like :name", nativeQuery=true)
+    @Query("SELECT DISTINCT b from Book b LEFT JOIN FETCH b.publishers p where p.name like :name")
     List<Book> findByPublisher(@Param("name") String publisher);
 }

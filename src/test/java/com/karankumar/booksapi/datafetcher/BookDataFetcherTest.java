@@ -207,4 +207,26 @@ class BookDataFetcherTest {
         // Then
         assertThat(actual).isNotNull();
     }
+    
+    @Test
+    void findByPublisher_returnsNonEmptyList_whenPublisherFound() {
+    	String publisher = "Bloomsbury";
+    	Book book = new Book(
+                 "title", Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
+	     );
+	     given(bookService.findByPublisher(any(String.class))).willReturn(List.of(book));
+	     GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+	             new FindByAuthorGraphQLQuery("name"),
+	             new FindByAuthorProjectionRoot().title()
+	     );
+	
+	     // When
+	     List<String> actual = queryExecutor.executeAndExtractJsonPath(
+	             graphQLQueryRequest.serialize(),
+	             ROOT + DgsConstants.QUERY.FindByAuthor + "[*]." + DgsConstants.BOOK.Title
+	     );
+	
+	     // Then
+	     assertThat(actual).isNotEmpty();
+    }
 }
