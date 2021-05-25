@@ -68,8 +68,8 @@ public class BookService {
         return bookRepository.findBookByIsbn13(isbn13);
     }
     
-    public List<Book> findByPublisher(String name) {
-    	return bookRepository.findByPublisher(name);
+    public List<Book> findByPublisher(String publisherName) {
+    	return bookRepository.findByPublisher(publisherName);
     }
     
     /**

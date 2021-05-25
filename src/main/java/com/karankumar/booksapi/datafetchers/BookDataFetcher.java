@@ -48,8 +48,8 @@ public class BookDataFetcher {
     }
     
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByPublisher)
-    public List<Book> findByPublisher(@InputArgument(DgsConstants.PUBLISHER.Name) String name) {
-        return bookService.findByPublisher(name);
+    public List<Book> findByPublisher(@InputArgument(DgsConstants.PUBLISHER.Name) String publisherName) {
+        return bookService.findByPublisher(publisherName);
     }
 
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByTitleIgnoreCase)
