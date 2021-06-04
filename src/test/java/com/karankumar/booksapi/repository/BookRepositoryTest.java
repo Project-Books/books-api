@@ -127,12 +127,12 @@ class BookRepositoryTest {
     void findByPublisher() {
         // given
         Book book = createBookWithIsbn13();
-        String publisherName = "Bmoomsbury";
+        String publisherName = "Bloomsbury";
         Publisher publisher = new Publisher(publisherName);
+        publisher.addBook(book);
         publisherRepository.save(publisher);
         bookRepository.save(book);
-        publisher.addBook(book);
-        
+
         // when
         List<Book> result = bookRepository.findByPublisher(publisherName);
         // then
