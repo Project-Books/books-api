@@ -46,11 +46,13 @@ class BookRepositoryTest {
     private final PublisherRepository publisherRepository;
     
     @Autowired
-    BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository, PublisherRepository publisherRepository) {
+    BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository,
+                       PublisherRepository publisherRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.publisherRepository = publisherRepository;
     }
+
     @BeforeEach
     void setUp() {
         authorRepository.deleteAll();
@@ -58,7 +60,6 @@ class BookRepositoryTest {
     }
 
     @Test
-    @DisplayName("find saved books")
     void findSavedBooks() {
         // given
         Book book = createBook();
@@ -75,7 +76,6 @@ class BookRepositoryTest {
     }
 
     @Test
-    @DisplayName("find book with isbn")
     void findBookByIsbn() {
         // given
         Book book = createBookWithIsbn13();
@@ -101,7 +101,6 @@ class BookRepositoryTest {
     }
     
     @Test
-    @DisplayName("find by author")
     void findByAuthor() {
         // given
         Book book = createBookWithIsbn13();
@@ -123,7 +122,6 @@ class BookRepositoryTest {
     
        
     @Test
-    @DisplayName("find by publisher")
     void findByPublisher() {
         // given
         Book book = createBookWithIsbn13();
@@ -135,6 +133,7 @@ class BookRepositoryTest {
 
         // when
         List<Book> result = bookRepository.findByPublisher(publisherName);
+
         // then
         assertSoftly(softly -> {
             softly.assertThat(result.size()).isOne();
@@ -162,7 +161,6 @@ class BookRepositoryTest {
     }
 
     @Test
-    @DisplayName("find book by title case insensitive")
     void findBookByTitleCaseInsensitive() {
         // given
         Book book = new Book(
