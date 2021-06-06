@@ -64,6 +64,8 @@ To access the MySQL database when docker-compose is running:
     - Username: `root`
     - Password: `rootpassword`
 
+Alternatively, see how to do this in [Intellij](https://project-books.github.io/docs/development/how-to/database-intellij/). Note that you'll need to use `root` as the username, `rootpassword` as the password and port 3307.
+
 ## Contributing
 
 If you wish to contribute (thanks!), please first see the [contributing document](https://github.com/Project-Books/books-api/blob/main/CONTRIBUTING.md).
