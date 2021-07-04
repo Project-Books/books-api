@@ -9,5 +9,5 @@ type Book {
     yearOfPublication: Int
     publisher: Publisher
     format: BookFormat
+    awards: [Award!]!
 }
-
