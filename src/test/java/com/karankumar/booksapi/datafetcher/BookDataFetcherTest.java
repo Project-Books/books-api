@@ -16,14 +16,7 @@
 package com.karankumar.booksapi.datafetcher;
 
 import com.karankumar.booksapi.DgsConstants;
-import com.karankumar.booksapi.client.FindAllBooksGraphQLQuery;
-import com.karankumar.booksapi.client.FindAllBooksProjectionRoot;
-import com.karankumar.booksapi.client.FindBookByIsbn13GraphQLQuery;
-import com.karankumar.booksapi.client.FindBookByIsbn13ProjectionRoot;
-import com.karankumar.booksapi.client.FindByAuthorGraphQLQuery;
-import com.karankumar.booksapi.client.FindByAuthorProjectionRoot;
-import com.karankumar.booksapi.client.FindByTitleIgnoreCaseGraphQLQuery;
-import com.karankumar.booksapi.client.FindByTitleIgnoreCaseProjectionRoot;
+import com.karankumar.booksapi.client.*;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
@@ -33,6 +26,7 @@ import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsQueryExecutor;
 import com.netflix.graphql.dgs.autoconfig.DgsAutoConfiguration;
 import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest;
+import net.minidev.json.JSONArray;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -202,6 +196,49 @@ class BookDataFetcherTest {
         String actual = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
                 ROOT + DgsConstants.QUERY.FindByTitleIgnoreCase + ".title"
+        );
+
+        // Then
+        assertThat(actual).isNotNull();
+    }
+
+    @Test
+    void findByAwardName_returnsNullBook_whenAwardNotFound() {
+        // Given
+        String awardName = "NOBEL_PRIZE";
+        given(bookService.findByAward(awardName)).willReturn(null);
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                new FindByAwardNameGraphQLQuery(awardName),
+                new FindByAwardNameProjectionRoot().title()
+        );
+
+        // When
+        String actual = queryExecutor.executeAndExtractJsonPath(
+                graphQLQueryRequest.serialize(),
+                ROOT + DgsConstants.QUERY.FindByAwardName
+        );
+
+        // Then
+        assertThat(actual).isNull();
+    }
+
+    @Test
+    void findByAwardName_returnsNonNullBook_whenAwardFound() {
+        // Given
+        String awardName = "NOBEL_PRIZE";
+        Book book = new Book(
+                "title", Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
+        );
+        given(bookService.findByAward(awardName)).willReturn(List.of(book));
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                new FindByAwardNameGraphQLQuery(awardName),
+                new FindByAwardNameProjectionRoot().title()
+        );
+
+        // When
+        JSONArray actual = queryExecutor.executeAndExtractJsonPath(
+                graphQLQueryRequest.serialize(),
+                ROOT + DgsConstants.QUERY.FindByAwardName + ".*"
         );
 
         // Then
