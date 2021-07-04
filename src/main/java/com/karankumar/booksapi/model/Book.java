@@ -21,15 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -74,6 +66,14 @@ public class Book {
 
     @Column(nullable = false)
     private BookFormat format;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="book_award",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "award_id")
+    )
+    private Set<Award> awards = new HashSet<>();
 
     public Book(@NonNull String title, @NonNull Language language, @NonNull String blurb,
                 @NonNull BookGenre genre, @NonNull BookFormat format) {

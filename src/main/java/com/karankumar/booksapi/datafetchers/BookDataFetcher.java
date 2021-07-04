@@ -16,12 +16,14 @@
 package com.karankumar.booksapi.datafetchers;
 
 import com.karankumar.booksapi.DgsConstants;
+import com.karankumar.booksapi.model.AwardName;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.InputArgument;
 
+import java.util.Arrays;
 import java.util.List;
 
 @DgsComponent
@@ -50,5 +52,10 @@ public class BookDataFetcher {
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByTitleIgnoreCase)
     public Book findByTitle(@InputArgument(DgsConstants.BOOK.Title) String title) {
         return bookService.findByTitle(title);
+    }
+
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByAwardName)
+    public List<Book> findByAward(@InputArgument(DgsConstants.AWARD.AwardName) String awardName) {
+        return bookService.findByAward(awardName);
     }
 }

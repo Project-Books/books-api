@@ -17,6 +17,8 @@ package com.karankumar.booksapi.service;
 
 import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
+//import com.karankumar.booksapi.model.AwardName;
+import com.karankumar.booksapi.model.AwardName;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.repository.BookRepository;
 import lombok.NonNull;
@@ -83,7 +85,9 @@ public class BookService {
         return bookRepository.findByTitleIgnoreCase(title);
     }
 
-    public void deleteBook(@NonNull Long id) {
-        bookRepository.deleteById(id);
+    public void deleteBook(@NonNull Long id) { bookRepository.deleteById(id); }
+
+    public List<Book> findByAward(@NonNull String awardName) {
+        return bookRepository.findByAwardName(AwardName.valueOf(awardName.trim()));
     }
 }
