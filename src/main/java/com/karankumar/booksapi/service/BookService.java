@@ -88,6 +88,6 @@ public class BookService {
     public void deleteBook(@NonNull Long id) { bookRepository.deleteById(id); }
 
     public List<Book> findByAward(@NonNull String awardName) {
-        return bookRepository.findByAwardName(AwardName.valueOf(awardName.trim()));
+        return bookRepository.findByAwardName(AwardName.fromLongName(awardName.trim()));
     }
 }

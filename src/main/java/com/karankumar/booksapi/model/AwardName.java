@@ -24,4 +24,28 @@ public enum AwardName {
     public String toString() {
         return prizeName;
     }
+
+    public static AwardName fromLongName(String longName) {
+        switch (longName.toLowerCase()) {
+            case "women's prize for fiction":
+                return AwardName.WOMENS_PRIZE;
+            case "orwell book prize":
+                return AwardName.ORWELL_PRIZE;
+            case "the portico prize":
+                return AwardName.PORTICO_PRIZE;
+            case "the baillie gifford prize for non-fiction":
+                return AwardName.BAILLIE_PRIZE;
+            case "international dylan thomas prize":
+                return AwardName.DYLAN_PRIZE;
+            case "the man booker prize":
+                return AwardName.BOOKER_PRIZE;
+            case "the man booker international prize":
+                return AwardName.BOOKER_INTER_PRIZE;
+            case "nobel prize in literature":
+                return AwardName.NOBEL_PRIZE;
+            default:
+                throw new IllegalArgumentException("Literary Award [" + longName
+                        + "] not present.");
+        }
+    }
 }

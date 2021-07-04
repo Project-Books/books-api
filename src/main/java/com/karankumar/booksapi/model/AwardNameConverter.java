@@ -15,6 +15,6 @@ public class AwardNameConverter implements AttributeConverter<AwardName, String>
 
     @Override
     public AwardName convertToEntityAttribute(String dbData) {
-        return AwardName.valueOf(dbData);
+        return AwardName.fromLongName(dbData);
     }
 }
