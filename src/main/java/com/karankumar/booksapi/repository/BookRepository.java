@@ -18,6 +18,7 @@ package com.karankumar.booksapi.repository;
 import com.karankumar.booksapi.model.Book;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -32,4 +33,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Book findBookByIsbn13(String isbn13);
   
     Book findByTitleIgnoreCase(String title);
+    
+    @Query(value="SELECT b.* from book b left join publisher_book pb on pb.book_id = b.id left join publisher p on p.id = pb.publisher_id where p.name like :publisherName", nativeQuery=true)
+    List<Book> findByPublisher(@Param("publisherName") String publisherName);
 }
