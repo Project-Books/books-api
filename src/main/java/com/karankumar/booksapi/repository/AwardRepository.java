@@ -15,25 +15,15 @@
 
 package com.karankumar.booksapi.repository;
 
-import com.karankumar.booksapi.model.AwardName;
-import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.Award;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface BookRepository extends CrudRepository<Book, Long> {
-    // TODO: this is kept in for quick testing, but will be removed at a later date
-    @Query("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors")
-    List<Book> findAllBooks();
+public interface AwardRepository extends CrudRepository<Award, Long> {
   
-    @Query("SELECT a.books FROM Author a where a.fullName=?1")
-    List<Book> findByAuthor(String fullName);
-
-    Book findBookByIsbn13(String isbn13);
+    @Query("SELECT DISTINCT a FROM Award a LEFT JOIN FETCH a.books")
+    List<Award> findAllAwards();
   
-    Book findByTitleIgnoreCase(String title);
-
-    @Query("SELECT a.books FROM Award a where a.awardName=?1")
-    List<Book> findByAwardName(AwardName awardName);
 }

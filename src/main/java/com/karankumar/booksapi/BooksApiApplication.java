@@ -15,13 +15,9 @@
 
 package com.karankumar.booksapi;
 
-import com.karankumar.booksapi.model.Author;
-import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.Publisher;
+import com.karankumar.booksapi.model.*;
 import com.karankumar.booksapi.repository.AuthorRepository;
+import com.karankumar.booksapi.repository.AwardRepository;
 import com.karankumar.booksapi.repository.BookRepository;
 import com.karankumar.booksapi.repository.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -40,7 +36,8 @@ public class BooksApiApplication {
     @Bean
     public CommandLineRunner populateData(AuthorRepository authorRepository,
                                           BookRepository bookRepository,
-                                          PublisherRepository publisherRepository) {
+                                          PublisherRepository publisherRepository,
+                                          AwardRepository awardRepository) {
         return args -> {
             Publisher publisher = new Publisher("Bloomsbury");
 
@@ -50,7 +47,6 @@ public class BooksApiApplication {
                     1997,
                     "9781408810545"
             );
-            bookRepository.save(book1);
             publisher.addBook(book1);
 
             Book book2 = createBook(
@@ -59,7 +55,6 @@ public class BooksApiApplication {
                     1998,
                     "1234567898765"
             );
-            bookRepository.save(book2);
 
             Book book3 = createBook(
                     "The Hobbit",
@@ -67,14 +62,22 @@ public class BooksApiApplication {
                     1937,
                     "1234567898761"
             );
-            bookRepository.save(book3);
             Author author2 = new Author("J.R.R. Tolkien", Set.of(book3));
             author2.setAbout("Another fantastic author");
             authorRepository.save(author2);
 
-            Author author = new Author("J.K. Rowling", Set.of(book1, book2, book3));
+            Author author = new Author("J.K. Rowling", Set.of(book1, book2));
             author.setAbout("A fantastic author");
             authorRepository.save(author);
+
+            Award award1 = new Award(AwardName.NOBEL_PRIZE, null, 2010, Set.of(book1, book2));
+            awardRepository.save(award1);
+            Award award2 = new Award(AwardName.DYLAN_PRIZE, "Fantasy", 2008, Set.of(book1));
+            awardRepository.save(award2);
+
+            bookRepository.save(book3);
+            bookRepository.save(book2);
+            bookRepository.save(book1);
 
             publisherRepository.save(publisher);
         };
