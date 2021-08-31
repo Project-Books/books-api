@@ -50,7 +50,6 @@ public class BooksApiApplication {
                     1997,
                     "9781408810545"
             );
-            bookRepository.save(book1);
             publisher.addBook(book1);
 
             Book book2 = createBook(
@@ -59,7 +58,6 @@ public class BooksApiApplication {
                     1998,
                     "1234567898765"
             );
-            bookRepository.save(book2);
 
             Book book3 = createBook(
                     "The Hobbit",
@@ -67,15 +65,16 @@ public class BooksApiApplication {
                     1937,
                     "1234567898761"
             );
-            bookRepository.save(book3);
             Author author2 = new Author("J.R.R. Tolkien", Set.of(book3));
             author2.setAbout("Another fantastic author");
             authorRepository.save(author2);
 
-            Author author = new Author("J.K. Rowling", Set.of(book1, book2, book3));
+            Set<Book> allBooks = Set.of(book1, book2, book3);
+            Author author = new Author("J.K. Rowling", allBooks);
             author.setAbout("A fantastic author");
             authorRepository.save(author);
 
+            bookRepository.saveAll(allBooks);
             publisherRepository.save(publisher);
         };
     }
