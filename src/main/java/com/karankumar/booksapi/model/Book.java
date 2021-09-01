@@ -21,15 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,7 +61,7 @@ public class Book {
     @Column(nullable = false)
     private String blurb;
 
-    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Publisher> publishers = new HashSet<>();
 
     @Column(nullable = false)

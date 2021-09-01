@@ -41,6 +41,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -109,7 +110,7 @@ class BookDataFetcherTest {
         book.setIsbn13(isbn13);
         given(bookService.findBookByIsbn13(isbn13)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindBookByIsbn13GraphQLQuery(isbn13),
+                new FindBookByIsbn13GraphQLQuery(isbn13, null),
                 new FindBookByIsbn13ProjectionRoot().isbn13()
         );
 
@@ -129,7 +130,7 @@ class BookDataFetcherTest {
         final String isbn13 = "1234567898765";
         given(bookService.findBookByIsbn13(isbn13)).willReturn(null);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindBookByIsbn13GraphQLQuery(isbn13),
+                new FindBookByIsbn13GraphQLQuery(isbn13, null),
                 new FindBookByIsbn13ProjectionRoot().isbn13()
         );
 
@@ -151,7 +152,7 @@ class BookDataFetcherTest {
         );
         given(bookService.findByAuthor(any(String.class))).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindByAuthorGraphQLQuery("name"),
+                new FindByAuthorGraphQLQuery("name", null),
                 new FindByAuthorProjectionRoot().title()
         );
 
@@ -171,7 +172,7 @@ class BookDataFetcherTest {
         String title = "title";
         given(bookService.findByTitle(title)).willReturn(null);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindByTitleIgnoreCaseGraphQLQuery(title),
+                new FindByTitleIgnoreCaseGraphQLQuery(title, null),
                 new FindByTitleIgnoreCaseProjectionRoot().title()
         );
 
@@ -194,7 +195,7 @@ class BookDataFetcherTest {
         );
         given(bookService.findByTitle(title)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindByTitleIgnoreCaseGraphQLQuery(title),
+                new FindByTitleIgnoreCaseGraphQLQuery(title, null),
                 new FindByTitleIgnoreCaseProjectionRoot().title()
         );
 
