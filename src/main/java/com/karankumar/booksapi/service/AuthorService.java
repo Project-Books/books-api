@@ -16,19 +16,28 @@
 package com.karankumar.booksapi.service;
 
 import com.karankumar.booksapi.model.Author;
+import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.repository.AuthorRepository;
+import com.karankumar.booksapi.repository.BookRepository;
+import com.karankumar.booksapi.repository.NativeQueryRepository;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
     private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
+    private final NativeQueryRepository nativeQueryRepository;
 
-    public AuthorService(AuthorRepository authorRepository) {
+    public AuthorService(AuthorRepository authorRepository, BookRepository bookRepository, NativeQueryRepository nativeQueryRepository) {
         this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
+        this.nativeQueryRepository = nativeQueryRepository;
     }
 
     public Author save(@NonNull Author author) {
@@ -42,4 +51,17 @@ public class AuthorService {
     public List<Author> findAll() {
         return authorRepository.findAllAuthors();
     }
+
+    public void deleteAuthor(@NonNull Author author) {
+        Set<Book> booksWithOneAuthor = author.getBooks()
+                .stream()
+                .filter(book -> book.getAuthors().size() == 1)
+                .collect(Collectors.toSet());
+
+        nativeQueryRepository.deleteAllAuthorAssociations(author.getId());
+        bookRepository.deleteAll(booksWithOneAuthor);
+
+        authorRepository.deleteById(author.getId());
+    }
+
 }
