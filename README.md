@@ -35,9 +35,8 @@ Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8
 
 1. Import as a Gradle project into your favourite IDE
 2. Start the MySQL Database or run the docker-compose file `docker-compose up -d` (you may need to add `sudo` to this command)
-3. Set the active Spring profile to dev (see how to do this in [IntelliJ](https://github.com/Project-Books/books-api/wiki/Change-active-Spring-profile-in-IntelliJ))
-4. Run `BooksApiApplication.java`
-5. Go to `localhost:8080/graphiql`
+3. Run `BooksApiApplication.java`
+4. Go to `localhost:8080/graphiql`
 
 Sample query:
 ```graphql
