@@ -1,4 +1,6 @@
 input BookFilter {
     title: String
     isbn13: String
+    publisherName: String
+    authorName: String
 }

@@ -19,6 +19,7 @@ import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.repository.BookRepository;
+import com.karankumar.booksapi.types.BookFilter;
 import lombok.NonNull;
 import org.apache.commons.validator.routines.ISBNValidator;
 import org.springframework.stereotype.Service;
@@ -62,10 +63,6 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
-    public List<Book> findAll() {
-        return bookRepository.findAllBooks();
-    }
-
     public List<Book> findByAuthor(@NonNull String fullName) {
         return bookRepository.findByAuthor(fullName);
     }
@@ -89,5 +86,13 @@ public class BookService {
 
     public void deleteBook(@NonNull Long id) {
         bookRepository.deleteById(id);
+    }
+
+    public List<Book> findByFilter(BookFilter bookFilter) {
+        return bookRepository.findBooksByFilter(
+                bookFilter.getIsbn13(),
+                bookFilter.getTitle(),
+                bookFilter.getPublisherName()
+        );
     }
 }

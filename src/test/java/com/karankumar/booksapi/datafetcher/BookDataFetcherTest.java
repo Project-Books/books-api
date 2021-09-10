@@ -16,8 +16,6 @@
 package com.karankumar.booksapi.datafetcher;
 
 import com.karankumar.booksapi.DgsConstants;
-import com.karankumar.booksapi.client.AuthorBooksGraphQLQuery;
-import com.karankumar.booksapi.client.AuthorBooksProjectionRoot;
 import com.karankumar.booksapi.client.BookGraphQLQuery;
 import com.karankumar.booksapi.client.BookProjectionRoot;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
@@ -64,7 +62,7 @@ class BookDataFetcherTest {
         given(bookService.findBookByIsbn13(isbn13)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 BookGraphQLQuery.newRequest()
-                                .filter(new BookFilter(null, isbn13))
+                                .filter(new BookFilter(null, isbn13, null, null))
                                 .build(),
                 new BookProjectionRoot().isbn13()
         );
@@ -86,7 +84,7 @@ class BookDataFetcherTest {
         given(bookService.findBookByIsbn13(isbn13)).willReturn(null);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 BookGraphQLQuery.newRequest()
-                                .filter(new BookFilter(null, isbn13))
+                                .filter(new BookFilter(null, isbn13, null, null))
                                 .build(),
                 new BookProjectionRoot().isbn13()
         );
@@ -109,16 +107,16 @@ class BookDataFetcherTest {
         );
         given(bookService.findByAuthor(any(String.class))).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                AuthorBooksGraphQLQuery.newRequest()
-                                       .fullName("name")
-                                       .build(),
-                new AuthorBooksProjectionRoot().title()
+                BookGraphQLQuery.newRequest()
+                                .filter(new BookFilter(null, null, null, ""))
+                                .build(),
+                new BookProjectionRoot().title()
         );
 
         // When
         List<String> actual = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.AuthorBooks + "[*]." + DgsConstants.BOOK.Title
+                ROOT + DgsConstants.QUERY.Book + "[*]." + DgsConstants.BOOK.Title
         );
 
         // Then
@@ -132,7 +130,7 @@ class BookDataFetcherTest {
         given(bookService.findByTitle(title)).willReturn(null);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 BookGraphQLQuery.newRequest()
-                                .filter(new BookFilter(title, null))
+                                .filter(new BookFilter(title, null, null, null))
                                 .build(),
                 new BookProjectionRoot().title()
         );
@@ -157,7 +155,7 @@ class BookDataFetcherTest {
         given(bookService.findByTitle(title)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 BookGraphQLQuery.newRequest()
-                                .filter(new BookFilter(title, null))
+                                .filter(new BookFilter(title, null, null, null))
                                 .build(),
                 new BookProjectionRoot().title()
         );

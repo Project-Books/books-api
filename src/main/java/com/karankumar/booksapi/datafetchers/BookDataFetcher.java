@@ -18,6 +18,7 @@ package com.karankumar.booksapi.datafetchers;
 import com.karankumar.booksapi.DgsConstants;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.service.BookService;
+import com.karankumar.booksapi.types.BookFilter;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.InputArgument;
@@ -33,18 +34,18 @@ public class BookDataFetcher {
     }
 
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.Book)
-    public Book findBookByFilter(@InputArgument String isbn13, @InputArgument String title) {
-        // TODO: handle filter
-        return bookService.findBookByIsbn13(isbn13);
-    }
-
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.AuthorBooks)
-    public List<Book> findByAuthor(@InputArgument(DgsConstants.AUTHOR.FullName) String fullName) {
-        return bookService.findByAuthor(fullName);
-    }
-    
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByPublisher)
-    public List<Book> findByPublisher(@InputArgument(DgsConstants.PUBLISHER.Name) String publisherName) {
-        return bookService.findByPublisher(publisherName);
+    public List<Book> findBookByFilter(@InputArgument String isbn13,
+                                       @InputArgument String title,
+                                       @InputArgument String publisherName,
+                                       @InputArgument String authorName) {
+        // TODO: handle filter. We'll need a query that can filter for any combination
+        BookFilter bookFilter = new BookFilter(
+                title,
+                isbn13,
+                publisherName,
+                authorName
+        );
+        return bookService.findByFilter(bookFilter);
+//        return bookService.findBookByIsbn13(isbn13.get());
     }
 }
