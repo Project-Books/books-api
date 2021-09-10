@@ -24,6 +24,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,8 +50,14 @@ public class Book {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
+            joinColumns = @JoinColumn(
+                    name = "book_id",
+                    foreignKey = @ForeignKey(name = "book_author_book_id_fk")
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "author_id",
+                    foreignKey = @ForeignKey(name = "book_author_author_id_fk")
+            )
     )
     private Set<Author> authors = new HashSet<>();
 
