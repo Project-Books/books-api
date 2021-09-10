@@ -31,6 +31,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.CascadeType;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -76,7 +77,7 @@ public class Book {
     @Column(nullable = false)
     private String blurb;
 
-    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Publisher> publishers = new HashSet<>();
 
     @Column(nullable = false)
