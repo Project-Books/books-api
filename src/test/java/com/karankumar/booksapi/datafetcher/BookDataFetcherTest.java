@@ -16,20 +16,17 @@
 package com.karankumar.booksapi.datafetcher;
 
 import com.karankumar.booksapi.DgsConstants;
-import com.karankumar.booksapi.client.FindAllBooksGraphQLQuery;
-import com.karankumar.booksapi.client.FindAllBooksProjectionRoot;
-import com.karankumar.booksapi.client.FindBookByIsbn13GraphQLQuery;
-import com.karankumar.booksapi.client.FindBookByIsbn13ProjectionRoot;
-import com.karankumar.booksapi.client.FindByAuthorGraphQLQuery;
-import com.karankumar.booksapi.client.FindByAuthorProjectionRoot;
-import com.karankumar.booksapi.client.FindByTitleIgnoreCaseGraphQLQuery;
-import com.karankumar.booksapi.client.FindByTitleIgnoreCaseProjectionRoot;
+import com.karankumar.booksapi.client.AuthorBooksGraphQLQuery;
+import com.karankumar.booksapi.client.AuthorBooksProjectionRoot;
+import com.karankumar.booksapi.client.BookGraphQLQuery;
+import com.karankumar.booksapi.client.BookProjectionRoot;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
 import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.Language;
 import com.karankumar.booksapi.service.BookService;
+import com.karankumar.booksapi.types.BookFilter;
 import com.netflix.graphql.dgs.DgsQueryExecutor;
 import com.netflix.graphql.dgs.autoconfig.DgsAutoConfiguration;
 import com.netflix.graphql.dgs.client.codegen.GraphQLQueryRequest;
@@ -39,7 +36,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -58,48 +54,6 @@ class BookDataFetcherTest {
     private final String ROOT = "data.";
 
     @Test
-    void findAllBooks_returnsEmptyList_whenNoBooksExist() {
-        // Given
-        given(bookService.findAll()).willReturn(new ArrayList<>());
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindAllBooksGraphQLQuery(),
-                new FindAllBooksProjectionRoot().title()
-        );
-
-        // When
-        List<String> bookTitles = queryExecutor.executeAndExtractJsonPath(
-                graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.FindAllBooks + "[*]." + DgsConstants.BOOK.Title
-        );
-
-        // Then
-        assertThat(bookTitles.size()).isZero();
-    }
-
-    @Test
-    void findAllBooks_returnsNonEmptyList_whenBooksExist() {
-        // Given
-        final String title = "How to avoid a climate disaster";
-        Book book = new Book(
-                title, Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
-        );
-        given(bookService.findAll()).willReturn(List.of(book));
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindAllBooksGraphQLQuery(),
-                new FindAllBooksProjectionRoot().title()
-        );
-
-        // When
-        List<String> bookTitles = queryExecutor.executeAndExtractJsonPath(
-                graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.FindAllBooks + "[*]." + DgsConstants.BOOK.Title
-        );
-
-        // Then
-        assertThat(bookTitles).containsExactly(title);
-    }
-
-    @Test
     void findBookByIsbn13_returnsNonNullBook_whenIsbnMatchesABook() {
         // Given
         final String isbn13 = "1234567898765";
@@ -109,14 +63,16 @@ class BookDataFetcherTest {
         book.setIsbn13(isbn13);
         given(bookService.findBookByIsbn13(isbn13)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindBookByIsbn13GraphQLQuery.newRequest().isbn13(isbn13).build(),
-                new FindBookByIsbn13ProjectionRoot().isbn13()
+                BookGraphQLQuery.newRequest()
+                                .filter(new BookFilter(null, isbn13))
+                                .build(),
+                new BookProjectionRoot().isbn13()
         );
 
         // When
         String actual = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.FindBookByIsbn13 + "." + DgsConstants.BOOK.Isbn13
+                ROOT + DgsConstants.QUERY.Book + "." + DgsConstants.BOOK.Isbn13
         );
 
         // Then
@@ -129,16 +85,16 @@ class BookDataFetcherTest {
         final String isbn13 = "1234567898765";
         given(bookService.findBookByIsbn13(isbn13)).willReturn(null);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindBookByIsbn13GraphQLQuery.newRequest()
-                                            .isbn13(isbn13)
-                                            .build(),
-                new FindBookByIsbn13ProjectionRoot().isbn13()
+                BookGraphQLQuery.newRequest()
+                                .filter(new BookFilter(null, isbn13))
+                                .build(),
+                new BookProjectionRoot().isbn13()
         );
 
         // When
         String actual = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.FindBookByIsbn13
+                ROOT + DgsConstants.QUERY.Book
         );
 
         // Then
@@ -153,16 +109,16 @@ class BookDataFetcherTest {
         );
         given(bookService.findByAuthor(any(String.class))).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindByAuthorGraphQLQuery.newRequest()
-                                        .fullName("name")
-                                        .build(),
-                new FindByAuthorProjectionRoot().title()
+                AuthorBooksGraphQLQuery.newRequest()
+                                       .fullName("name")
+                                       .build(),
+                new AuthorBooksProjectionRoot().title()
         );
 
         // When
         List<String> actual = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.FindByAuthor + "[*]." + DgsConstants.BOOK.Title
+                ROOT + DgsConstants.QUERY.AuthorBooks + "[*]." + DgsConstants.BOOK.Title
         );
 
         // Then
@@ -175,16 +131,16 @@ class BookDataFetcherTest {
         String title = "title";
         given(bookService.findByTitle(title)).willReturn(null);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindByTitleIgnoreCaseGraphQLQuery.newRequest()
-                                                 .title(title)
-                                                 .build(),
-                new FindByTitleIgnoreCaseProjectionRoot().title()
+                BookGraphQLQuery.newRequest()
+                                .filter(new BookFilter(title, null))
+                                .build(),
+                new BookProjectionRoot().title()
         );
 
         // When
         String actual = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.FindByTitleIgnoreCase
+                ROOT + DgsConstants.QUERY.Book
         );
 
         // Then
@@ -200,16 +156,16 @@ class BookDataFetcherTest {
         );
         given(bookService.findByTitle(title)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindByTitleIgnoreCaseGraphQLQuery.newRequest()
-                                                 .title(title)
-                                                 .build(),
-                new FindByTitleIgnoreCaseProjectionRoot().title()
+                BookGraphQLQuery.newRequest()
+                                .filter(new BookFilter(title, null))
+                                .build(),
+                new BookProjectionRoot().title()
         );
 
         // When
         String actual = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.FindByTitleIgnoreCase + ".title"
+                ROOT + DgsConstants.QUERY.Book + ".title"
         );
 
         // Then

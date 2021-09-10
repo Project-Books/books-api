@@ -1,0 +1,4 @@
+input BookFilter {
+    title: String
+    isbn13: String
+}

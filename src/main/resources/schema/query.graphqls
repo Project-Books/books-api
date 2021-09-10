@@ -1,7 +1,5 @@
 type Query {
-    findAllBooks: [Book]!
-    findBookByIsbn13(isbn13: String!): Book
-    findByAuthor(fullName: String!): [Book]!
-    findByTitleIgnoreCase(title: String!): Book
+    book(filter: BookFilter): Book
+    authorBooks(fullName: String!): [Book]!
     findByPublisher(name: String!): [Book]!
 }

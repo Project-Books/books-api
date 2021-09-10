@@ -32,17 +32,13 @@ public class BookDataFetcher {
         this.bookService = bookService;
     }
 
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindAllBooks)
-    public List<Book> findAllBooks() {
-        return bookService.findAll();
-    }
-
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindBookByIsbn13)
-    public Book findBookByIsbn13(@InputArgument(DgsConstants.BOOK.Isbn13) String isbn13) {
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.Book)
+    public Book findBookByFilter(@InputArgument String isbn13, @InputArgument String title) {
+        // TODO: handle filter
         return bookService.findBookByIsbn13(isbn13);
     }
 
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByAuthor)
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.AuthorBooks)
     public List<Book> findByAuthor(@InputArgument(DgsConstants.AUTHOR.FullName) String fullName) {
         return bookService.findByAuthor(fullName);
     }
@@ -50,10 +46,5 @@ public class BookDataFetcher {
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByPublisher)
     public List<Book> findByPublisher(@InputArgument(DgsConstants.PUBLISHER.Name) String publisherName) {
         return bookService.findByPublisher(publisherName);
-    }
-
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByTitleIgnoreCase)
-    public Book findByTitle(@InputArgument(DgsConstants.BOOK.Title) String title) {
-        return bookService.findByTitle(title);
     }
 }
