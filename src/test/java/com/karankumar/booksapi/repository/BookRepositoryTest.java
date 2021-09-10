@@ -21,6 +21,8 @@ import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
 import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.Language;
+import com.karankumar.booksapi.model.Publisher;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,12 +43,16 @@ class BookRepositoryTest {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final PublisherRepository publisherRepository;
     
     @Autowired
-    BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository) {
+    BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository,
+                       PublisherRepository publisherRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.publisherRepository = publisherRepository;
     }
+
     @BeforeEach
     void setUp() {
         authorRepository.deleteAll();
@@ -54,7 +60,6 @@ class BookRepositoryTest {
     }
 
     @Test
-    @DisplayName("find saved books")
     void findSavedBooks() {
         // given
         Book book = createBook();
@@ -71,7 +76,6 @@ class BookRepositoryTest {
     }
 
     @Test
-    @DisplayName("find book with isbn")
     void findBookByIsbn() {
         // given
         Book book = createBookWithIsbn13();
@@ -97,7 +101,6 @@ class BookRepositoryTest {
     }
     
     @Test
-    @DisplayName("find by author")
     void findByAuthor() {
         // given
         Book book = createBookWithIsbn13();
@@ -109,6 +112,27 @@ class BookRepositoryTest {
 
         // when
         List<Book> result = bookRepository.findByAuthor(authorName);
+
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(result.size()).isOne();
+            softly.assertThat(result.get(0)).isEqualTo(book);
+        });
+    }
+    
+       
+    @Test
+    void findByPublisher() {
+        // given
+        Book book = createBookWithIsbn13();
+        String publisherName = "Bloomsbury";
+        Publisher publisher = new Publisher(publisherName);
+        publisher.addBook(book);
+        publisherRepository.save(publisher);
+        bookRepository.save(book);
+
+        // when
+        List<Book> result = bookRepository.findByPublisher(publisherName);
 
         // then
         assertSoftly(softly -> {
@@ -137,7 +161,6 @@ class BookRepositoryTest {
     }
 
     @Test
-    @DisplayName("find book by title case insensitive")
     void findBookByTitleCaseInsensitive() {
         // given
         Book book = new Book(

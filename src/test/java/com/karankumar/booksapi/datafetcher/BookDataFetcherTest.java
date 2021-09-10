@@ -129,7 +129,9 @@ class BookDataFetcherTest {
         final String isbn13 = "1234567898765";
         given(bookService.findBookByIsbn13(isbn13)).willReturn(null);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindBookByIsbn13GraphQLQuery.newRequest().isbn13(isbn13).build(),
+                FindBookByIsbn13GraphQLQuery.newRequest()
+                                            .isbn13(isbn13)
+                                            .build(),
                 new FindBookByIsbn13ProjectionRoot().isbn13()
         );
 
@@ -151,7 +153,9 @@ class BookDataFetcherTest {
         );
         given(bookService.findByAuthor(any(String.class))).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindByAuthorGraphQLQuery.newRequest().fullName("name").build(),
+                FindByAuthorGraphQLQuery.newRequest()
+                                        .fullName("name")
+                                        .build(),
                 new FindByAuthorProjectionRoot().title()
         );
 
@@ -171,7 +175,9 @@ class BookDataFetcherTest {
         String title = "title";
         given(bookService.findByTitle(title)).willReturn(null);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindByTitleIgnoreCaseGraphQLQuery.newRequest().title(title).build(),
+                FindByTitleIgnoreCaseGraphQLQuery.newRequest()
+                                                 .title(title)
+                                                 .build(),
                 new FindByTitleIgnoreCaseProjectionRoot().title()
         );
 
@@ -194,7 +200,9 @@ class BookDataFetcherTest {
         );
         given(bookService.findByTitle(title)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindByTitleIgnoreCaseGraphQLQuery.newRequest().title(title).build(),
+                FindByTitleIgnoreCaseGraphQLQuery.newRequest()
+                                                 .title(title)
+                                                 .build(),
                 new FindByTitleIgnoreCaseProjectionRoot().title()
         );
 
