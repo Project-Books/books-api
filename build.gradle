@@ -1,6 +1,6 @@
 buildscript {
 	dependencies {
-		classpath 'com.netflix.graphql.dgs.codegen:graphql-dgs-codegen-gradle:4.5.2'
+		classpath 'com.netflix.graphql.dgs.codegen:graphql-dgs-codegen-gradle:5.0.6'
 	}
 }
 
