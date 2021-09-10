@@ -11,7 +11,7 @@
      <img src="https://codecov.io/gh/Project-Books/books-api/branch/main/graph/badge.svg?token=5OF8MVDZW7"/>
   </a>
 	
-  <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-ojsgamu9-O4v~714y6G1_0o7HtTZDqw">
+  <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-punc8os7-Iz9PTCAkYcO_0S~XwtO5_A">
     <img src="https://img.shields.io/badge/slack-teambookproject-4A154B?logo=slack" alt="Slack" />
   </a>
   
@@ -63,6 +63,8 @@ To access the MySQL database when docker-compose is running:
 2. Log in with the details below:
     - Username: `root`
     - Password: `rootpassword`
+
+Alternatively, see how to do this in [Intellij](https://project-books.github.io/docs/development/how-to/database-intellij/). Note that you'll need to use `root` as the username, `rootpassword` as the password and port 3307.
 
 ## Contributing
 

@@ -109,9 +109,7 @@ class BookDataFetcherTest {
         book.setIsbn13(isbn13);
         given(bookService.findBookByIsbn13(isbn13)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindBookByIsbn13GraphQLQuery.newRequest()
-                                            .isbn13(isbn13)
-                                            .build(),
+                FindBookByIsbn13GraphQLQuery.newRequest().isbn13(isbn13).build(),
                 new FindBookByIsbn13ProjectionRoot().isbn13()
         );
 
