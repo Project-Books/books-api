@@ -15,7 +15,7 @@
 
 package com.karankumar.booksapi.datafetchers;
 
-import com.karankumar.booksapi.DgsConstants;
+import com.acme.DgsConstants;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsComponent;
@@ -46,7 +46,7 @@ public class BookDataFetcher {
     public List<Book> findByAuthor(@InputArgument(DgsConstants.AUTHOR.FullName) String fullName) {
         return bookService.findByAuthor(fullName);
     }
-    
+
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByPublisher)
     public List<Book> findByPublisher(@InputArgument(DgsConstants.PUBLISHER.Name) String publisherName) {
         return bookService.findByPublisher(publisherName);

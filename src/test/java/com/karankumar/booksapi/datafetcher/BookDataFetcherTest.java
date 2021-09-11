@@ -15,15 +15,15 @@
 
 package com.karankumar.booksapi.datafetcher;
 
-import com.karankumar.booksapi.DgsConstants;
-import com.karankumar.booksapi.client.FindAllBooksGraphQLQuery;
-import com.karankumar.booksapi.client.FindAllBooksProjectionRoot;
-import com.karankumar.booksapi.client.FindBookByIsbn13GraphQLQuery;
-import com.karankumar.booksapi.client.FindBookByIsbn13ProjectionRoot;
-import com.karankumar.booksapi.client.FindByAuthorGraphQLQuery;
-import com.karankumar.booksapi.client.FindByAuthorProjectionRoot;
-import com.karankumar.booksapi.client.FindByTitleIgnoreCaseGraphQLQuery;
-import com.karankumar.booksapi.client.FindByTitleIgnoreCaseProjectionRoot;
+import com.acme.DgsConstants;
+import com.acme.client.FindAllBooksGraphQLQuery;
+import com.acme.client.FindAllBooksProjectionRoot;
+import com.acme.client.FindBookByIsbn13GraphQLQuery;
+import com.acme.client.FindBookByIsbn13ProjectionRoot;
+import com.acme.client.FindByAuthorGraphQLQuery;
+import com.acme.client.FindByAuthorProjectionRoot;
+import com.acme.client.FindByTitleIgnoreCaseGraphQLQuery;
+import com.acme.client.FindByTitleIgnoreCaseProjectionRoot;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
