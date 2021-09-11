@@ -26,7 +26,7 @@ import java.util.HashSet;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -55,6 +55,13 @@ class AuthorServiceTest {
         // then
         verify(authorRepository).save(authorArgumentCaptor.capture());
         assertThat(authorArgumentCaptor.getValue()).isEqualTo(expected);
+    }
+
+    @Test
+    void save_throwsNullPointerException_ifAuthorToSaveIsNull() {
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(() -> underTest.save(null));
+        verify((authorRepository), never()).save(any(Author.class));
     }
 
     @Test
