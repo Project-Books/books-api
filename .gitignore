@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Database ###
+data/
+postgres-data
+
