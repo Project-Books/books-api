@@ -40,7 +40,3 @@ steps:
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-
-- script: |
-    bash <(curl -s https://codecov.io/bash)
-  displayName: 'Upload to codecov.io'
