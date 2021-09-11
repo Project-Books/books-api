@@ -63,6 +63,10 @@ To access the PostgreSQL database when docker-compose/Docker desktop is running,
 - Password: `dbpassword`
 - URL: `jdbc:postgresql://localhost:5432/booksapi`
 
+For example, in IntelliJ ultimate or DataGrip:
+
+![image](https://user-images.githubusercontent.com/11173328/132951060-7018b96a-cd96-4d74-a3f4-69233517a751.png)
+
 ## Contributing
 
 If you wish to contribute (thanks!), please first see the [contributing document](https://github.com/Project-Books/books-api/blob/main/CONTRIBUTING.md).
