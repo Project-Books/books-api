@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-  <a href="https://dev.azure.com/project-books/Books%20API/_build/latest?definitionId=3&branchName=main">
-    <img src="https://dev.azure.com/project-books/Books%20API/_apis/build/status/Project-Books.books-api?branchName=main" alt="Build Status" />
+  <a href="https://github.com/Project-Books/books-api/actions/workflows/build.yml">
+    <img src="https://github.com/Project-Books/books-api/actions/workflows/build.yml/badge.svg" alt="Build Status" />
   </a>
 	
   <a href="https://codecov.io/gh/Project-Books/books-api">
