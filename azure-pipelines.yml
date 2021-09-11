@@ -25,15 +25,17 @@ steps:
       # sonar.exclusions=**/*.bin
       sonar.projectKey=project-books_Books-API
       sonar.projectName=Books API
-- task: Gradle@2
+- task: Maven@3
   inputs:
-    gradleWrapperFile: 'gradlew'
-    tasks: 'build'
+    mavenPomFile: 'pom.xml'
     publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
     codeCoverageToolOption: 'JaCoCo'
-    codeCoverageClassFilesDirectories: 'build/classes/main/'
     javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
     sonarQubeRunAnalysis: false
 - task: SonarCloudPublish@1
   inputs:
