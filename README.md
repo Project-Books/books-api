@@ -6,17 +6,17 @@
   <a href="https://dev.azure.com/project-books/Books%20API/_build/latest?definitionId=3&branchName=main">
     <img src="https://dev.azure.com/project-books/Books%20API/_apis/build/status/Project-Books.books-api?branchName=main" alt="Build Status" />
   </a>
+
+  <a href="https://sonarcloud.io/dashboard?id=project-books_Books-API">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=project-books_Books-API&metric=coverage" alt="Quality Gate Status" />
+  </a>
 	
-  <a href="https://codecov.io/gh/Project-Books/books-api">
-     <img src="https://codecov.io/gh/Project-Books/books-api/branch/main/graph/badge.svg?token=5OF8MVDZW7"/>
+  <a href="https://sonarcloud.io/dashboard?id=project-books_Books-API">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=project-books_Books-API&metric=alert_status" alt="Quality Gate Status" />
   </a>
 	
   <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-punc8os7-Iz9PTCAkYcO_0S~XwtO5_A">
     <img src="https://img.shields.io/badge/slack-teambookproject-4A154B?logo=slack" alt="Slack" />
-  </a>
-  
-  <a href="https://sonarcloud.io/dashboard?id=project-books_Books-API">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=project-books_Books-API&metric=alert_status" alt="Quality Gate Status" />
   </a>
 </p>
 
