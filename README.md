@@ -23,14 +23,17 @@ GraphQL books API made using Spring Boot and [DGS](https://netflix.github.io/dgs
 Prerequisites: 
 - JDK 11 or higher
 - Configure [Lombok](https://github.com/Project-Books/book-project/wiki/Troubleshooting#cannot-find-log-statements-or-the-entities-do-not-have-constructors-lombok-errors)
-- MySQL 8.0.* or (better) Docker
+- PostgreSQL 12 or (better) Docker
+  - For Linux users, install docker-compose 
+  - For macOS and Windows users, install Docker Desktop
 
 Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)
 
 ## Running the app
 
 1. Import as a Maven project into your favourite IDE
-2. Start the MySQL Database or run the docker-compose file `docker-compose up -d` (you may need to add `sudo` to this command)
+2. Start the MySQL Database or run the docker-compose file `docker-compose up -d` (you may need to add `sudo` to this command) 
+   - If using macOS or Windows, you'll need to first ensure Docker Desktop is running 
 3. Run `BooksApiApplication.java`
 4. Go to `localhost:8080/graphiql`
 
@@ -52,14 +55,13 @@ Sample query:
 
 ### Access database
 
-To access the MySQL database when docker-compose is running:
+To access the PostgreSQL database when docker-compose/Docker desktop is running, use the follow credentials in your favourite client:
 
-1. Go to `http://localhost:8081`
-2. Log in with the details below:
-    - Username: `root`
-    - Password: `rootpassword`
-
-Alternatively, see how to do this in [Intellij](https://project-books.github.io/docs/development/how-to/database-intellij/). Note that you'll need to use `root` as the username, `rootpassword` as the password and port 3307.
+- Host: `localhost`
+- Port: `5432`
+- User: `dbuser`
+- Password: `dbpassword`
+- URL: `jdbc:postgresql://localhost:5432/booksapi`
 
 ## Contributing
 
