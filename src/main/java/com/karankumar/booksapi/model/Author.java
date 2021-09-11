@@ -28,6 +28,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.CascadeType;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,7 +44,7 @@ public class Author {
 
     private String fullName;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Book> books = new HashSet<>();
 
     private String about;
