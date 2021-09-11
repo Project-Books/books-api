@@ -56,8 +56,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -152,17 +152,11 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>6.5.1</version>
 				<configuration>
-					<url>jdbc:mysql://localhost:3306/bookproject?useSsl=false</url>
-					<user>root</user>
-					<password>rootpassword</password>
+					<driver>org.postgresql.Driver</driver>
+					<url>jdbc:postgresql://localhost:5432/booksapi?useSsl=false</url>
+					<user>dbuser</user>
+					<password>dbpassword</password>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>mysql</groupId>
-						<artifactId>mysql-connector-java</artifactId>
-						<version>8.0.19</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 
 			<plugin>
@@ -183,9 +177,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<exclude>com/karankumar/booksapi/model/*.*</exclude>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
