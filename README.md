@@ -7,12 +7,12 @@
     <img src="https://github.com/Project-Books/books-api/actions/workflows/build.yml/badge.svg" alt="Build Status" />
   </a>
 	
+  <a href="https://sonarcloud.io/dashboard?id=Project-Books_books-api">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=Project-Books_books-api&metric=coverage" alt="Code coverage" />
+  </a>
+	
   <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-punc8os7-Iz9PTCAkYcO_0S~XwtO5_A">
     <img src="https://img.shields.io/badge/slack-teambookproject-4A154B?logo=slack" alt="Slack" />
-  </a>
-  
-  <a href="https://sonarcloud.io/dashboard?id=project-books_Books-API">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=project-books_Books-API&metric=alert_status" alt="Quality Gate Status" />
   </a>
 </p>
 
