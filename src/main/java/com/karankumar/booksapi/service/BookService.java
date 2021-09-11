@@ -74,7 +74,7 @@ public class BookService {
         return bookRepository.findBookByIsbn13(isbn13);
     }
     
-    public List<Book> findByPublisher(String publisherName) {
+    public List<Book> findByPublisher(@NonNull String publisherName) {
     	return bookRepository.findByPublisher(publisherName);
     }
     

@@ -32,10 +32,10 @@ class BookServiceTest {
     }
 
     @Test
-    void save_throwsNullPointerExceptionIfBookIsNull() {
+    void save_throwsNullPointerException_ifBookIsNull() {
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> underTest.save(null));
-        verify(bookRepository, never()).save(null);
+        verify(bookRepository, never()).save(any());
     }
 
     @Test
@@ -241,5 +241,26 @@ class BookServiceTest {
         // then
         verify(bookRepository).deleteById(longArgumentCaptor.capture());
         assertThat(longArgumentCaptor.getValue()).isEqualTo(expected);
+    }
+
+    @Test
+    void findByPublisher_throwsNullPointerException_ifPublisherNameIsNull() {
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(() -> underTest.findByPublisher(null));
+        verify(bookRepository, never()).findByPublisher(anyString());
+    }
+
+    @Test
+    void canFindByNonNullPublisherName() {
+        // given
+        String publisherName = "Penguin";
+        ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+
+        // when
+        underTest.findByPublisher(publisherName);
+
+        // then
+        verify(bookRepository).findByPublisher(stringArgumentCaptor.capture());
+        assertThat(stringArgumentCaptor.getValue()).isEqualTo(publisherName);
     }
 }
