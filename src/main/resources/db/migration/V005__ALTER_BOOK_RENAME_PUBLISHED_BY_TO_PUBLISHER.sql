@@ -1,2 +1,2 @@
 ALTER TABLE book
-CHANGE published_by publisher INTEGER;
+RENAME published_by TO publisher;
