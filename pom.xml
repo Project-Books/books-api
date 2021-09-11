@@ -183,6 +183,9 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<exclude>com/karankumar/booksapi/model/*.*</exclude>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
