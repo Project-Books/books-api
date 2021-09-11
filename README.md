@@ -7,10 +7,6 @@
     <img src="https://github.com/Project-Books/books-api/actions/workflows/build.yml/badge.svg" alt="Build Status" />
   </a>
 	
-  <a href="https://codecov.io/gh/Project-Books/books-api">
-     <img src="https://codecov.io/gh/Project-Books/books-api/branch/main/graph/badge.svg?token=5OF8MVDZW7"/>
-  </a>
-	
   <a href="https://join.slack.com/t/teambookproject/shared_invite/zt-punc8os7-Iz9PTCAkYcO_0S~XwtO5_A">
     <img src="https://img.shields.io/badge/slack-teambookproject-4A154B?logo=slack" alt="Slack" />
   </a>
