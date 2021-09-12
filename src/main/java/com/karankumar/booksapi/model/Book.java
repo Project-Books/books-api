@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -82,6 +83,10 @@ public class Book {
 
     @Column(nullable = false)
     private BookFormat format;
+
+    @OneToMany
+    @JoinColumn(name = "book_cover_id")
+    private Set<BookCover> bookCover = new HashSet<>();
 
     public Book(@NonNull String title, @NonNull Language language, @NonNull String blurb,
                 @NonNull BookGenre genre, @NonNull BookFormat format) {
