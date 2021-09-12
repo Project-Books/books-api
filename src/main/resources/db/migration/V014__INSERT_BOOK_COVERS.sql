@@ -1,0 +1,5 @@
+-- set jpg_id = 1;
+-- set png_id = 2;
+--
+-- INSERT INTO book_cover (small_file_type, medium_file_type, large_file_type)
+-- VALUES (jpg_id, NULL, NULL)

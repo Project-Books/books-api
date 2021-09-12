@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS book (
-    id                  BIGSERIAL    NOT NULL PRIMARY KEY,
+    id                  SERIAL       NOT NULL PRIMARY KEY,
     title               VARCHAR(255) NOT NULL,
     language            INTEGER      NOT NULL,
     isbn13              VARCHAR(255),
