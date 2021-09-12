@@ -29,6 +29,7 @@ import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.BookFormat;
 import com.karankumar.booksapi.model.BookGenre;
 import com.karankumar.booksapi.model.Language;
+import com.karankumar.booksapi.model.Publisher;
 import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsQueryExecutor;
 import com.netflix.graphql.dgs.autoconfig.DgsAutoConfiguration;
@@ -97,6 +98,31 @@ class BookDataFetcherTest {
 
         // Then
         assertThat(bookTitles).containsExactly(title);
+    }
+    @Test
+    void findAllBooks_returnsNonEmptyListWithPublisher_whenBooksExist() {
+        // Given
+        final String publisherName = "HarperCollins";
+        Publisher publisher = new Publisher(publisherName);
+        Book book = new Book(
+                "Abhorsen", Language.ENGLISH, "blurb", BookGenre.FANTASY, BookFormat.PAPERBACK
+        );
+        publisher.addBook(book);
+        given(bookService.findAll()).willReturn(List.of(book));
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                new FindAllBooksGraphQLQuery(),
+                new FindAllBooksProjectionRoot().publishers().name()
+        );
+
+        // When
+        List<String> publishers = queryExecutor.executeAndExtractJsonPath(
+                graphQLQueryRequest.serialize(),
+                ROOT + DgsConstants.QUERY.FindAllBooks + "[*]." + DgsConstants.BOOK.Publishers
+                            + "[*]." + DgsConstants.PUBLISHER.Name
+        );
+
+        // Then
+        assertThat(publishers).containsExactly(publisherName);
     }
 
     @Test
