@@ -32,7 +32,7 @@ Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8
 ## Running the app
 
 1. Import as a Maven project into your favourite IDE
-2. Start the MySQL Database or run the docker-compose file `docker-compose up -d` (you may need to add `sudo` to this command) 
+2. Start the PostgreSQL Database or run the docker-compose file `docker-compose up -d` (you may need to add `sudo` to this command) 
    - If using macOS or Windows, you'll need to first ensure Docker Desktop is running 
 3. Run `BooksApiApplication.java`
 4. Go to `localhost:8080/graphiql`
