@@ -43,13 +43,15 @@ class BookRepositoryTest {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final PublisherRepository publisherRepository;
-    
+    private final FormatRepository formatRepository;
+
     @Autowired
     BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository,
-                       PublisherRepository publisherRepository) {
+                       PublisherRepository publisherRepository, FormatRepository formatRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.publisherRepository = publisherRepository;
+        this.formatRepository = formatRepository;
     }
 
     @BeforeEach
@@ -61,7 +63,20 @@ class BookRepositoryTest {
     @Test
     void findSavedBooks() {
         // given
-        Book book = createBook();
+        Format format = new Format();
+        formatRepository.save(format);
+        Book book = new Book(
+                "97 Things Every Java Programmer Should Know",
+                LanguageName.ENGLISH,
+                "Sample blurb value",
+                GenreName.CHILDREN,
+                format
+        );
+        book.setGenre(GenreName.REFERENCE);
+        book.setYearOfPublication(2019);
+        book.setIsbn13("9781408670545");
+
+        createBook();
         bookRepository.save(book);
 
         // when
@@ -88,12 +103,14 @@ class BookRepositoryTest {
     }
   
     private Book createBookWithIsbn13() {
+        Format format = new Format();
+        formatRepository.save(format);
         Book book = new Book(
                 "Game of APIs",
                 LanguageName.ENGLISH,
                 "",
                 GenreName.SATIRE,
-                new Format()
+                format
         );
         book.setIsbn13(ISBN);
         return book;
@@ -143,12 +160,14 @@ class BookRepositoryTest {
     @Test
       void findBookByTitle() {
         // given
+        Format format = new Format();
+        formatRepository.save(format);
         Book book = new Book(
                 TITLE,
                 LanguageName.ENGLISH,
                 "",
                 GenreName.ART,
-                new Format()
+                format
         );
         bookRepository.save(book);
 
@@ -162,12 +181,14 @@ class BookRepositoryTest {
     @Test
     void findBookByTitleCaseInsensitive() {
         // given
+        Format format = new Format();
+        formatRepository.save(format);
         Book book = new Book(
                 TITLE,
                 LanguageName.ENGLISH,
                 "",
                 GenreName.MYSTERY,
-                new Format()
+                format
         );
         bookRepository.save(book);
 
