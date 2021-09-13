@@ -3,7 +3,6 @@ package com.karankumar.booksapi.model.format;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -22,7 +21,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Format {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
