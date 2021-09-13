@@ -16,8 +16,8 @@
 package com.karankumar.booksapi.model;
 
 import com.karankumar.booksapi.model.cover.BookCover;
-import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.LanguageName;
+import com.karankumar.booksapi.model.enums.GenreName;
+import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -76,7 +76,7 @@ public class Book {
     private String isbn13;
 
     @Column(nullable = false)
-    private BookGenre genre;
+    private GenreName genre;
 
     private Integer yearOfPublication;
 
@@ -86,6 +86,8 @@ public class Book {
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Publisher> publishers = new HashSet<>();
 
+    // One to one because a different book format warrants a new ISBN, so we will classify it as a
+    // new book/edition
     @OneToOne
     private Format format;
 
@@ -93,7 +95,7 @@ public class Book {
     private Set<BookCover> bookCover = new HashSet<>();
 
     public Book(@NonNull String title, @NonNull LanguageName languageName, @NonNull String blurb,
-                @NonNull BookGenre genre, @NonNull Format format) {
+                @NonNull GenreName genre, @NonNull Format format) {
         this.title = title;
         this.languageName = languageName;
         this.blurb = blurb;

@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.karankumar.booksapi.model.enums;
+package com.karankumar.booksapi.model.language;
 
 public enum LanguageName {
   

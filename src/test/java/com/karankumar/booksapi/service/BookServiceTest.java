@@ -3,8 +3,8 @@ package com.karankumar.booksapi.service;
 import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.LanguageName;
+import com.karankumar.booksapi.model.enums.GenreName;
+import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import com.karankumar.booksapi.repository.BookRepository;
 import org.assertj.core.api.ThrowableAssert;
@@ -45,7 +45,7 @@ class BookServiceTest {
                 "title",
                 LanguageName.ENGLISH,
                 "blurb",
-                BookGenre.CRIME,
+                GenreName.CRIME,
                 new Format()
         );
         bookWithInvalidIsbn10.setIsbn10("1234567890");
@@ -67,7 +67,7 @@ class BookServiceTest {
                 "title",
                 LanguageName.ENGLISH,
                 "blurb",
-                BookGenre.CRIME,
+                GenreName.CRIME,
                 new Format()
         );
         bookWithInvalidIsbn13.setIsbn13("1234567890123");
@@ -84,7 +84,7 @@ class BookServiceTest {
                  "title",
                  LanguageName.ENGLISH,
                  "blurb",
-                 BookGenre.CRIME,
+                 GenreName.CRIME,
                  new Format()
         );
         bookWithValidIsbn10.setIsbn10("1843560283");
@@ -105,7 +105,7 @@ class BookServiceTest {
                 "title",
                 LanguageName.ENGLISH,
                 "blurb",
-                BookGenre.CRIME,
+                GenreName.CRIME,
                 new Format()
         );
         book.setIsbn13("9783161484100");
@@ -126,7 +126,7 @@ class BookServiceTest {
                 "title",
                 LanguageName.ENGLISH,
                 "blurb",
-                BookGenre.CRIME,
+                GenreName.CRIME,
                 new Format()
         );
         ArgumentCaptor<Book> bookArgumentCaptor = ArgumentCaptor.forClass(Book.class);

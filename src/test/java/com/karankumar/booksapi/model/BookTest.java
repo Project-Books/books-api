@@ -15,8 +15,8 @@
 
 package com.karankumar.booksapi.model;
 
-import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.LanguageName;
+import com.karankumar.booksapi.model.enums.GenreName;
+import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class BookTest {
                 .isThrownBy(() -> new Book(
                         null,
                         LanguageName.ENGLISH,
-                        "Sample blurb value", BookGenre.FANTASY,
+                        "Sample blurb value", GenreName.FANTASY,
                         new Format()
                 ));
     }
@@ -45,7 +45,7 @@ class BookTest {
                         "The Hobbit",
                         null,
                         "Sample blurb value",
-                        BookGenre.FANTASY,
+                        GenreName.FANTASY,
                         new Format()
                 ));
     }

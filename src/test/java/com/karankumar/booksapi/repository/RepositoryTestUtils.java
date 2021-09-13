@@ -16,8 +16,8 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.LanguageName;
+import com.karankumar.booksapi.model.enums.GenreName;
+import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 
 final class RepositoryTestUtils {
@@ -28,10 +28,10 @@ final class RepositoryTestUtils {
                 "97 Things Every Java Programmer Should Know",
                 LanguageName.ENGLISH,
                 "Sample blurb value",
-                BookGenre.CHILDREN,
+                GenreName.CHILDREN,
                 new Format()
         );
-        book.setGenre(BookGenre.REFERENCE);
+        book.setGenre(GenreName.REFERENCE);
         book.setYearOfPublication(2019);
         book.setIsbn13("9781408670545");
         return book;

@@ -15,7 +15,7 @@
 
 package com.karankumar.booksapi.model.enums;
 
-public enum BookGenre {
+public enum GenreName {
     // This should be kept in alphabetical order
     ADVENTURE("Adventure"),
     ANTHOLOGY("Anthology"),
@@ -62,7 +62,7 @@ public enum BookGenre {
 
     private final String genre;
 
-    BookGenre(String genre) {
+    GenreName(String genre) {
         this.genre = genre;
     }
 

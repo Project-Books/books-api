@@ -19,8 +19,8 @@ import com.karankumar.booksapi.annotations.DataJpaIntegrationTest;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.Publisher;
-import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.LanguageName;
+import com.karankumar.booksapi.model.enums.GenreName;
+import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -92,7 +92,7 @@ class BookRepositoryTest {
                 "Game of APIs",
                 LanguageName.ENGLISH,
                 "",
-                BookGenre.SATIRE,
+                GenreName.SATIRE,
                 new Format()
         );
         book.setIsbn13(ISBN);
@@ -147,7 +147,7 @@ class BookRepositoryTest {
                 TITLE,
                 LanguageName.ENGLISH,
                 "",
-                BookGenre.ART,
+                GenreName.ART,
                 new Format()
         );
         bookRepository.save(book);
@@ -166,7 +166,7 @@ class BookRepositoryTest {
                 TITLE,
                 LanguageName.ENGLISH,
                 "",
-                BookGenre.MYSTERY,
+                GenreName.MYSTERY,
                 new Format()
         );
         bookRepository.save(book);
