@@ -1,7 +1,11 @@
 package com.karankumar.booksapi.model.cover;
 
 import com.karankumar.booksapi.model.Book;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 /**
  * We store a partial path in our blob storage and then dynamically add the prefix needed.
@@ -19,7 +24,10 @@ import javax.persistence.Table;
  */
 @Table(name = "book_cover")
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class BookCover {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,5 +62,22 @@ public class BookCover {
     public String getPathToLarge() {
         final String suffix = "/large.jpg";
         return PREFIX + id + suffix;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
+        BookCover bookCover = (BookCover) o;
+        return Objects.equals(id, bookCover.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

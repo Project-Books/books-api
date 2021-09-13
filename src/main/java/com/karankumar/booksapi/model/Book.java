@@ -16,14 +16,16 @@
 package com.karankumar.booksapi.model;
 
 import com.karankumar.booksapi.model.cover.BookCover;
+import com.karankumar.booksapi.model.format.Format;
 import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.LanguageName;
-import com.karankumar.booksapi.model.format.Format;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,11 +41,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book {
     @Id
@@ -54,6 +58,7 @@ public class Book {
     @Column(nullable = false)
     private String title;
 
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "book_author",
@@ -83,6 +88,7 @@ public class Book {
     @Column(nullable = false)
     private String blurb;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Publisher> publishers = new HashSet<>();
 
@@ -91,7 +97,8 @@ public class Book {
     @OneToOne
     private Format format;
 
-    @OneToMany(mappedBy = "book")
+    @ToString.Exclude
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private Set<BookCover> bookCover = new HashSet<>();
 
     public Book(@NonNull String title, @NonNull LanguageName languageName, @NonNull String blurb,
@@ -101,5 +108,22 @@ public class Book {
         this.blurb = blurb;
         this.genre = genre;
         this.format = format;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
+        Book book = (Book) o;
+        return Objects.equals(id, book.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }
