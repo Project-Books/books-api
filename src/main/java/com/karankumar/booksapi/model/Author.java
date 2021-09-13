@@ -21,6 +21,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,6 +45,7 @@ public class Author {
 
     private String fullName;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Book> books = new HashSet<>();
 
