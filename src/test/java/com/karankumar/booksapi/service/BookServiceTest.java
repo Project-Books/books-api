@@ -4,7 +4,7 @@ import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.Language;
+import com.karankumar.booksapi.model.enums.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import com.karankumar.booksapi.repository.BookRepository;
 import org.assertj.core.api.ThrowableAssert;
@@ -43,7 +43,7 @@ class BookServiceTest {
         // given
         Book bookWithInvalidIsbn10 = new Book(
                 "title",
-                Language.ENGLISH,
+                LanguageName.ENGLISH,
                 "blurb",
                 BookGenre.CRIME,
                 new Format()
@@ -65,7 +65,7 @@ class BookServiceTest {
         // given
         Book bookWithInvalidIsbn13 = new Book(
                 "title",
-                Language.ENGLISH,
+                LanguageName.ENGLISH,
                 "blurb",
                 BookGenre.CRIME,
                 new Format()
@@ -82,7 +82,7 @@ class BookServiceTest {
         // given
          Book bookWithValidIsbn10 = new Book(
                  "title",
-                 Language.ENGLISH,
+                 LanguageName.ENGLISH,
                  "blurb",
                  BookGenre.CRIME,
                  new Format()
@@ -103,7 +103,7 @@ class BookServiceTest {
         // given
         Book book = new Book(
                 "title",
-                Language.ENGLISH,
+                LanguageName.ENGLISH,
                 "blurb",
                 BookGenre.CRIME,
                 new Format()
@@ -124,7 +124,7 @@ class BookServiceTest {
         // given
         Book book = new Book(
                 "title",
-                Language.ENGLISH,
+                LanguageName.ENGLISH,
                 "blurb",
                 BookGenre.CRIME,
                 new Format()

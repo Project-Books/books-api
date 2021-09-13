@@ -17,7 +17,7 @@ package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.Language;
+import com.karankumar.booksapi.model.enums.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 
 final class RepositoryTestUtils {
@@ -26,7 +26,7 @@ final class RepositoryTestUtils {
     static Book createBook() {
         Book book = new Book(
                 "97 Things Every Java Programmer Should Know",
-                Language.ENGLISH,
+                LanguageName.ENGLISH,
                 "Sample blurb value",
                 BookGenre.CHILDREN,
                 new Format()

@@ -15,7 +15,7 @@
 
 package com.karankumar.booksapi.model.enums;
 
-public enum Language {
+public enum LanguageName {
   
     AFRIKAANS("Afrikaans"),
     ALBANIAN("Albanian"),
@@ -60,7 +60,7 @@ public enum Language {
       
     private final String lang;
     
-    Language(String lang) {
+    LanguageName(String lang) {
         this.lang = lang;
     }
     

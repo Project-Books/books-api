@@ -27,7 +27,7 @@ import com.acme.client.FindByTitleIgnoreCaseProjectionRoot;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.Language;
+import com.karankumar.booksapi.model.enums.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsQueryExecutor;
@@ -81,7 +81,7 @@ class BookDataFetcherTest {
         // Given
         final String title = "How to avoid a climate disaster";
         Book book = new Book(
-                title, Language.ENGLISH, "blurb", BookGenre.CRIME, new Format()
+                title, LanguageName.ENGLISH, "blurb", BookGenre.CRIME, new Format()
         );
         given(bookService.findAll()).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
@@ -104,7 +104,7 @@ class BookDataFetcherTest {
         // Given
         final String isbn13 = "1234567898765";
         Book book = new Book(
-                "title", Language.ENGLISH, "blurb", BookGenre.CRIME, new Format()
+                "title", LanguageName.ENGLISH, "blurb", BookGenre.CRIME, new Format()
         );
         book.setIsbn13(isbn13);
         given(bookService.findBookByIsbn13(isbn13)).willReturn(book);
@@ -149,7 +149,7 @@ class BookDataFetcherTest {
     void findByAuthor_returnsNonEmptyList_whenBookNotFound() {
         // Given
         Book book = new Book(
-                "title", Language.ENGLISH, "blurb", BookGenre.CRIME, new Format()
+                "title", LanguageName.ENGLISH, "blurb", BookGenre.CRIME, new Format()
         );
         given(bookService.findByAuthor(any(String.class))).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
@@ -196,7 +196,7 @@ class BookDataFetcherTest {
         // Given
         String title = "title";
         Book book = new Book(
-                title, Language.ENGLISH, "blurb", BookGenre.CRIME, new Format()
+                title, LanguageName.ENGLISH, "blurb", BookGenre.CRIME, new Format()
         );
         given(bookService.findByTitle(title)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(

@@ -23,48 +23,4 @@ public class BooksApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(BooksApiApplication.class, args);
     }
-
-//    @Bean
-//    public CommandLineRunner populateData(AuthorRepository authorRepository,
-//                                          BookRepository bookRepository,
-//                                          PublisherRepository publisherRepository) {
-//        return args -> {
-//            Book book1 = createBook(
-//                    "Harry Potter and the Philosopher's stone",
-//                    "Philosopher's stone blurb",
-//                    1997,
-//                    "9781408810545"
-//            );
-//
-//            Book book2 = createBook(
-//                    "Harry Potter and the Chamber of Secrets",
-//                    "Chamber of secrets blurb",
-//                    1998,
-//                    "1234567898765"
-//            );
-//
-//            Book book3 = createBook(
-//                    "The Hobbit",
-//                    "Hobbit blurb",
-//                    1937,
-//                    "1234567898761"
-//            );
-//
-//
-//            bookRepository.saveAll(allBooks);
-//        };
-//    }
-
-//    private Book createBook(String title, String blurb, int yearOfPublication, String isbn13) {
-//        Book book = new Book(
-//                title,
-//                Language.ENGLISH,
-//                blurb,
-//                BookGenre.FANTASY,
-//                FormatType.PAPERBACK
-//        );
-//        book.setYearOfPublication(yearOfPublication);
-//        book.setIsbn13(isbn13);
-//        return book;
-//    }
 }

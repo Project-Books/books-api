@@ -20,7 +20,7 @@ import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.Publisher;
 import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.Language;
+import com.karankumar.booksapi.model.enums.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -90,7 +90,7 @@ class BookRepositoryTest {
     private Book createBookWithIsbn13() {
         Book book = new Book(
                 "Game of APIs",
-                Language.ENGLISH,
+                LanguageName.ENGLISH,
                 "",
                 BookGenre.SATIRE,
                 new Format()
@@ -145,7 +145,7 @@ class BookRepositoryTest {
         // given
         Book book = new Book(
                 TITLE,
-                Language.ENGLISH,
+                LanguageName.ENGLISH,
                 "",
                 BookGenre.ART,
                 new Format()
@@ -164,7 +164,7 @@ class BookRepositoryTest {
         // given
         Book book = new Book(
                 TITLE,
-                Language.ENGLISH,
+                LanguageName.ENGLISH,
                 "",
                 BookGenre.MYSTERY,
                 new Format()

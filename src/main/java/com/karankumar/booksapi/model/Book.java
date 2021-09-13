@@ -17,7 +17,7 @@ package com.karankumar.booksapi.model;
 
 import com.karankumar.booksapi.model.cover.BookCover;
 import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.Language;
+import com.karankumar.booksapi.model.enums.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -69,7 +69,7 @@ public class Book {
     private Set<Author> authors = new HashSet<>();
 
     @Column(nullable = false)
-    private Language language;
+    private LanguageName languageName;
 
     private String isbn10;
 
@@ -92,10 +92,10 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private Set<BookCover> bookCover = new HashSet<>();
 
-    public Book(@NonNull String title, @NonNull Language language, @NonNull String blurb,
+    public Book(@NonNull String title, @NonNull LanguageName languageName, @NonNull String blurb,
                 @NonNull BookGenre genre, @NonNull Format format) {
         this.title = title;
-        this.language = language;
+        this.languageName = languageName;
         this.blurb = blurb;
         this.genre = genre;
         this.format = format;

@@ -16,7 +16,7 @@
 package com.karankumar.booksapi.model;
 
 import com.karankumar.booksapi.model.enums.BookGenre;
-import com.karankumar.booksapi.model.enums.Language;
+import com.karankumar.booksapi.model.enums.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class BookTest {
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> new Book(
                         null,
-                        Language.ENGLISH,
+                        LanguageName.ENGLISH,
                         "Sample blurb value", BookGenre.FANTASY,
                         new Format()
                 ));
