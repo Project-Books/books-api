@@ -1,25 +1,25 @@
-package com.karankumar.booksapi.model;
+package com.karankumar.booksapi.model.format;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Table(name = "cover_file_type")
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class CoverFileType {
+public class Format {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @Enumerated(EnumType.ORDINAL)
-    private ImageFileType fileType;
+    private FormatType type;
 }

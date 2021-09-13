@@ -15,6 +15,10 @@
 
 package com.karankumar.booksapi.model;
 
+import com.karankumar.booksapi.model.cover.BookCover;
+import com.karankumar.booksapi.model.enums.BookGenre;
+import com.karankumar.booksapi.model.enums.Language;
+import com.karankumar.booksapi.model.format.Format;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +37,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -81,15 +86,14 @@ public class Book {
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Publisher> publishers = new HashSet<>();
 
-    @Column(nullable = false)
-    private BookFormat format;
+    @OneToOne
+    private Format format;
 
-    @OneToMany
-    @JoinColumn(name = "book_cover_id")
+    @OneToMany(mappedBy = "book")
     private Set<BookCover> bookCover = new HashSet<>();
 
     public Book(@NonNull String title, @NonNull Language language, @NonNull String blurb,
-                @NonNull BookGenre genre, @NonNull BookFormat format) {
+                @NonNull BookGenre genre, @NonNull Format format) {
         this.title = title;
         this.language = language;
         this.blurb = blurb;

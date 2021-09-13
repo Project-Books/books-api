@@ -1,4 +1,4 @@
-package com.karankumar.booksapi.model;
+package com.karankumar.booksapi.model.cover;
 
 public enum ImageFileType {
     JPG(1),

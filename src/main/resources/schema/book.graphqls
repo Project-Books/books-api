@@ -8,6 +8,6 @@ type Book {
     isbn13: String
     yearOfPublication: Int
     publisher: Publisher
-    format: BookFormat
+    formatType: BookFormat
 }
 

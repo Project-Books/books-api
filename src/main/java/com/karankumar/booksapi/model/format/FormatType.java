@@ -13,17 +13,20 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.karankumar.booksapi.model;
+package com.karankumar.booksapi.model.format;
 
-public enum BookFormat {
-    EBOOK("eBook"),
-    HARDCOVER("Hardcover"),
-    PAPERBACK("Paperback");
+public enum FormatType {
+    // IDs correspond the IDs in the associated database table
+    EBOOK("eBook", 1),
+    HARDCOVER("Hardcover", 2),
+    PAPERBACK("Paperback", 3);
 
     private final String type;
+    private final int id;
 
-    BookFormat(String type) {
+    FormatType(String type, int id) {
         this.type = type;
+        this.id = id;
     }
 
     @Override

@@ -15,11 +15,10 @@
 
 package com.karankumar.booksapi.repository;
 
-import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
+import com.karankumar.booksapi.model.enums.BookGenre;
+import com.karankumar.booksapi.model.enums.Language;
+import com.karankumar.booksapi.model.format.Format;
 
 final class RepositoryTestUtils {
     private RepositoryTestUtils() { }
@@ -30,12 +29,11 @@ final class RepositoryTestUtils {
                 Language.ENGLISH,
                 "Sample blurb value",
                 BookGenre.CHILDREN,
-                BookFormat.EBOOK
+                new Format()
         );
         book.setGenre(BookGenre.REFERENCE);
         book.setYearOfPublication(2019);
         book.setIsbn13("9781408670545");
-        book.setFormat(BookFormat.PAPERBACK);
         return book;
     }
 

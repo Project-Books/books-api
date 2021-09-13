@@ -48,7 +48,7 @@ Sample query:
     genre
     isbn13
     yearOfPublication
-    format
+    formatType
   }
 }
 ```

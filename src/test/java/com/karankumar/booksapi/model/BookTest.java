@@ -15,6 +15,9 @@
 
 package com.karankumar.booksapi.model;
 
+import com.karankumar.booksapi.model.enums.BookGenre;
+import com.karankumar.booksapi.model.enums.Language;
+import com.karankumar.booksapi.model.format.Format;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +33,7 @@ class BookTest {
                         null,
                         Language.ENGLISH,
                         "Sample blurb value", BookGenre.FANTASY,
-                        BookFormat.HARDCOVER
+                        new Format()
                 ));
     }
 
@@ -43,7 +46,7 @@ class BookTest {
                         null,
                         "Sample blurb value",
                         BookGenre.FANTASY,
-                        BookFormat.HARDCOVER
+                        new Format()
                 ));
     }
 }

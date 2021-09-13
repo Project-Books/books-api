@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS book (
     year_of_publication INTEGER,
     blurb               VARCHAR(255) NOT NULL,
     published_by        INTEGER,
-    format              INTEGER      NOT NULL
+    formatType              INTEGER      NOT NULL
 )

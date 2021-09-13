@@ -1,5 +1,6 @@
-package com.karankumar.booksapi.model;
+package com.karankumar.booksapi.model.cover;
 
+import com.karankumar.booksapi.model.Book;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -7,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,6 +34,10 @@ public class BookCover {
 
     @OneToOne
     private CoverFileType largeFileType;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
 
     private static final String PREFIX = "https://bapiimagesdev.blob.core.windows.net/covers/";
 
