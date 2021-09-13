@@ -3,7 +3,7 @@ package com.karankumar.booksapi.service;
 import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.enums.GenreName;
+import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import com.karankumar.booksapi.repository.BookRepository;

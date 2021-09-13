@@ -19,7 +19,7 @@ import com.karankumar.booksapi.annotations.DataJpaIntegrationTest;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.Publisher;
-import com.karankumar.booksapi.model.enums.GenreName;
+import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import org.junit.jupiter.api.BeforeEach;

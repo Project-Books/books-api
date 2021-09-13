@@ -13,7 +13,7 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.karankumar.booksapi.model.enums;
+package com.karankumar.booksapi.model.genre;
 
 public enum GenreName {
     // This should be kept in alphabetical order

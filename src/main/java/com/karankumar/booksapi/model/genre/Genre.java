@@ -1,4 +1,4 @@
-package com.karankumar.booksapi.model;
+package com.karankumar.booksapi.model.genre;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

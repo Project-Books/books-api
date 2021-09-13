@@ -16,7 +16,7 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.enums.GenreName;
+import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 

@@ -26,7 +26,7 @@ import com.acme.client.FindByTitleIgnoreCaseGraphQLQuery;
 import com.acme.client.FindByTitleIgnoreCaseProjectionRoot;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.enums.GenreName;
+import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import com.karankumar.booksapi.service.BookService;
