@@ -24,7 +24,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CoverFileType {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 

@@ -3,10 +3,10 @@ package com.karankumar.booksapi.service;
 import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.PublishingFormat;
 import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.Language;
 import com.karankumar.booksapi.model.language.LanguageName;
-import com.karankumar.booksapi.model.format.Format;
 import com.karankumar.booksapi.repository.BookRepository;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +47,7 @@ class BookServiceTest {
                 new Language(LanguageName.ENGLISH),
                 "blurb",
                 GenreName.CRIME,
-                new Format()
+                new PublishingFormat()
         );
         bookWithInvalidIsbn10.setIsbn10("1234567890");
 
@@ -69,7 +69,7 @@ class BookServiceTest {
                 new Language(LanguageName.ENGLISH),
                 "blurb",
                 GenreName.CRIME,
-                new Format()
+                new PublishingFormat()
         );
         bookWithInvalidIsbn13.setIsbn13("1234567890123");
 
@@ -86,7 +86,7 @@ class BookServiceTest {
                  new Language(LanguageName.ENGLISH),
                  "blurb",
                  GenreName.CRIME,
-                 new Format()
+                 new PublishingFormat()
         );
         bookWithValidIsbn10.setIsbn10("1843560283");
         ArgumentCaptor<Book> bookArgumentCaptor = ArgumentCaptor.forClass(Book.class);
@@ -107,7 +107,7 @@ class BookServiceTest {
                 new Language(LanguageName.ENGLISH),
                 "blurb",
                 GenreName.CRIME,
-                new Format()
+                new PublishingFormat()
         );
         book.setIsbn13("9783161484100");
         ArgumentCaptor<Book> bookArgumentCaptor = ArgumentCaptor.forClass(Book.class);
@@ -128,7 +128,7 @@ class BookServiceTest {
                 new Language(LanguageName.ENGLISH),
                 "blurb",
                 GenreName.CRIME,
-                new Format()
+                new PublishingFormat()
         );
         ArgumentCaptor<Book> bookArgumentCaptor = ArgumentCaptor.forClass(Book.class);
 

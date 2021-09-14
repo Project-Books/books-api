@@ -13,9 +13,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
+@Table(name = "publishing_format", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -23,7 +25,7 @@ import java.util.Objects;
 @ToString
 public class PublishingFormat {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     public enum Type {
@@ -57,8 +59,7 @@ public class PublishingFormat {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
             return false;
         }
-        FormatType
-                bookFormat = (FormatType) o;
+        PublishingFormat bookFormat = (PublishingFormat) o;
         return Objects.equals(id, bookFormat.id);
     }
 

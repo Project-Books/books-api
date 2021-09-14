@@ -15,8 +15,7 @@
 
 package com.karankumar.booksapi.model;
 
-import com.karankumar.booksapi.model.cover.BookCover;
-import com.karankumar.booksapi.model.format.Format;
+import com.karankumar.booksapi.model.cover.Cover;
 import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.Language;
 import lombok.AccessLevel;
@@ -40,18 +39,20 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "book", schema = "public")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Setter(AccessLevel.NONE)
     private Long id;
 
@@ -97,19 +98,19 @@ public class Book {
     // One to one because a different book format warrants a new ISBN, so we will classify it as a
     // new book/edition
     @OneToOne
-    private Format format;
+    private PublishingFormat bookFormat;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
-    private Set<BookCover> bookCover = new HashSet<>();
+    private Set<Cover> cover = new HashSet<>();
 
     public Book(@NonNull String title, @NonNull Language language, @NonNull String blurb,
-                @NonNull GenreName genre, @NonNull Format format) {
+                @NonNull GenreName genre, @NonNull PublishingFormat bookFormat) {
         this.title = title;
         this.language = language;
         this.blurb = blurb;
         this.genre = genre;
-        this.format = format;
+        this.bookFormat = bookFormat;
     }
 
     @Override

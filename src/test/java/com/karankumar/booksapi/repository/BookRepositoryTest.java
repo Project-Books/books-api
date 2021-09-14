@@ -19,10 +19,10 @@ import com.karankumar.booksapi.annotations.DataJpaIntegrationTest;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.Publisher;
+import com.karankumar.booksapi.model.PublishingFormat;
 import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.Language;
 import com.karankumar.booksapi.model.language.LanguageName;
-import com.karankumar.booksapi.model.format.Format;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -67,8 +67,8 @@ class BookRepositoryTest {
     @Test
     void findSavedBooks() {
         // given
-        Format format = new Format();
-        formatRepository.save(format);
+        PublishingFormat bookFormat = new PublishingFormat();
+        formatRepository.save(bookFormat);
         Language language = new Language(LanguageName.ENGLISH);
         languageRepository.save(language);
         Book book = new Book(
@@ -76,7 +76,7 @@ class BookRepositoryTest {
                 language,
                 "Sample blurb value",
                 GenreName.CHILDREN,
-                format
+                bookFormat
         );
         book.setGenre(GenreName.REFERENCE);
         book.setYearOfPublication(2019);
@@ -109,8 +109,8 @@ class BookRepositoryTest {
     }
 
     private Book createBookWithIsbn13() {
-        Format format = new Format();
-        formatRepository.save(format);
+        PublishingFormat bookFormat = new PublishingFormat();
+        formatRepository.save(bookFormat);
         Language language = new Language(LanguageName.ENGLISH);
         languageRepository.save(language);
         Book book = new Book(
@@ -118,7 +118,7 @@ class BookRepositoryTest {
                 language,
                 "",
                 GenreName.SATIRE,
-                format
+                bookFormat
         );
         book.setIsbn13(ISBN);
         return book;
@@ -167,8 +167,8 @@ class BookRepositoryTest {
     @Test
     void findBookByTitle() {
         // given
-        Format format = new Format();
-        formatRepository.save(format);
+        PublishingFormat bookFormat = new PublishingFormat();
+        formatRepository.save(bookFormat);
         Language language = new Language(LanguageName.ENGLISH);
         languageRepository.save(language);
         Book book = new Book(
@@ -176,7 +176,7 @@ class BookRepositoryTest {
                 language,
                 "",
                 GenreName.ART,
-                format
+                bookFormat
         );
         bookRepository.save(book);
 
@@ -190,8 +190,8 @@ class BookRepositoryTest {
     @Test
     void findBookByTitleCaseInsensitive() {
         // given
-        Format format = new Format();
-        formatRepository.save(format);
+        PublishingFormat bookFormat = new PublishingFormat();
+        formatRepository.save(bookFormat);
         Language language = new Language(LanguageName.AFRIKAANS);
         languageRepository.save(language);
         Book book = new Book(
@@ -199,7 +199,7 @@ class BookRepositoryTest {
                 language,
                 "",
                 GenreName.MYSTERY,
-                format
+                bookFormat
         );
         bookRepository.save(book);
 

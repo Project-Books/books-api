@@ -1,0 +1,4 @@
+type PublishingFormat {
+    id: ID!
+    type: String!
+}

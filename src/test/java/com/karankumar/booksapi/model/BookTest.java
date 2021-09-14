@@ -15,7 +15,6 @@
 
 package com.karankumar.booksapi.model;
 
-import com.karankumar.booksapi.model.format.Format;
 import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.Language;
 import com.karankumar.booksapi.model.language.LanguageName;
@@ -34,7 +33,7 @@ class BookTest {
                         null,
                         new Language(LanguageName.ENGLISH),
                         "Sample blurb value", GenreName.FANTASY,
-                        new Format()
+                        new PublishingFormat()
                 ));
     }
 
@@ -47,7 +46,7 @@ class BookTest {
                         null,
                         "Sample blurb value",
                         GenreName.FANTASY,
-                        new Format()
+                        new PublishingFormat()
                 ));
     }
 }

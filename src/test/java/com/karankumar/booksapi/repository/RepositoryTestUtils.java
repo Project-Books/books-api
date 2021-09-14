@@ -19,7 +19,7 @@ import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.Language;
 import com.karankumar.booksapi.model.language.LanguageName;
-import com.karankumar.booksapi.model.format.Format;
+import com.karankumar.booksapi.model.PublishingFormat;
 
 final class RepositoryTestUtils {
     private RepositoryTestUtils() { }
@@ -30,7 +30,7 @@ final class RepositoryTestUtils {
                 new Language(LanguageName.ENGLISH),
                 "Sample blurb value",
                 GenreName.CHILDREN,
-                new Format()
+                new PublishingFormat()
         );
         book.setGenre(GenreName.REFERENCE);
         book.setYearOfPublication(2019);

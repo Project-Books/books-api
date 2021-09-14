@@ -1,13 +1,13 @@
 type Book {
     id: ID!
-    authors: [Author!]!
     title: String!
-    languageName: Language!
-    blurb: String!
-    genre: Genre
     isbn13: String
+    genre: Genre
     yearOfPublication: Int
+    blurb: String!
+    authors: [Author!]!
     publisher: Publisher
-    formatType: BookFormat
+    languageName: Language!
+    format: PublishingFormat
 }
 
