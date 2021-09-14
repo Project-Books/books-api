@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Objects;
 
 /**
@@ -44,24 +45,45 @@ public class BookCover {
     private CoverFileType largeFileType;
 
     @ManyToOne
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "id")
     private Book book;
 
+    @Transient
+    private String pathToSmall;
+
+    @Transient
+    private String pathToMedium;
+
+    @Transient
+    private String pathToLarge;
+
+    // TODO: configure to use a different prefix for prod
     private static final String PREFIX = "https://bapiimagesdev.blob.core.windows.net/covers/";
+    private static final String SMALL_SUFFIX = "/small";
+    private static final String MEDIUM_SUFFIX = "/medium";
+    private static final String LARGE_SUFFIX = "/large";
+
+    private String getFileType(CoverFileType fileType) {
+        switch (fileType.getFileType()) {
+            case JPG:
+                return ".jpg";
+            case PNG:
+                return ".png";
+            default:
+                return "";
+        }
+    }
 
     public String getPathToSmall() {
-        final String suffix = "/small.jpg";
-        return PREFIX + id + suffix;
+        return PREFIX + id + SMALL_SUFFIX + getFileType(smallFileType);
     }
 
     public String getPathToMedium() {
-        final String suffix = "/medium.jpg";
-        return PREFIX + id + suffix;
+        return PREFIX + id + MEDIUM_SUFFIX + getFileType(mediumFileType);
     }
 
     public String getPathToLarge() {
-        final String suffix = "/large.jpg";
-        return PREFIX + id + suffix;
+        return PREFIX + id + LARGE_SUFFIX + getFileType(largeFileType);
     }
 
     @Override
