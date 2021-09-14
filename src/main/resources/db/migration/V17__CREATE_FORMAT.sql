@@ -6,6 +6,3 @@ CREATE TABLE format (
 INSERT INTO format (type) VALUES ('eBook');
 INSERT INTO format (type) VALUES ('Hardcover');
 INSERT INTO format (type) VALUES ('Paperback');
-
--- ALTER TABLE book
--- ADD COLUMN format INTEGER NOT NULL REFERENCES format(id);
