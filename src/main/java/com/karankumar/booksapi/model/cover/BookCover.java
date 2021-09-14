@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -45,7 +44,6 @@ public class BookCover {
     private CoverFileType largeFileType;
 
     @ManyToOne
-    @JoinColumn(name = "id")
     private Book book;
 
     @Transient
