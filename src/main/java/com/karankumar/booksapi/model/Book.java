@@ -18,7 +18,7 @@ package com.karankumar.booksapi.model;
 import com.karankumar.booksapi.model.cover.BookCover;
 import com.karankumar.booksapi.model.format.Format;
 import com.karankumar.booksapi.model.genre.GenreName;
-import com.karankumar.booksapi.model.language.LanguageName;
+import com.karankumar.booksapi.model.language.Language;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -73,8 +73,10 @@ public class Book {
     )
     private Set<Author> authors = new HashSet<>();
 
-    @Column(nullable = false)
-    private LanguageName languageName;
+    // If a book is written in different languages, they will each have their own ISBN.
+    // Consequently, we will consider it to be a different book/edition
+    @OneToOne
+    private Language language;
 
     private String isbn10;
 
@@ -101,10 +103,10 @@ public class Book {
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private Set<BookCover> bookCover = new HashSet<>();
 
-    public Book(@NonNull String title, @NonNull LanguageName languageName, @NonNull String blurb,
+    public Book(@NonNull String title, @NonNull Language language, @NonNull String blurb,
                 @NonNull GenreName genre, @NonNull Format format) {
         this.title = title;
-        this.languageName = languageName;
+        this.language = language;
         this.blurb = blurb;
         this.genre = genre;
         this.format = format;

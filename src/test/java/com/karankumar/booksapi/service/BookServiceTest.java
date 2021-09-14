@@ -4,6 +4,7 @@ import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.genre.GenreName;
+import com.karankumar.booksapi.model.language.Language;
 import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import com.karankumar.booksapi.repository.BookRepository;
@@ -43,7 +44,7 @@ class BookServiceTest {
         // given
         Book bookWithInvalidIsbn10 = new Book(
                 "title",
-                LanguageName.ENGLISH,
+                new Language(LanguageName.ENGLISH),
                 "blurb",
                 GenreName.CRIME,
                 new Format()
@@ -65,7 +66,7 @@ class BookServiceTest {
         // given
         Book bookWithInvalidIsbn13 = new Book(
                 "title",
-                LanguageName.ENGLISH,
+                new Language(LanguageName.ENGLISH),
                 "blurb",
                 GenreName.CRIME,
                 new Format()
@@ -82,7 +83,7 @@ class BookServiceTest {
         // given
          Book bookWithValidIsbn10 = new Book(
                  "title",
-                 LanguageName.ENGLISH,
+                 new Language(LanguageName.ENGLISH),
                  "blurb",
                  GenreName.CRIME,
                  new Format()
@@ -103,7 +104,7 @@ class BookServiceTest {
         // given
         Book book = new Book(
                 "title",
-                LanguageName.ENGLISH,
+                new Language(LanguageName.ENGLISH),
                 "blurb",
                 GenreName.CRIME,
                 new Format()
@@ -124,7 +125,7 @@ class BookServiceTest {
         // given
         Book book = new Book(
                 "title",
-                LanguageName.ENGLISH,
+                new Language(LanguageName.ENGLISH),
                 "blurb",
                 GenreName.CRIME,
                 new Format()

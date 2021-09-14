@@ -20,6 +20,7 @@ import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.Publisher;
 import com.karankumar.booksapi.model.genre.GenreName;
+import com.karankumar.booksapi.model.language.Language;
 import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.format.Format;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,14 +45,17 @@ class BookRepositoryTest {
     private final AuthorRepository authorRepository;
     private final PublisherRepository publisherRepository;
     private final FormatRepository formatRepository;
+    private LanguageRepository languageRepository;
 
     @Autowired
     BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository,
-                       PublisherRepository publisherRepository, FormatRepository formatRepository) {
+                       PublisherRepository publisherRepository, FormatRepository formatRepository,
+                       LanguageRepository languageRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.publisherRepository = publisherRepository;
         this.formatRepository = formatRepository;
+        this.languageRepository = languageRepository;
     }
 
     @BeforeEach
@@ -65,9 +69,11 @@ class BookRepositoryTest {
         // given
         Format format = new Format();
         formatRepository.save(format);
+        Language language = new Language(LanguageName.ENGLISH);
+        languageRepository.save(language);
         Book book = new Book(
                 "97 Things Every Java Programmer Should Know",
-                LanguageName.ENGLISH,
+                language,
                 "Sample blurb value",
                 GenreName.CHILDREN,
                 format
@@ -101,13 +107,15 @@ class BookRepositoryTest {
         // then
         assertThat(result).isEqualTo(book);
     }
-  
+
     private Book createBookWithIsbn13() {
         Format format = new Format();
         formatRepository.save(format);
+        Language language = new Language(LanguageName.ENGLISH);
+        languageRepository.save(language);
         Book book = new Book(
                 "Game of APIs",
-                LanguageName.ENGLISH,
+                language,
                 "",
                 GenreName.SATIRE,
                 format
@@ -115,7 +123,7 @@ class BookRepositoryTest {
         book.setIsbn13(ISBN);
         return book;
     }
-    
+
     @Test
     void findByAuthor() {
         // given
@@ -135,8 +143,7 @@ class BookRepositoryTest {
             softly.assertThat(result.get(0)).isEqualTo(book);
         });
     }
-    
-       
+
     @Test
     void findByPublisher() {
         // given
@@ -158,13 +165,15 @@ class BookRepositoryTest {
     }
 
     @Test
-      void findBookByTitle() {
+    void findBookByTitle() {
         // given
         Format format = new Format();
         formatRepository.save(format);
+        Language language = new Language(LanguageName.ENGLISH);
+        languageRepository.save(language);
         Book book = new Book(
                 TITLE,
-                LanguageName.ENGLISH,
+                language,
                 "",
                 GenreName.ART,
                 format
@@ -183,9 +192,11 @@ class BookRepositoryTest {
         // given
         Format format = new Format();
         formatRepository.save(format);
+        Language language = new Language(LanguageName.AFRIKAANS);
+        languageRepository.save(language);
         Book book = new Book(
                 TITLE,
-                LanguageName.ENGLISH,
+                language,
                 "",
                 GenreName.MYSTERY,
                 format

@@ -1,6 +1,6 @@
 package com.karankumar.booksapi.model.language;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,14 +17,17 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String language;
+    private String name;
+
+    public Language(LanguageName languageName) {
+        this.name = languageName.toString();
+    }
 
     @Override
     public boolean equals(Object o) {

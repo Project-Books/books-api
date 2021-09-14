@@ -58,15 +58,15 @@ public enum LanguageName {
     URDU("Urdu"),
     WELSH("Welsh");
       
-    private final String lang;
+    private final String name;
     
     LanguageName(String lang) {
-        this.lang = lang;
+        this.name = lang;
     }
     
     @Override
     public String toString() {
-        return lang;
+        return name;
     }
 
 }
