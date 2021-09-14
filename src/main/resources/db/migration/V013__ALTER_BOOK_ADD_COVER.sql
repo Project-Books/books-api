@@ -1,0 +1,3 @@
+ALTER TABLE book
+ADD COLUMN cover_id INTEGER REFERENCES cover(id);
+

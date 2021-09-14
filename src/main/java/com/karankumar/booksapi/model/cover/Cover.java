@@ -22,13 +22,13 @@ import java.util.Objects;
  * We store a partial path in our blob storage and then dynamically add the prefix needed.
  * We only accept the .jpg image file type
  */
-@Table(name = "book_cover")
+@Table(name = "cover", schema = "public")
 @Entity
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class BookCover {
+public class Cover {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -92,7 +92,7 @@ public class BookCover {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
             return false;
         }
-        BookCover bookCover = (BookCover) o;
+        Cover bookCover = (Cover) o;
         return Objects.equals(id, bookCover.id);
     }
 

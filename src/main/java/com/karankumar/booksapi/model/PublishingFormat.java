@@ -1,4 +1,4 @@
-package com.karankumar.booksapi.model.format;
+package com.karankumar.booksapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,13 +21,33 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class Format {
+public class PublishingFormat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public enum Type {
+        // IDs correspond the IDs in the associated database table
+        EBOOK("eBook", 1),
+        HARDCOVER("Hardcover", 2),
+        PAPERBACK("Paperback", 3);
+
+        private final String type;
+        private final int id;
+
+        Type(String type, int id) {
+            this.type = type;
+            this.id = id;
+        }
+
+        @Override
+        public String toString() {
+            return type;
+        }
+    }
+
     @Enumerated(EnumType.ORDINAL)
-    private FormatType type;
+    private Type type;
 
     @Override
     public boolean equals(Object o) {
@@ -37,8 +57,9 @@ public class Format {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
             return false;
         }
-        Format format = (Format) o;
-        return Objects.equals(id, format.id);
+        FormatType
+                bookFormat = (FormatType) o;
+        return Objects.equals(id, bookFormat.id);
     }
 
     @Override

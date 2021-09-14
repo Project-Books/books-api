@@ -16,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
 
-@Table(name = "cover_file_type")
+@Table(name = "cover_file_type", schema = "public")
 @Entity
 @Getter
 @Setter
@@ -27,6 +27,30 @@ public class CoverFileType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    public enum ImageFileType {
+        JPG(1),
+        PNG(2);
+
+        private final Integer id;
+
+        ImageFileType(Integer id) {
+            this.id = id;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public ImageFileType valueOf(Integer id) {
+            for (ImageFileType value : values()) {
+                if (value.id.equals(id)) {
+                    return value;
+                }
+            }
+            return null;
+        }
+    }
 
     @Enumerated(EnumType.ORDINAL)
     private ImageFileType fileType;
