@@ -15,80 +15,12 @@
 
 package com.karankumar.booksapi;
 
-import com.karankumar.booksapi.model.Author;
-import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
-import com.karankumar.booksapi.model.Publisher;
-import com.karankumar.booksapi.repository.AuthorRepository;
-import com.karankumar.booksapi.repository.BookRepository;
-import com.karankumar.booksapi.repository.PublisherRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.util.Set;
 
 @SpringBootApplication
 public class BooksApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(BooksApiApplication.class, args);
-    }
-
-    @Bean
-    public CommandLineRunner populateData(AuthorRepository authorRepository,
-                                          BookRepository bookRepository,
-                                          PublisherRepository publisherRepository) {
-        return args -> {
-            Publisher publisher = new Publisher("Bloomsbury");
-
-            Book book1 = createBook(
-                    "Harry Potter and the Philosopher's stone",
-                    "Philosopher's stone blurb",
-                    1997,
-                    "9781408810545"
-            );
-            publisher.addBook(book1);
-
-            Book book2 = createBook(
-                    "Harry Potter and the Chamber of Secrets",
-                    "Chamber of secrets blurb",
-                    1998,
-                    "1234567898765"
-            );
-
-            Book book3 = createBook(
-                    "The Hobbit",
-                    "Hobbit blurb",
-                    1937,
-                    "1234567898761"
-            );
-            Author author2 = new Author("J.R.R. Tolkien", Set.of(book3));
-            author2.setAbout("Another fantastic author");
-            authorRepository.save(author2);
-
-            Set<Book> allBooks = Set.of(book1, book2, book3);
-            Author author = new Author("J.K. Rowling", allBooks);
-            author.setAbout("A fantastic author");
-            authorRepository.save(author);
-
-            bookRepository.saveAll(allBooks);
-            publisherRepository.save(publisher);
-        };
-    }
-
-    private Book createBook(String title, String blurb, int yearOfPublication, String isbn13) {
-        Book book = new Book(
-                title,
-                Language.ENGLISH,
-                blurb,
-                BookGenre.FANTASY,
-                BookFormat.PAPERBACK
-        );
-        book.setYearOfPublication(yearOfPublication);
-        book.setIsbn13(isbn13);
-        return book;
     }
 }

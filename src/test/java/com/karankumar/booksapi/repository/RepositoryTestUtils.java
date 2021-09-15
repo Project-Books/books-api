@@ -15,11 +15,12 @@
 
 package com.karankumar.booksapi.repository;
 
-import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
+import com.karankumar.booksapi.model.PublishingFormat;
+import com.karankumar.booksapi.model.genre.Genre;
+import com.karankumar.booksapi.model.genre.GenreName;
+import com.karankumar.booksapi.model.language.Lang;
+import com.karankumar.booksapi.model.language.LanguageName;
 
 final class RepositoryTestUtils {
     private RepositoryTestUtils() { }
@@ -27,15 +28,13 @@ final class RepositoryTestUtils {
     static Book createBook() {
         Book book = new Book(
                 "97 Things Every Java Programmer Should Know",
-                Language.ENGLISH,
+                new Lang(LanguageName.ENGLISH),
                 "Sample blurb value",
-                BookGenre.CHILDREN,
-                BookFormat.EBOOK
+                new Genre(GenreName.CHILDREN),
+                new PublishingFormat()
         );
-        book.setGenre(BookGenre.REFERENCE);
         book.setYearOfPublication(2019);
         book.setIsbn13("9781408670545");
-        book.setFormat(BookFormat.PAPERBACK);
         return book;
     }
 

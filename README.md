@@ -32,7 +32,7 @@ Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8
 ## Running the app
 
 1. Import as a Maven project into your favourite IDE
-2. Start the MySQL Database or run the docker-compose file `docker-compose up -d` (you may need to add `sudo` to this command) 
+2. Start the PostgreSQL Database or run the docker-compose file `docker-compose up -d` (you may need to add `sudo` to this command) 
    - If using macOS or Windows, you'll need to first ensure Docker Desktop is running 
 3. Run `BooksApiApplication.java`
 4. Go to `localhost:8080/graphiql`
@@ -40,16 +40,33 @@ Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8
 Sample query:
 ```graphql
 {
-  findAllBooks {
-    title
-    authors {
-      fullName
+    findAllBooks {
+        title
+        isbn13
+        yearOfPublication
+        blurb
+        publisher {
+            name
+        }
+        isbn10
+        authors {
+            fullName
+        }
+        lang {
+            name
+        }
+        genre {
+            name
+        }
+        cover {
+            small
+            medium
+            large
+        }
+        publishingFormat {
+            formatName
+        }
     }
-    genre
-    isbn13
-    yearOfPublication
-    format
-  }
 }
 ```
 
@@ -61,11 +78,12 @@ To access the PostgreSQL database when docker-compose/Docker desktop is running,
 - Port: `5432`
 - User: `dbuser`
 - Password: `dbpassword`
-- URL: `jdbc:postgresql://localhost:5432/booksapi`
+- Database: books_api
+- URL: `jdbc:postgresql://localhost:5432/books_api`
 
 For example, in IntelliJ ultimate or DataGrip:
 
-![image](https://user-images.githubusercontent.com/11173328/132951060-7018b96a-cd96-4d74-a3f4-69233517a751.png)
+![image](https://user-images.githubusercontent.com/11173328/133380226-6e96a805-bf13-42e5-bcc2-0e39a1ab16a3.png)
 
 ## Contributing
 

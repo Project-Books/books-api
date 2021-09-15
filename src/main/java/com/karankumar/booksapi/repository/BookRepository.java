@@ -24,16 +24,27 @@ import java.util.List;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
     // TODO: this is kept in for quick testing, but will be removed at a later date
-    @Query("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.authors LEFT JOIN FETCH b.publishers")
+    @Query(value =
+            "SELECT b FROM Book b " +
+            "JOIN FETCH b.authors " //+
+//            "JOIN FETCH b.publishers"
+    )
     List<Book> findAllBooks();
   
     @Query("SELECT a.books FROM Author a where a.fullName=?1")
     List<Book> findByAuthor(String fullName);
 
     Book findBookByIsbn13(String isbn13);
-  
+
+    @Query(value = "SELECT b FROM Book b WHERE lower(b.title) = lower(:title)")
     Book findByTitleIgnoreCase(String title);
     
-    @Query(value="SELECT b.* from book b left join publisher_book pb on pb.book_id = b.id left join publisher p on p.id = pb.publisher_id where p.name like :publisherName", nativeQuery=true)
+    @Query(value =
+            "SELECT b.* FROM book b " +
+            "LEFT JOIN publisher_book pb ON pb.book_id = b.id " +
+            "LEFT JOIN publisher p ON p.id = pb.publisher_id " +
+            "WHERE p.name LIKE :publisherName",
+            nativeQuery = true
+    )
     List<Book> findByPublisher(@Param("publisherName") String publisherName);
 }
