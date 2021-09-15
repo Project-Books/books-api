@@ -64,11 +64,11 @@ public class Book {
             name = "book_author",
             joinColumns = @JoinColumn(
                     name = "book_id",
-                    foreignKey = @ForeignKey(name = "book_author_book_id_fk")
+                    foreignKey = @ForeignKey(name = "book_author_book_id_fkey")
             ),
             inverseJoinColumns = @JoinColumn(
                     name = "author_id",
-                    foreignKey = @ForeignKey(name = "book_author_author_id_fk")
+                    foreignKey = @ForeignKey(name = "book_author_author_id_fkey")
             )
     )
     private Set<Author> authors = new HashSet<>();
