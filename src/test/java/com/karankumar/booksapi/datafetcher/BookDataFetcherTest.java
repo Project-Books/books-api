@@ -111,20 +111,22 @@ class BookDataFetcherTest {
         final String publisherName = "HarperCollins";
         Publisher publisher = new Publisher(publisherName);
         Book book = new Book(
-                "Abhorsen", Language.ENGLISH, "blurb", BookGenre.FANTASY, BookFormat.PAPERBACK
+                "Abhorsen", new Lang(LanguageName.ENGLISH), "blurb",
+                new Genre(GenreName.FANTASY),
+                new PublishingFormat(PublishingFormat.Format.PAPERBACK)
         );
         publisher.addBook(book);
         given(bookService.findAll()).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 new FindAllBooksGraphQLQuery(),
-                new FindAllBooksProjectionRoot().publishers().name()
+                new FindAllBooksProjectionRoot().publisher().name()
         );
 
         // When
         List<String> publishers = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.FindAllBooks + "[*]." + DgsConstants.BOOK.Publishers
-                            + "[*]." + DgsConstants.PUBLISHER.Name
+                ROOT + DgsConstants.QUERY.FindAllBooks + "[*]." +
+                        DgsConstants.BOOK.Publisher + "[*]." + DgsConstants.PUBLISHER.Name
         );
 
         // Then
