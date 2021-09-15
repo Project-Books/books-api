@@ -6,6 +6,8 @@ declare
     science_genre int;
     english int;
     paperback int;
+
+    hawking int;
 begin
     SELECT id
     INTO penguin
@@ -50,6 +52,13 @@ begin
          english,
          paperback
     );
+
+    SELECT id
+    INTO hawking
+    FROM author
+    WHERE full_name = 'Stephen Hawking';
+
+    INSERT INTO book_author (book_id, author_id) VALUES (1, hawking);
 end;
 $$;
 COMMIT TRANSACTION;
