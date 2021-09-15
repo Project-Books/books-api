@@ -10,5 +10,6 @@ type Book {
     publisher: Publisher
     lang: Lang!
     publishingFormat: PublishingFormat
+    cover: Cover
 }
 
