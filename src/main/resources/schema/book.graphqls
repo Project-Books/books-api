@@ -2,6 +2,7 @@ type Book {
     id: ID!
     title: String!
     isbn13: String
+    isbn10: String
     genre: Genre
     yearOfPublication: Int
     blurb: String!
