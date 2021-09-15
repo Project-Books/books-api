@@ -20,8 +20,9 @@ import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.Publisher;
 import com.karankumar.booksapi.model.PublishingFormat;
+import com.karankumar.booksapi.model.genre.Genre;
 import com.karankumar.booksapi.model.genre.GenreName;
-import com.karankumar.booksapi.model.language.Language;
+import com.karankumar.booksapi.model.language.Lang;
 import com.karankumar.booksapi.model.language.LanguageName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -45,17 +46,19 @@ class BookRepositoryTest {
     private final AuthorRepository authorRepository;
     private final PublisherRepository publisherRepository;
     private final FormatRepository formatRepository;
-    private LanguageRepository languageRepository;
+    private final LanguageRepository languageRepository;
+    private final GenreRepository genreRepository;
 
     @Autowired
     BookRepositoryTest(BookRepository bookRepository, AuthorRepository authorRepository,
                        PublisherRepository publisherRepository, FormatRepository formatRepository,
-                       LanguageRepository languageRepository) {
+                       LanguageRepository languageRepository, GenreRepository genreRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.publisherRepository = publisherRepository;
         this.formatRepository = formatRepository;
         this.languageRepository = languageRepository;
+        this.genreRepository = genreRepository;
     }
 
     @BeforeEach
@@ -69,16 +72,17 @@ class BookRepositoryTest {
         // given
         PublishingFormat bookFormat = new PublishingFormat();
         formatRepository.save(bookFormat);
-        Language language = new Language(LanguageName.ENGLISH);
+        Lang language = new Lang(LanguageName.ENGLISH);
         languageRepository.save(language);
+        Genre genre = new Genre(GenreName.CHILDREN);
+        genreRepository.save(genre);
         Book book = new Book(
                 "97 Things Every Java Programmer Should Know",
                 language,
                 "Sample blurb value",
-                GenreName.CHILDREN,
+                genre,
                 bookFormat
         );
-        book.setGenre(GenreName.REFERENCE);
         book.setYearOfPublication(2019);
         book.setIsbn13("9781408670545");
 
@@ -111,13 +115,16 @@ class BookRepositoryTest {
     private Book createBookWithIsbn13() {
         PublishingFormat bookFormat = new PublishingFormat();
         formatRepository.save(bookFormat);
-        Language language = new Language(LanguageName.ENGLISH);
+        Lang language = new Lang(LanguageName.ENGLISH);
         languageRepository.save(language);
+        Genre genre = new Genre(GenreName.SATIRE);
+        genreRepository.save(genre);
+
         Book book = new Book(
                 "Game of APIs",
                 language,
                 "",
-                GenreName.SATIRE,
+                genre,
                 bookFormat
         );
         book.setIsbn13(ISBN);
@@ -169,13 +176,15 @@ class BookRepositoryTest {
         // given
         PublishingFormat bookFormat = new PublishingFormat();
         formatRepository.save(bookFormat);
-        Language language = new Language(LanguageName.ENGLISH);
+        Lang language = new Lang(LanguageName.ENGLISH);
         languageRepository.save(language);
+        Genre genre = new Genre(GenreName.ART);
+        genreRepository.save(genre);
         Book book = new Book(
                 TITLE,
                 language,
                 "",
-                GenreName.ART,
+                genre,
                 bookFormat
         );
         bookRepository.save(book);
@@ -192,13 +201,15 @@ class BookRepositoryTest {
         // given
         PublishingFormat bookFormat = new PublishingFormat();
         formatRepository.save(bookFormat);
-        Language language = new Language(LanguageName.AFRIKAANS);
+        Lang language = new Lang(LanguageName.AFRIKAANS);
         languageRepository.save(language);
+        Genre genre = new Genre(GenreName.MYSTERY);
+        genreRepository.save(genre);
         Book book = new Book(
                 TITLE,
                 language,
                 "",
-                GenreName.MYSTERY,
+                genre,
                 bookFormat
         );
         bookRepository.save(book);

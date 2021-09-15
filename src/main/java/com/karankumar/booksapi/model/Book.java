@@ -16,8 +16,8 @@
 package com.karankumar.booksapi.model;
 
 import com.karankumar.booksapi.model.cover.Cover;
-import com.karankumar.booksapi.model.genre.GenreName;
-import com.karankumar.booksapi.model.language.Language;
+import com.karankumar.booksapi.model.genre.Genre;
+import com.karankumar.booksapi.model.language.Lang;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,7 +53,6 @@ import java.util.Set;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(nullable = false)
@@ -77,14 +76,15 @@ public class Book {
     // If a book is written in different languages, they will each have their own ISBN.
     // Consequently, we will consider it to be a different book/edition
     @OneToOne
-    private Language language;
+    private Lang lang;
 
     private String isbn10;
 
     private String isbn13;
 
-    @Column(nullable = false)
-    private GenreName genre;
+    // TODO: should this be one to many?
+    @OneToOne
+    private Genre genre;
 
     private Integer yearOfPublication;
 
@@ -98,19 +98,20 @@ public class Book {
     // One to one because a different book format warrants a new ISBN, so we will classify it as a
     // new book/edition
     @OneToOne
-    private PublishingFormat bookFormat;
+    private PublishingFormat publishingFormat;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private Set<Cover> cover = new HashSet<>();
 
-    public Book(@NonNull String title, @NonNull Language language, @NonNull String blurb,
-                @NonNull GenreName genre, @NonNull PublishingFormat bookFormat) {
+    public Book(@NonNull String title, @NonNull Lang lang,
+                @NonNull String blurb, @NonNull Genre genre,
+                @NonNull PublishingFormat publishingFormat) {
         this.title = title;
-        this.language = language;
+        this.lang = lang;
         this.blurb = blurb;
         this.genre = genre;
-        this.bookFormat = bookFormat;
+        this.publishingFormat = publishingFormat;
     }
 
     @Override

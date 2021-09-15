@@ -7,12 +7,12 @@ declare
 begin
     SELECT id
     INTO jpg_id
-    FROM cover_file_type
+    FROM image_file_type
     where file_type = 'jpg';
 
     SELECT id
     INTO png_id
-    FROM cover_file_type
+    FROM image_file_type
     WHERE file_type = 'png';
 
 -- 1

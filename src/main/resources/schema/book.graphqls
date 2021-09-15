@@ -7,7 +7,7 @@ type Book {
     blurb: String!
     authors: [Author!]!
     publisher: Publisher
-    languageName: Language!
-    format: PublishingFormat
+    lang: Lang!
+    publishingFormat: PublishingFormat
 }
 

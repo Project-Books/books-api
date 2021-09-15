@@ -19,7 +19,7 @@ begin
 
     SELECT id
     INTO english
-    FROM language
+    FROM lang
     WHERE name = 'English';
 
     SELECT id
@@ -27,7 +27,7 @@ begin
     FROM publishing_format
     WHERE type = 'Paperback';
 
-    INSERT INTO book (title, isbn13, genre, year_of_publication, blurb, publisher, isbn10, cover_id, language, publishing_format)
+    INSERT INTO book (title, isbn13, genre, year_of_publication, blurb, publisher, isbn10, cover_id, lang, publishing_format)
     VALUES (
         'A Brief History of Time', '9780857501004',
          science_genre,

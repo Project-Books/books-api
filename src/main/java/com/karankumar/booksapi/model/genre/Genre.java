@@ -1,7 +1,6 @@
 package com.karankumar.booksapi.model.genre;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +16,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "genre", schema = "public")
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -28,6 +26,10 @@ public class Genre {
     private Long id;
 
     private String name;
+
+    public Genre(GenreName genreName) {
+        name = genreName.toString();
+    }
 
     @Override
     public boolean equals(Object o) {

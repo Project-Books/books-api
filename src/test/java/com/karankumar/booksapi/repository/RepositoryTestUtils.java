@@ -16,8 +16,9 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.genre.Genre;
 import com.karankumar.booksapi.model.genre.GenreName;
-import com.karankumar.booksapi.model.language.Language;
+import com.karankumar.booksapi.model.language.Lang;
 import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.model.PublishingFormat;
 
@@ -27,12 +28,11 @@ final class RepositoryTestUtils {
     static Book createBook() {
         Book book = new Book(
                 "97 Things Every Java Programmer Should Know",
-                new Language(LanguageName.ENGLISH),
+                new Lang(LanguageName.ENGLISH),
                 "Sample blurb value",
-                GenreName.CHILDREN,
+                new Genre(GenreName.CHILDREN),
                 new PublishingFormat()
         );
-        book.setGenre(GenreName.REFERENCE);
         book.setYearOfPublication(2019);
         book.setIsbn13("9781408670545");
         return book;
