@@ -66,7 +66,7 @@ To access the PostgreSQL database when docker-compose/Docker desktop is running,
 
 For example, in IntelliJ ultimate or DataGrip:
 
-![image](https://user-images.githubusercontent.com/11173328/132951060-7018b96a-cd96-4d74-a3f4-69233517a751.png)
+![image](https://user-images.githubusercontent.com/11173328/133380226-6e96a805-bf13-42e5-bcc2-0e39a1ab16a3.png)
 
 ## Contributing
 
