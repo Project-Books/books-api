@@ -18,8 +18,8 @@ package com.karankumar.booksapi.repository;
 import com.karankumar.booksapi.annotations.DataJpaIntegrationTest;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.PublishingFormat;
 import com.karankumar.booksapi.model.Publisher;
+import com.karankumar.booksapi.model.PublishingFormat;
 import com.karankumar.booksapi.model.genre.Genre;
 import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.Lang;
@@ -31,8 +31,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import static com.karankumar.booksapi.repository.RepositoryTestUtils.createBook;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
@@ -65,6 +65,11 @@ class BookRepositoryTest {
     void setUp() {
         authorRepository.deleteAll();
         bookRepository.deleteAll();
+
+        publisherRepository.deleteAll();
+        formatRepository.deleteAll();
+        languageRepository.deleteAll();
+        genreRepository.deleteAll();
     }
 
     @Test
@@ -76,6 +81,7 @@ class BookRepositoryTest {
         languageRepository.save(language);
         Genre genre = new Genre(GenreName.CHILDREN);
         genreRepository.save(genre);
+
         Book book = new Book(
                 "97 Things Every Java Programmer Should Know",
                 language,
@@ -83,11 +89,10 @@ class BookRepositoryTest {
                 genre,
                 bookFormat
         );
-        book.setYearOfPublication(2019);
-        book.setIsbn13("9781408670545");
-
-        createBook();
+        Author author = new Author("Name", Set.of(book));
+        book.setAuthors(Set.of(author));
         bookRepository.save(book);
+        authorRepository.save(author);
 
         // when
         List<Book> result = bookRepository.findAllBooks();
