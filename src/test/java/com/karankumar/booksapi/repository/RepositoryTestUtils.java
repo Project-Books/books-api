@@ -16,11 +16,11 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.PublishingFormat;
 import com.karankumar.booksapi.model.genre.Genre;
 import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.model.language.Lang;
 import com.karankumar.booksapi.model.language.LanguageName;
-import com.karankumar.booksapi.model.PublishingFormat;
 
 final class RepositoryTestUtils {
     private RepositoryTestUtils() { }

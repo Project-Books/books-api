@@ -25,9 +25,20 @@ begin
     SELECT id
     INTO paperback
     FROM publishing_format
-    WHERE type = 'Paperback';
+    WHERE format_name = 'Paperback';
 
-    INSERT INTO book (title, isbn13, genre, year_of_publication, blurb, publisher, isbn10, cover_id, lang, publishing_format)
+    INSERT INTO book (
+      title,
+      isbn13,
+      genre_id,
+      year_of_publication,
+      blurb,
+      publisher,
+      isbn10,
+      cover_id,
+      lang_id,
+      publishing_format_id
+    )
     VALUES (
         'A Brief History of Time', '9780857501004',
          science_genre,
