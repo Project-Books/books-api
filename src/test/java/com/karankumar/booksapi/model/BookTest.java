@@ -15,6 +15,9 @@
 
 package com.karankumar.booksapi.model;
 
+import com.karankumar.booksapi.model.genre.GenreName;
+import com.karankumar.booksapi.model.language.Language;
+import com.karankumar.booksapi.model.language.LanguageName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -28,9 +31,9 @@ class BookTest {
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> new Book(
                         null,
-                        Language.ENGLISH,
-                        "Sample blurb value", BookGenre.FANTASY,
-                        BookFormat.HARDCOVER
+                        new Language(LanguageName.ENGLISH),
+                        "Sample blurb value", GenreName.FANTASY,
+                        new PublishingFormat()
                 ));
     }
 
@@ -42,8 +45,8 @@ class BookTest {
                         "The Hobbit",
                         null,
                         "Sample blurb value",
-                        BookGenre.FANTASY,
-                        BookFormat.HARDCOVER
+                        GenreName.FANTASY,
+                        new PublishingFormat()
                 ));
     }
 }

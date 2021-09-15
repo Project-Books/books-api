@@ -48,7 +48,7 @@ Sample query:
     genre
     isbn13
     yearOfPublication
-    format
+    formatType
   }
 }
 ```
@@ -61,7 +61,8 @@ To access the PostgreSQL database when docker-compose/Docker desktop is running,
 - Port: `5432`
 - User: `dbuser`
 - Password: `dbpassword`
-- URL: `jdbc:postgresql://localhost:5432/booksapi`
+- Database: books_api
+- URL: `jdbc:postgresql://localhost:5432/books_api`
 
 For example, in IntelliJ ultimate or DataGrip:
 

@@ -5,7 +5,7 @@ services:
     image: postgres:12 # 12 is the latest Flyway supported version
     restart: always
     environment:
-      - POSTGRES_DB=booksapi
+      - POSTGRES_DB=books_api
       - POSTGRES_USER=dbuser
       - POSTGRES_PASSWORD=dbpassword
     ports:

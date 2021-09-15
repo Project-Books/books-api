@@ -15,11 +15,12 @@
 package com.karankumar.booksapi.model;
 
 import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,21 +31,26 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Data
-@EqualsAndHashCode()
+@Table(name = "publisher", schema = "public")
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Publisher {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Setter(AccessLevel.NONE)
     private Long id;
 
     private String name;
 
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "publisher_book",
@@ -66,5 +72,22 @@ public class Publisher {
     public void addBook(@NonNull Book book) {
         books.add(book);
         book.getPublishers().add(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
+        Publisher publisher = (Publisher) o;
+        return Objects.equals(id, publisher.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

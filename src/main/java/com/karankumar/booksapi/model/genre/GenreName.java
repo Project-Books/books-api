@@ -13,9 +13,9 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.karankumar.booksapi.model;
+package com.karankumar.booksapi.model.genre;
 
-public enum BookGenre {
+public enum GenreName {
     // This should be kept in alphabetical order
     ADVENTURE("Adventure"),
     ANTHOLOGY("Anthology"),
@@ -62,7 +62,7 @@ public enum BookGenre {
 
     private final String genre;
 
-    BookGenre(String genre) {
+    GenreName(String genre) {
         this.genre = genre;
     }
 

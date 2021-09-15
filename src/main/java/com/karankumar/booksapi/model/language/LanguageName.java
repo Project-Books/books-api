@@ -13,9 +13,9 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.karankumar.booksapi.model;
+package com.karankumar.booksapi.model.language;
 
-public enum Language {
+public enum LanguageName {
   
     AFRIKAANS("Afrikaans"),
     ALBANIAN("Albanian"),
@@ -58,15 +58,15 @@ public enum Language {
     URDU("Urdu"),
     WELSH("Welsh");
       
-    private final String lang;
+    private final String name;
     
-    Language(String lang) {
-        this.lang = lang;
+    LanguageName(String lang) {
+        this.name = lang;
     }
     
     @Override
     public String toString() {
-        return lang;
+        return name;
     }
 
 }

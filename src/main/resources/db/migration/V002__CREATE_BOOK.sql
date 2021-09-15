@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS book (
-    id                  BIGSERIAL    NOT NULL PRIMARY KEY,
+    id                  SERIAL       NOT NULL PRIMARY KEY,
     title               VARCHAR(255) NOT NULL,
-    language            INTEGER      NOT NULL,
+    languageName        INTEGER      NOT NULL,
     isbn13              VARCHAR(255),
     genre               INTEGER      NOT NULL,
     year_of_publication INTEGER,
     blurb               VARCHAR(255) NOT NULL,
     published_by        INTEGER,
-    format              INTEGER      NOT NULL
-)
+    formatType          INTEGER      NOT NULL
+);
