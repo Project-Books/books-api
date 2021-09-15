@@ -4,8 +4,9 @@ import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.PublishingFormat;
+import com.karankumar.booksapi.model.genre.Genre;
 import com.karankumar.booksapi.model.genre.GenreName;
-import com.karankumar.booksapi.model.language.Language;
+import com.karankumar.booksapi.model.language.Lang;
 import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.repository.BookRepository;
 import org.assertj.core.api.ThrowableAssert;
@@ -44,9 +45,9 @@ class BookServiceTest {
         // given
         Book bookWithInvalidIsbn10 = new Book(
                 "title",
-                new Language(LanguageName.ENGLISH),
+                new Lang(LanguageName.ENGLISH),
                 "blurb",
-                GenreName.CRIME,
+                new Genre(GenreName.CRIME),
                 new PublishingFormat()
         );
         bookWithInvalidIsbn10.setIsbn10("1234567890");
@@ -66,9 +67,9 @@ class BookServiceTest {
         // given
         Book bookWithInvalidIsbn13 = new Book(
                 "title",
-                new Language(LanguageName.ENGLISH),
+                new Lang(LanguageName.ENGLISH),
                 "blurb",
-                GenreName.CRIME,
+                new Genre(GenreName.CRIME),
                 new PublishingFormat()
         );
         bookWithInvalidIsbn13.setIsbn13("1234567890123");
@@ -83,9 +84,9 @@ class BookServiceTest {
         // given
          Book bookWithValidIsbn10 = new Book(
                  "title",
-                 new Language(LanguageName.ENGLISH),
+                 new Lang(LanguageName.ENGLISH),
                  "blurb",
-                 GenreName.CRIME,
+                 new Genre(GenreName.CRIME),
                  new PublishingFormat()
         );
         bookWithValidIsbn10.setIsbn10("1843560283");
@@ -104,9 +105,9 @@ class BookServiceTest {
         // given
         Book book = new Book(
                 "title",
-                new Language(LanguageName.ENGLISH),
+                new Lang(LanguageName.ENGLISH),
                 "blurb",
-                GenreName.CRIME,
+                new Genre(GenreName.CRIME),
                 new PublishingFormat()
         );
         book.setIsbn13("9783161484100");
@@ -125,9 +126,9 @@ class BookServiceTest {
         // given
         Book book = new Book(
                 "title",
-                new Language(LanguageName.ENGLISH),
+                new Lang(LanguageName.ENGLISH),
                 "blurb",
-                GenreName.CRIME,
+                new Genre(GenreName.CRIME),
                 new PublishingFormat()
         );
         ArgumentCaptor<Book> bookArgumentCaptor = ArgumentCaptor.forClass(Book.class);

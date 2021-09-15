@@ -2,7 +2,7 @@ package com.karankumar.booksapi.model.cover;
 
 import com.karankumar.booksapi.model.Book;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -27,20 +27,20 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Cover {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @OneToOne
-    private CoverFileType smallFileType;
+    private ImageFileType smallFileType;
 
     @OneToOne
-    private CoverFileType mediumFileType;
+    private ImageFileType mediumFileType;
 
     @OneToOne
-    private CoverFileType largeFileType;
+    private ImageFileType largeFileType;
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
@@ -61,7 +61,7 @@ public class Cover {
     private static final String MEDIUM_SUFFIX = "/medium";
     private static final String LARGE_SUFFIX = "/large";
 
-    private String getFileType(CoverFileType fileType) {
+    private String getFileType(ImageFileType fileType) {
         switch (fileType.getFileType()) {
             case JPG:
                 return ".jpg";

@@ -40,16 +40,33 @@ Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8
 Sample query:
 ```graphql
 {
-  findAllBooks {
-    title
-    authors {
-      fullName
+    findAllBooks {
+        title
+        isbn13
+        yearOfPublication
+        blurb
+        publisher {
+            name
+        }
+        isbn10
+        authors {
+            fullName
+        }
+        lang {
+            name
+        }
+        genre {
+            name
+        }
+        cover {
+            small
+            medium
+            large
+        }
+        publishingFormat {
+            formatName
+        }
     }
-    genre
-    isbn13
-    yearOfPublication
-    formatType
-  }
 }
 ```
 

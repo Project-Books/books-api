@@ -27,8 +27,9 @@ import com.acme.client.FindByTitleIgnoreCaseProjectionRoot;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.PublishingFormat;
+import com.karankumar.booksapi.model.genre.Genre;
 import com.karankumar.booksapi.model.genre.GenreName;
-import com.karankumar.booksapi.model.language.Language;
+import com.karankumar.booksapi.model.language.Lang;
 import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsQueryExecutor;
@@ -83,9 +84,9 @@ class BookDataFetcherTest {
         final String title = "How to avoid a climate disaster";
         Book book = new Book(
                 title,
-                new Language(LanguageName.ENGLISH),
+                new Lang(LanguageName.ENGLISH),
                 "blurb",
-                GenreName.CRIME,
+                new Genre(GenreName.CRIME),
                 new PublishingFormat()
         );
         given(bookService.findAll()).willReturn(List.of(book));
@@ -110,9 +111,9 @@ class BookDataFetcherTest {
         final String isbn13 = "1234567898765";
         Book book = new Book(
                 "title",
-                new Language(LanguageName.ENGLISH),
+                new Lang(LanguageName.ENGLISH),
                 "blurb",
-                GenreName.CRIME,
+                new Genre(GenreName.CRIME),
                 new PublishingFormat()
         );
         book.setIsbn13(isbn13);
@@ -159,7 +160,8 @@ class BookDataFetcherTest {
         // Given
         Book book = new Book(
                 "title",
-                new Language(LanguageName.ENGLISH), "blurb", GenreName.CRIME, new PublishingFormat()
+                new Lang(LanguageName.ENGLISH), "blurb", new Genre(GenreName.CRIME),
+                new PublishingFormat()
         );
         given(bookService.findByAuthor(any(String.class))).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
@@ -206,7 +208,8 @@ class BookDataFetcherTest {
         // Given
         String title = "title";
         Book book = new Book(
-                title, new Language(LanguageName.ENGLISH), "blurb", GenreName.CRIME, new PublishingFormat()
+                title, new Lang(LanguageName.ENGLISH), "blurb", new Genre(GenreName.CRIME),
+                new PublishingFormat()
         );
         given(bookService.findByTitle(title)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
