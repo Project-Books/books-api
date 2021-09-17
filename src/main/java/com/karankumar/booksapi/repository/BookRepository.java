@@ -26,8 +26,8 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     // TODO: this is kept in for quick testing, but will be removed at a later date
     @Query(value =
             "SELECT b FROM Book b " +
-            "JOIN FETCH b.authors " +
-            "JOIN FETCH b.publishers"
+            "LEFT JOIN FETCH b.authors " +
+            "LEFT JOIN FETCH b.publishers"
     )
     List<Book> findAllBooks();
   

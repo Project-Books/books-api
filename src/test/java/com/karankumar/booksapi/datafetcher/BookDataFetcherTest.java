@@ -119,14 +119,14 @@ class BookDataFetcherTest {
         given(bookService.findAll()).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
                 new FindAllBooksGraphQLQuery(),
-                new FindAllBooksProjectionRoot().publisher().name()
+                new FindAllBooksProjectionRoot().publishers().name()
         );
 
         // When
         List<String> publishers = queryExecutor.executeAndExtractJsonPath(
                 graphQLQueryRequest.serialize(),
                 ROOT + DgsConstants.QUERY.FindAllBooks + "[*]." +
-                        DgsConstants.BOOK.Publisher + "[*]." + DgsConstants.PUBLISHER.Name
+                        DgsConstants.BOOK.Publishers + "[*]." + DgsConstants.PUBLISHER.Name
         );
 
         // Then
