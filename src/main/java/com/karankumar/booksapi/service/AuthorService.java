@@ -26,7 +26,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
@@ -53,10 +52,7 @@ public class AuthorService {
     }
 
     public void deleteAuthor(@NonNull Author author) {
-        Set<Book> booksWithOneAuthor = author.getBooks()
-                .stream()
-                .filter(book -> book.getAuthors().size() == 1)
-                .collect(Collectors.toSet());
+        Set<Book> booksWithOneAuthor = nativeQueryRepository.getAllBooksAuthorWroteAlone(author.getId());
 
         nativeQueryRepository.deleteAllAuthorAssociations(author.getId());
         bookRepository.deleteAll(booksWithOneAuthor);

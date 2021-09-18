@@ -15,10 +15,13 @@
 
 package com.karankumar.booksapi.repository;
 
+import com.karankumar.booksapi.model.Book;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.HashSet;
+import java.util.Set;
 
 @Repository
 public class NativeQueryRepository {
@@ -30,5 +33,18 @@ public class NativeQueryRepository {
         entityManager.createNativeQuery("DELETE FROM book_author WHERE author_id = :authorId")
                 .setParameter("authorId", authorId)
                 .executeUpdate();
+    }
+
+    @SuppressWarnings("unchecked")
+    public Set<Book> getAllBooksAuthorWroteAlone(Long authorId) {
+        return new HashSet<Book>(entityManager.createNativeQuery("" +
+                "SELECT b.* FROM book_author ba " +
+                "JOIN book b ON ba.book_id = b.id " +
+                "JOIN book_author ba2 ON b.id = ba2.book_id " +
+                "WHERE ba2.author_id = :authorId " +
+                "GROUP BY ba.book_id " +
+                "HAVING count(ba.author_id) = 1", Book.class)
+                .setParameter("authorId", authorId)
+                .getResultList());
     }
 }
