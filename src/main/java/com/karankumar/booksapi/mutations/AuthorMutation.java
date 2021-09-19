@@ -15,7 +15,7 @@
 
 package com.karankumar.booksapi.mutations;
 
-import com.karankumar.booksapi.DgsConstants;
+import com.acme.DgsConstants;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.service.AuthorService;
 import com.netflix.graphql.dgs.DgsComponent;

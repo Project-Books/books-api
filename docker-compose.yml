@@ -1,24 +1,12 @@
-version: '3.1'
+version: '3.9'
 
 services:
   db:
-    image: mysql:latest
-    hostname: mysql
+    image: postgres:12 # 12 is the latest Flyway supported version
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: booksapi
-      MYSQL_USER: dbuser
-      MYSQL_PASSWORD: dbpassword
+      - POSTGRES_DB=books_api
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=dbpassword
     ports:
-      - "3307:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./src/main/resources/db/init.sql:/data/application/init.sql
-    command: --init-file /data/application/init.sql
-  db-admin:
-    image: phpmyadmin/phpmyadmin:latest
-    ports:
-      - "8081:80"
-volumes:
-  db_data:
+      - "5432:5432"

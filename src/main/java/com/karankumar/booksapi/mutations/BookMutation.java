@@ -15,7 +15,7 @@
 
 package com.karankumar.booksapi.mutations;
 
-import com.karankumar.booksapi.DgsConstants;
+import com.acme.DgsConstants;
 import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;

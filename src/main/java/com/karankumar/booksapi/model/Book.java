@@ -15,72 +15,119 @@
 
 package com.karankumar.booksapi.model;
 
+import com.karankumar.booksapi.model.cover.Cover;
+import com.karankumar.booksapi.model.genre.Genre;
+import com.karankumar.booksapi.model.language.Lang;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "book", schema = "public")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(nullable = false)
     private String title;
 
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
+            joinColumns = @JoinColumn(
+                    name = "book_id",
+                    foreignKey = @ForeignKey(name = "book_author_book_id_fkey")
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "author_id",
+                    foreignKey = @ForeignKey(name = "book_author_author_id_fkey")
+            )
     )
     private Set<Author> authors = new HashSet<>();
 
-    @Column(nullable = false)
-    private Language language;
+    // If a book is written in different languages, they will each have their own ISBN.
+    // Consequently, we will consider it to be a different book/edition
+    @OneToOne
+    private Lang lang;
 
     private String isbn10;
 
     private String isbn13;
 
-    @Column(nullable = false)
-    private BookGenre genre;
+    // TODO: should this be one to many?
+    @OneToOne
+    private Genre genre;
 
     private Integer yearOfPublication;
 
     @Column(nullable = false)
     private String blurb;
 
-    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Publisher> publishers = new HashSet<>();
 
-    @Column(nullable = false)
-    private BookFormat format;
+    // One to one because a different book format warrants a new ISBN, so we will classify it as a
+    // new book/edition
+    @OneToOne
+    private PublishingFormat publishingFormat;
 
-    public Book(@NonNull String title, @NonNull Language language, @NonNull String blurb,
-                @NonNull BookGenre genre, @NonNull BookFormat format) {
+    @ToString.Exclude
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    private Set<Cover> cover = new HashSet<>();
+
+    public Book(@NonNull String title, @NonNull Lang lang,
+                @NonNull String blurb, @NonNull Genre genre,
+                @NonNull PublishingFormat publishingFormat) {
         this.title = title;
-        this.language = language;
+        this.lang = lang;
         this.blurb = blurb;
         this.genre = genre;
-        this.format = format;
+        this.publishingFormat = publishingFormat;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
+        Book book = (Book) o;
+        return Objects.equals(id, book.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

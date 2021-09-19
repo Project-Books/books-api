@@ -73,7 +73,11 @@ public class BookService {
     public Book findBookByIsbn13(@NonNull String isbn13) {
         return bookRepository.findBookByIsbn13(isbn13);
     }
-
+    
+    public List<Book> findByPublisher(@NonNull String publisherName) {
+    	return bookRepository.findByPublisher(publisherName);
+    }
+    
     /**
      * Case-insensitive search
      * @param title to search by

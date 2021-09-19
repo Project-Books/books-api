@@ -15,20 +15,22 @@
 
 package com.karankumar.booksapi.datafetcher;
 
-import com.karankumar.booksapi.DgsConstants;
-import com.karankumar.booksapi.client.FindAllBooksGraphQLQuery;
-import com.karankumar.booksapi.client.FindAllBooksProjectionRoot;
-import com.karankumar.booksapi.client.FindBookByIsbn13GraphQLQuery;
-import com.karankumar.booksapi.client.FindBookByIsbn13ProjectionRoot;
-import com.karankumar.booksapi.client.FindByAuthorGraphQLQuery;
-import com.karankumar.booksapi.client.FindByAuthorProjectionRoot;
-import com.karankumar.booksapi.client.FindByTitleIgnoreCaseGraphQLQuery;
-import com.karankumar.booksapi.client.FindByTitleIgnoreCaseProjectionRoot;
+import com.acme.DgsConstants;
+import com.acme.client.FindAllBooksGraphQLQuery;
+import com.acme.client.FindAllBooksProjectionRoot;
+import com.acme.client.FindBookByIsbn13GraphQLQuery;
+import com.acme.client.FindBookByIsbn13ProjectionRoot;
+import com.acme.client.FindByAuthorGraphQLQuery;
+import com.acme.client.FindByAuthorProjectionRoot;
+import com.acme.client.FindByTitleIgnoreCaseGraphQLQuery;
+import com.acme.client.FindByTitleIgnoreCaseProjectionRoot;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
+import com.karankumar.booksapi.model.PublishingFormat;
+import com.karankumar.booksapi.model.genre.Genre;
+import com.karankumar.booksapi.model.genre.GenreName;
+import com.karankumar.booksapi.model.language.Lang;
+import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.service.BookService;
 import com.netflix.graphql.dgs.DgsQueryExecutor;
 import com.netflix.graphql.dgs.autoconfig.DgsAutoConfiguration;
@@ -81,7 +83,11 @@ class BookDataFetcherTest {
         // Given
         final String title = "How to avoid a climate disaster";
         Book book = new Book(
-                title, Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
+                title,
+                new Lang(LanguageName.ENGLISH),
+                "blurb",
+                new Genre(GenreName.CRIME),
+                new PublishingFormat()
         );
         given(bookService.findAll()).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
@@ -104,12 +110,16 @@ class BookDataFetcherTest {
         // Given
         final String isbn13 = "1234567898765";
         Book book = new Book(
-                "title", Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
+                "title",
+                new Lang(LanguageName.ENGLISH),
+                "blurb",
+                new Genre(GenreName.CRIME),
+                new PublishingFormat()
         );
         book.setIsbn13(isbn13);
         given(bookService.findBookByIsbn13(isbn13)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindBookByIsbn13GraphQLQuery(isbn13),
+                FindBookByIsbn13GraphQLQuery.newRequest().isbn13(isbn13).build(),
                 new FindBookByIsbn13ProjectionRoot().isbn13()
         );
 
@@ -129,7 +139,9 @@ class BookDataFetcherTest {
         final String isbn13 = "1234567898765";
         given(bookService.findBookByIsbn13(isbn13)).willReturn(null);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindBookByIsbn13GraphQLQuery(isbn13),
+                FindBookByIsbn13GraphQLQuery.newRequest()
+                                            .isbn13(isbn13)
+                                            .build(),
                 new FindBookByIsbn13ProjectionRoot().isbn13()
         );
 
@@ -147,11 +159,15 @@ class BookDataFetcherTest {
     void findByAuthor_returnsNonEmptyList_whenBookNotFound() {
         // Given
         Book book = new Book(
-                "title", Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
+                "title",
+                new Lang(LanguageName.ENGLISH), "blurb", new Genre(GenreName.CRIME),
+                new PublishingFormat()
         );
         given(bookService.findByAuthor(any(String.class))).willReturn(List.of(book));
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindByAuthorGraphQLQuery("name"),
+                FindByAuthorGraphQLQuery.newRequest()
+                                        .fullName("name")
+                                        .build(),
                 new FindByAuthorProjectionRoot().title()
         );
 
@@ -171,7 +187,9 @@ class BookDataFetcherTest {
         String title = "title";
         given(bookService.findByTitle(title)).willReturn(null);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindByTitleIgnoreCaseGraphQLQuery(title),
+                FindByTitleIgnoreCaseGraphQLQuery.newRequest()
+                                                 .title(title)
+                                                 .build(),
                 new FindByTitleIgnoreCaseProjectionRoot().title()
         );
 
@@ -190,11 +208,14 @@ class BookDataFetcherTest {
         // Given
         String title = "title";
         Book book = new Book(
-                title, Language.ENGLISH, "blurb", BookGenre.CRIME, BookFormat.PAPERBACK
+                title, new Lang(LanguageName.ENGLISH), "blurb", new Genre(GenreName.CRIME),
+                new PublishingFormat()
         );
         given(bookService.findByTitle(title)).willReturn(book);
         GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                new FindByTitleIgnoreCaseGraphQLQuery(title),
+                FindByTitleIgnoreCaseGraphQLQuery.newRequest()
+                                                 .title(title)
+                                                 .build(),
                 new FindByTitleIgnoreCaseProjectionRoot().title()
         );
 

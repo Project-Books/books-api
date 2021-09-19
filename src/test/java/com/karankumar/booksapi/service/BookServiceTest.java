@@ -3,9 +3,11 @@ package com.karankumar.booksapi.service;
 import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
+import com.karankumar.booksapi.model.PublishingFormat;
+import com.karankumar.booksapi.model.genre.Genre;
+import com.karankumar.booksapi.model.genre.GenreName;
+import com.karankumar.booksapi.model.language.Lang;
+import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.repository.BookRepository;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,10 +34,10 @@ class BookServiceTest {
     }
 
     @Test
-    void save_throwsNullPointerExceptionIfBookIsNull() {
+    void save_throwsNullPointerException_ifBookIsNull() {
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> underTest.save(null));
-        verify(bookRepository, never()).save(null);
+        verify(bookRepository, never()).save(any());
     }
 
     @Test
@@ -43,10 +45,10 @@ class BookServiceTest {
         // given
         Book bookWithInvalidIsbn10 = new Book(
                 "title",
-                Language.ENGLISH,
+                new Lang(LanguageName.ENGLISH),
                 "blurb",
-                BookGenre.CRIME,
-                BookFormat.EBOOK
+                new Genre(GenreName.CRIME),
+                new PublishingFormat()
         );
         bookWithInvalidIsbn10.setIsbn10("1234567890");
 
@@ -65,10 +67,10 @@ class BookServiceTest {
         // given
         Book bookWithInvalidIsbn13 = new Book(
                 "title",
-                Language.ENGLISH,
+                new Lang(LanguageName.ENGLISH),
                 "blurb",
-                BookGenre.CRIME,
-                BookFormat.EBOOK
+                new Genre(GenreName.CRIME),
+                new PublishingFormat()
         );
         bookWithInvalidIsbn13.setIsbn13("1234567890123");
 
@@ -82,10 +84,10 @@ class BookServiceTest {
         // given
          Book bookWithValidIsbn10 = new Book(
                  "title",
-                 Language.ENGLISH,
+                 new Lang(LanguageName.ENGLISH),
                  "blurb",
-                 BookGenre.CRIME,
-                 BookFormat.EBOOK
+                 new Genre(GenreName.CRIME),
+                 new PublishingFormat()
         );
         bookWithValidIsbn10.setIsbn10("1843560283");
         ArgumentCaptor<Book> bookArgumentCaptor = ArgumentCaptor.forClass(Book.class);
@@ -103,10 +105,10 @@ class BookServiceTest {
         // given
         Book book = new Book(
                 "title",
-                Language.ENGLISH,
+                new Lang(LanguageName.ENGLISH),
                 "blurb",
-                BookGenre.CRIME,
-                BookFormat.EBOOK
+                new Genre(GenreName.CRIME),
+                new PublishingFormat()
         );
         book.setIsbn13("9783161484100");
         ArgumentCaptor<Book> bookArgumentCaptor = ArgumentCaptor.forClass(Book.class);
@@ -124,10 +126,10 @@ class BookServiceTest {
         // given
         Book book = new Book(
                 "title",
-                Language.ENGLISH,
+                new Lang(LanguageName.ENGLISH),
                 "blurb",
-                BookGenre.CRIME,
-                BookFormat.EBOOK
+                new Genre(GenreName.CRIME),
+                new PublishingFormat()
         );
         ArgumentCaptor<Book> bookArgumentCaptor = ArgumentCaptor.forClass(Book.class);
 
@@ -241,5 +243,26 @@ class BookServiceTest {
         // then
         verify(bookRepository).deleteById(longArgumentCaptor.capture());
         assertThat(longArgumentCaptor.getValue()).isEqualTo(expected);
+    }
+
+    @Test
+    void findByPublisher_throwsNullPointerException_ifPublisherNameIsNull() {
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(() -> underTest.findByPublisher(null));
+        verify(bookRepository, never()).findByPublisher(anyString());
+    }
+
+    @Test
+    void canFindByNonNullPublisherName() {
+        // given
+        String publisherName = "Penguin";
+        ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+
+        // when
+        underTest.findByPublisher(publisherName);
+
+        // then
+        verify(bookRepository).findByPublisher(stringArgumentCaptor.capture());
+        assertThat(stringArgumentCaptor.getValue()).isEqualTo(publisherName);
     }
 }
