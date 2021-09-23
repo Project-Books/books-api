@@ -177,6 +177,12 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<exclude>com/karankumar/booksapi/model/**</exclude>
+						<exclude>com/karankumar/booksapi/BooksApiApplication.*</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
