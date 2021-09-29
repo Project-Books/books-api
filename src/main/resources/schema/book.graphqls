@@ -7,7 +7,7 @@ type Book {
     yearOfPublication: Int
     blurb: String!
     authors: [Author!]!
-    publisher: Publisher
+    publishers: [Publisher!]!
     lang: Lang!
     publishingFormat: PublishingFormat
     cover: Cover
