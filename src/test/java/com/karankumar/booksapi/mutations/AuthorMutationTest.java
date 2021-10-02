@@ -15,12 +15,14 @@
 
 package com.karankumar.booksapi.mutations;
 
-import com.karankumar.booksapi.DgsConstants;
+import com.acme.DgsConstants;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
+import com.karankumar.booksapi.model.PublishingFormat;
+import com.karankumar.booksapi.model.genre.Genre;
+import com.karankumar.booksapi.model.genre.GenreName;
+import com.karankumar.booksapi.model.language.Lang;
+import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.service.AuthorService;
 import graphql.schema.DataFetchingEnvironment;
 import org.junit.jupiter.api.Assertions;
@@ -87,7 +89,7 @@ class AuthorMutationTest {
     @Test
     public void deleteAuthor_shouldDeletedReturnAuthor_whenAuthorWasDeleted() {
         // given
-        Book book = new Book("TestTitle", Language.AFRIKAANS, "Blurb", BookGenre.ADVENTURE, BookFormat.HARDCOVER);
+        Book book = new Book("TestTitle", new Lang(LanguageName.AFRIKAANS), "Blurb", new Genre(GenreName.ADVENTURE), new PublishingFormat(PublishingFormat.Format.HARDCOVER));
         Author author = new Author("Test Author", new HashSet<>(Collections.singletonList(book)));
 
         when(dataFetchingEnvironment.getArgument(DgsConstants.AUTHOR.Id)).thenReturn("1");

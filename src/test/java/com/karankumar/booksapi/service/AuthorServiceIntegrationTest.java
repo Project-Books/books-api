@@ -17,12 +17,17 @@ package com.karankumar.booksapi.service;
 import com.karankumar.booksapi.annotations.DataJpaIntegrationTest;
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.model.Book;
-import com.karankumar.booksapi.model.BookFormat;
-import com.karankumar.booksapi.model.BookGenre;
-import com.karankumar.booksapi.model.Language;
+import com.karankumar.booksapi.model.PublishingFormat;
+import com.karankumar.booksapi.model.genre.Genre;
+import com.karankumar.booksapi.model.genre.GenreName;
+import com.karankumar.booksapi.model.language.Lang;
+import com.karankumar.booksapi.model.language.LanguageName;
 import com.karankumar.booksapi.repository.AuthorRepository;
 import com.karankumar.booksapi.repository.BookRepository;
+import com.karankumar.booksapi.repository.GenreRepository;
+import com.karankumar.booksapi.repository.LanguageRepository;
 import com.karankumar.booksapi.repository.NativeQueryRepository;
+import com.karankumar.booksapi.repository.PublishingFormatRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +43,19 @@ public class AuthorServiceIntegrationTest {
 
     private AuthorService underTest;
     private AuthorRepository authorRepository;
+    private GenreRepository genreRepository;
+    private LanguageRepository languageRepository;
+    private PublishingFormatRepository publishingFormatRepository;
     private BookRepository bookRepository;
     private NativeQueryRepository nativeQueryRepository;
 
     @Autowired
-    public AuthorServiceIntegrationTest(AuthorService underTest, AuthorRepository authorRepository, BookRepository bookRepository, NativeQueryRepository nativeQueryRepository) {
+    public AuthorServiceIntegrationTest(AuthorService underTest, AuthorRepository authorRepository, GenreRepository genreRepository, LanguageRepository languageRepository, PublishingFormatRepository publisherRepository, BookRepository bookRepository, NativeQueryRepository nativeQueryRepository) {
         this.underTest = underTest;
         this.authorRepository = authorRepository;
+        this.genreRepository = genreRepository;
+        this.languageRepository = languageRepository;
+        this.publishingFormatRepository = publisherRepository;
         this.bookRepository = bookRepository;
         this.nativeQueryRepository = nativeQueryRepository;
     }
@@ -102,14 +113,18 @@ public class AuthorServiceIntegrationTest {
     }
 
     private Book createBook(String title) {
-        Book book = new Book(
+        Genre genre = new Genre(GenreName.SATIRE);
+        genreRepository.save(genre);
+        Lang lang = new Lang(LanguageName.ENGLISH);
+        languageRepository.save(lang);
+        PublishingFormat publishingFormat = new PublishingFormat(PublishingFormat.Format.HARDCOVER);
+        publishingFormatRepository.save(publishingFormat);
+        return new Book(
                 title,
-                Language.ENGLISH,
+                lang,
                 "Test Blurb",
-                BookGenre.SATIRE,
-                BookFormat.HARDCOVER
+                genre,
+                publishingFormat
         );
-
-        return book;
     }
 }
