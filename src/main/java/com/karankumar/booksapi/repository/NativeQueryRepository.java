@@ -42,7 +42,7 @@ public class NativeQueryRepository {
                 "JOIN book b ON ba.book_id = b.id " +
                 "JOIN book_author ba2 ON b.id = ba2.book_id " +
                 "WHERE ba2.author_id = :authorId " +
-                "GROUP BY ba.book_id " +
+                "GROUP BY ba.book_id, b.id " +
                 "HAVING count(ba.author_id) = 1", Book.class)
                 .setParameter("authorId", authorId)
                 .getResultList());
