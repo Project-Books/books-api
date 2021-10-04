@@ -265,4 +265,18 @@ class BookServiceTest {
         verify(bookRepository).findByPublisher(stringArgumentCaptor.capture());
         assertThat(stringArgumentCaptor.getValue()).isEqualTo(publisherName);
     }
+
+    @Test
+    void canFindByNonNullGenreType() {
+        // given
+        GenreName genreName = GenreName.PSYCHOLOGY;
+        ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+
+        // when
+        underTest.findByGenre(genreName);
+
+        // then
+        verify(bookRepository).findByGenre(stringArgumentCaptor.capture());
+        assertThat(stringArgumentCaptor.getValue()).isEqualTo(genreName.getGenre());
+    }
 }
