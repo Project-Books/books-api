@@ -15,6 +15,9 @@
 
 package com.karankumar.booksapi.model.genre;
 
+import lombok.Getter;
+
+@Getter
 public enum GenreName {
     // This should be kept in alphabetical order
     ADVENTURE("Adventure"),
