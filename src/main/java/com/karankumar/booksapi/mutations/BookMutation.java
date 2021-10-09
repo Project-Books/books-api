@@ -24,10 +24,12 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
+@Secured("ROLE_ADMIN")
 @DgsComponent
 public class BookMutation {
     private final BookService bookService;

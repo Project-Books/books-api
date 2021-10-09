@@ -21,9 +21,11 @@ import com.karankumar.booksapi.service.AuthorService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import graphql.schema.DataFetchingEnvironment;
+import org.springframework.security.access.annotation.Secured;
 
 import java.util.HashSet;
 
+@Secured("ROLE_ADMIN")
 @DgsComponent
 public class AuthorMutation {
     private final AuthorService authorService;
