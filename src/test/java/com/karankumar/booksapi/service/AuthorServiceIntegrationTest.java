@@ -37,27 +37,31 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
+
 @DataJpaIntegrationTest
 @Import({NativeQueryRepository.class, AuthorService.class})
 public class AuthorServiceIntegrationTest {
 
-    private AuthorService underTest;
-    private AuthorRepository authorRepository;
-    private GenreRepository genreRepository;
-    private LanguageRepository languageRepository;
-    private PublishingFormatRepository publishingFormatRepository;
-    private BookRepository bookRepository;
-    private NativeQueryRepository nativeQueryRepository;
+    private final AuthorService underTest;
+    private final AuthorRepository authorRepository;
+    private final GenreRepository genreRepository;
+    private final LanguageRepository languageRepository;
+    private final PublishingFormatRepository publishingFormatRepository;
+    private final BookRepository bookRepository;
 
     @Autowired
-    public AuthorServiceIntegrationTest(AuthorService underTest, AuthorRepository authorRepository, GenreRepository genreRepository, LanguageRepository languageRepository, PublishingFormatRepository publisherRepository, BookRepository bookRepository, NativeQueryRepository nativeQueryRepository) {
+    public AuthorServiceIntegrationTest(AuthorService underTest, AuthorRepository authorRepository,
+                                        GenreRepository genreRepository,
+                                        LanguageRepository languageRepository,
+                                        PublishingFormatRepository publisherRepository,
+                                        BookRepository bookRepository) {
         this.underTest = underTest;
         this.authorRepository = authorRepository;
         this.genreRepository = genreRepository;
         this.languageRepository = languageRepository;
         this.publishingFormatRepository = publisherRepository;
         this.bookRepository = bookRepository;
-        this.nativeQueryRepository = nativeQueryRepository;
     }
 
     @Test
@@ -77,16 +81,19 @@ public class AuthorServiceIntegrationTest {
     public void deleteAuthor_whenAuthorHasExclusiveRelationWithBook() {
         // given
         Book book = createBook("Test book");
-        Author author = new Author("Joe Doe", new HashSet<>(Collections.singletonList(book)));
+        Author author = new Author("Joe Doe",
+                new HashSet<>(Collections.singletonList(book)));
         authorRepository.save(author);
         bookRepository.save(book);
 
         // when
         underTest.deleteAuthor(author);
 
-        //then
-        Assertions.assertThat(authorRepository.findById(author.getId())).isNotPresent();
-        Assertions.assertThat(bookRepository.findById(book.getId())).isNotPresent();
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(authorRepository.findById(author.getId())).isNotPresent();
+            softly.assertThat(bookRepository.findById(book.getId())).isNotPresent();
+        });
     }
 
     @Test
@@ -95,8 +102,10 @@ public class AuthorServiceIntegrationTest {
         Book book = createBook("Exclusive relation with deleted author");
         Book bookWithMultipleAuthors = createBook("Multiple authors");
 
-        Author authorToDelete = new Author("Joe Doe", new HashSet<>(Arrays.asList(book, bookWithMultipleAuthors)));
-        Author author = new Author("Test Author", new HashSet<>(Collections.singletonList(bookWithMultipleAuthors)));
+        Author authorToDelete = new Author("Joe Doe",
+                new HashSet<>(Arrays.asList(book, bookWithMultipleAuthors)));
+        Author author = new Author("Test Author",
+                new HashSet<>(Collections.singletonList(bookWithMultipleAuthors)));
         authorRepository.save(authorToDelete);
         authorRepository.save(author);
         bookRepository.save(book);
@@ -105,11 +114,13 @@ public class AuthorServiceIntegrationTest {
         // when
         underTest.deleteAuthor(authorToDelete);
 
-        //then
-        Assertions.assertThat(authorRepository.findById(authorToDelete.getId())).isNotPresent();
-        Assertions.assertThat(authorRepository.findById(author.getId())).isPresent();
-        Assertions.assertThat(bookRepository.findById(book.getId())).isNotPresent();
-        Assertions.assertThat(bookRepository.findById(bookWithMultipleAuthors.getId())).isPresent();
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(authorRepository.findById(authorToDelete.getId())).isNotPresent();
+            softly.assertThat(authorRepository.findById(author.getId())).isPresent();
+            softly.assertThat(bookRepository.findById(book.getId())).isNotPresent();
+            softly.assertThat(bookRepository.findById(bookWithMultipleAuthors.getId())).isPresent();
+        });
     }
 
     private Book createBook(String title) {

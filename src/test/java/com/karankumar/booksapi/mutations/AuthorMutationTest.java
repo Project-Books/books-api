@@ -40,6 +40,7 @@ import java.util.Optional;
 
 import static com.karankumar.booksapi.mutations.AuthorMutation.NOT_FOUND_ERROR_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -66,8 +67,10 @@ class AuthorMutationTest {
         ResponseStatusException exception = Assertions.assertThrows(ResponseStatusException.class,
                 () -> underTest.deleteAuthor(dataFetchingEnvironment));
 
-        assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_FOUND);
-        assertThat(exception.getReason()).isEqualTo(NOT_FOUND_ERROR_MESSAGE);
+        assertSoftly(softly -> {
+            softly.assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_FOUND);
+            softly.assertThat(exception.getReason()).isEqualTo(NOT_FOUND_ERROR_MESSAGE);
+        });
     }
 
     @Test
@@ -82,15 +85,24 @@ class AuthorMutationTest {
 
         verify(authorService, times(1)).findById(1L);
 
-        assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_FOUND);
-        assertThat(exception.getReason()).isEqualTo(NOT_FOUND_ERROR_MESSAGE);
+        assertSoftly(softly -> {
+            softly.assertThat(exception.getStatus()).isEqualTo(HttpStatus.NOT_FOUND);
+            softly.assertThat(exception.getReason()).isEqualTo(NOT_FOUND_ERROR_MESSAGE);
+        });
     }
 
     @Test
-    public void deleteAuthor_shouldDeletedReturnAuthor_whenAuthorWasDeleted() {
+    public void deleteAuthor_shouldReturnDeletedAuthor() {
         // given
-        Book book = new Book("TestTitle", new Lang(LanguageName.AFRIKAANS), "Blurb", new Genre(GenreName.ADVENTURE), new PublishingFormat(PublishingFormat.Format.HARDCOVER));
-        Author author = new Author("Test Author", new HashSet<>(Collections.singletonList(book)));
+        Book book = new Book(
+                "TestTitle",
+                new Lang(LanguageName.AFRIKAANS),
+                "Blurb",
+                new Genre(GenreName.ADVENTURE),
+                new PublishingFormat(PublishingFormat.Format.HARDCOVER)
+        );
+        Author author = new Author("Test Author",
+                new HashSet<>(Collections.singletonList(book)));
 
         when(dataFetchingEnvironment.getArgument(DgsConstants.AUTHOR.Id)).thenReturn("1");
         when(authorService.findById(1L)).thenReturn(Optional.of(author));
@@ -103,5 +115,4 @@ class AuthorMutationTest {
 
         assertThat(resultAuthor).isSameAs(author);
     }
-
 }
