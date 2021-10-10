@@ -117,25 +117,6 @@ class BookRepositoryTest {
         assertThat(result).isEqualTo(book);
     }
 
-    private Book createBookWithIsbn13() {
-        PublishingFormat bookFormat = new PublishingFormat();
-        formatRepository.save(bookFormat);
-        Lang language = new Lang(LanguageName.ENGLISH);
-        languageRepository.save(language);
-        Genre genre = new Genre(GenreName.SATIRE);
-        genreRepository.save(genre);
-
-        Book book = new Book(
-                "Game of APIs",
-                language,
-                "",
-                genre,
-                bookFormat
-        );
-        book.setIsbn13(ISBN);
-        return book;
-    }
-
     @Test
     void findByAuthor() {
         // given
@@ -225,4 +206,38 @@ class BookRepositoryTest {
         // then
         assertThat(result).isEqualTo(book);
     }
+
+  @Test
+  void findByGenre() {
+    // given
+    Book book = createBookWithIsbn13(GenreName.CRIME);
+    bookRepository.save(book);
+
+    // when
+    List<Book> result = bookRepository.findByGenre(GenreName.CRIME.getGenre());
+
+    // then
+    assertSoftly(
+        softly -> {
+          softly.assertThat(result.size()).isOne();
+          softly.assertThat(result.get(0)).isEqualTo(book);
+        });
+  }
+
+  private Book createBookWithIsbn13() {
+    return createBookWithIsbn13(GenreName.SATIRE);
+  }
+
+  private Book createBookWithIsbn13(GenreName genreName) {
+    PublishingFormat bookFormat = new PublishingFormat();
+    formatRepository.save(bookFormat);
+    Lang language = new Lang(LanguageName.ENGLISH);
+    languageRepository.save(language);
+    Genre genre = new Genre(genreName);
+    genreRepository.save(genre);
+
+    Book book = new Book("Game of APIs", language, "", genre, bookFormat);
+    book.setIsbn13(ISBN);
+    return book;
+  }
 }
