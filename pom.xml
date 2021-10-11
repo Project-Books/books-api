@@ -15,7 +15,7 @@
 	<description>GraphQL Books API</description>
 	<properties>
 		<java.version>11</java.version>
-		<sonar.organization>project-books</sonar.organization>
+		<sonar.organization>wildschut-org</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
