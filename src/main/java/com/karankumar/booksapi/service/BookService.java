@@ -18,6 +18,7 @@ package com.karankumar.booksapi.service;
 import com.karankumar.booksapi.exception.InvalidISBN10Exception;
 import com.karankumar.booksapi.exception.InvalidISBN13Exception;
 import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.genre.GenreName;
 import com.karankumar.booksapi.repository.BookRepository;
 import lombok.NonNull;
 import org.apache.commons.validator.routines.ISBNValidator;
@@ -89,5 +90,9 @@ public class BookService {
 
     public void deleteBook(@NonNull Long id) {
         bookRepository.deleteById(id);
+    }
+
+    public List<Book> findByGenre(GenreName genreName) {
+        return bookRepository.findByGenre(genreName.getGenre());
     }
 }
