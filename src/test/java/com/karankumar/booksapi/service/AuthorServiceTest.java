@@ -16,6 +16,8 @@ package com.karankumar.booksapi.service;
 
 import com.karankumar.booksapi.model.Author;
 import com.karankumar.booksapi.repository.AuthorRepository;
+import com.karankumar.booksapi.repository.BookRepository;
+import com.karankumar.booksapi.repository.NativeQueryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +28,7 @@ import java.util.HashSet;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
@@ -36,11 +39,15 @@ import static org.mockito.Mockito.verify;
 class AuthorServiceTest {
     private AuthorService underTest;
     private AuthorRepository authorRepository;
+    private BookRepository bookRepository;
+    private NativeQueryRepository nativeQueryRepository;
 
     @BeforeEach
     void setUp() {
         authorRepository = mock(AuthorRepository.class);
-        underTest = new AuthorService(authorRepository);
+        underTest = new AuthorService(authorRepository, bookRepository, nativeQueryRepository);
+        nativeQueryRepository = mock(NativeQueryRepository.class);
+        bookRepository = mock(BookRepository.class);
     }
 
     @Test

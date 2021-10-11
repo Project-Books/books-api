@@ -16,14 +16,7 @@
 package com.karankumar.booksapi.datafetcher;
 
 import com.acme.DgsConstants;
-import com.acme.client.FindAllBooksGraphQLQuery;
-import com.acme.client.FindAllBooksProjectionRoot;
-import com.acme.client.FindBookByIsbn13GraphQLQuery;
-import com.acme.client.FindBookByIsbn13ProjectionRoot;
-import com.acme.client.FindByAuthorGraphQLQuery;
-import com.acme.client.FindByAuthorProjectionRoot;
-import com.acme.client.FindByTitleIgnoreCaseGraphQLQuery;
-import com.acme.client.FindByTitleIgnoreCaseProjectionRoot;
+import com.acme.client.*;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.Publisher;
@@ -255,5 +248,31 @@ class BookDataFetcherTest {
 
         // Then
         assertThat(actual).isNotNull();
+    }
+
+    @Test
+    void findByGenre_returnsNonNullBook_whenGenreFound() {
+        // Given
+        GenreName genreName = GenreName.MYSTERY;
+        Book book = new Book(
+                "April in Spain", new Lang(LanguageName.SPANISH), "blurb", new Genre(genreName),
+                new PublishingFormat()
+        );
+        given(bookService.findByGenre(genreName)).willReturn(List.of(book));
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                FindByGenreGraphQLQuery.newRequest()
+                        .name(com.acme.types.GenreName.valueOf(genreName.name()))
+                        .build(),
+                new FindByGenreProjectionRoot().genre().name()
+        );
+
+        // When
+        List<String> actual = queryExecutor.executeAndExtractJsonPath(
+                graphQLQueryRequest.serialize(),
+                ROOT + DgsConstants.QUERY.FindByGenre + "[*]." + DgsConstants.BOOK.Genre + ".name"
+        );
+
+        // Then
+        assertThat(actual).containsExactly(genreName.getGenre());
     }
 }
