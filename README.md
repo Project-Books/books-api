@@ -89,9 +89,3 @@ For example, in IntelliJ ultimate or DataGrip:
 ## Contributing
 
 If you wish to contribute (thanks!), please first see the [contributing document](https://github.com/Project-Books/books-api/blob/main/CONTRIBUTING.md).
-
-## Sponsor
-
-We hate to ask for money, but the costs of running Azure Blob Storage for our publicly available book covers/thumbnails is high (~ $65/month). If you're willing and able to provide any kind of financial assistance, we would greatly appreciate it. This would help pay towards our development costs. Without sufficient funding, we may not be able to continue development as this is coming out of [@knjk04's](https://github.com/knjk04) own pocket.
-
-For more information, see the sponsorship page for [our lead maintainer](https://github.com/sponsors/knjk04/dashboard).

@@ -163,6 +163,12 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.7</version>
+				<configuration>
+					<excludes>
+						<exclude>com/karankumar/booksapi/BooksApiApplication.class</exclude>
+						<exclude>com/karankumar/booksapi/model/**</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>prepare-agent</id>
