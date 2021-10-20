@@ -15,4 +15,6 @@ INSERT INTO author (about, full_name) VALUES (NULL, 'Carlo Collodi');
 INSERT INTO author (about, full_name) VALUES ('British evolutionary biologist at Oxford', 'Richard Dawkins');
 INSERT INTO author (about, full_name) VALUES ('Greek philosopher that was a pupil of Socrates', 'Plato');
 INSERT INTO author (about, full_name) VALUES ('Renown sleep scientist at Harvard', 'Matthew Walker');
+INSERT INTO author (about, full_name) VALUES ('Novelist', 'Susanna Clarke');
+INSERT INTO author (about, full_name) VALUES ('Novelist, short story writer, essayist and critic', 'Hilary Mantel');
 
