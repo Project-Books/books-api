@@ -13,11 +13,6 @@ class AwardTest {
     @DisplayName("throw a Null Pointer Exception on an attempt to create with a null awardName")
     void notAcceptNullTitle() {
         assertThatExceptionOfType(NullPointerException.class)
-                .isThrownBy(() -> new Award(
-                        null,
-                        null,
-                        1994,
-                        Sets.newHashSet()
-                ));
+            .isThrownBy(() -> new Award(null, null, 1994, Sets.newHashSet()));
     }
 }
