@@ -15,6 +15,7 @@
 
 package com.karankumar.booksapi.model;
 
+import com.karankumar.booksapi.model.award.Award;
 import com.karankumar.booksapi.model.cover.Cover;
 import com.karankumar.booksapi.model.genre.Genre;
 import com.karankumar.booksapi.model.language.Lang;
@@ -103,6 +104,21 @@ public class Book {
     @ToString.Exclude
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private Set<Cover> cover = new HashSet<>();
+
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "book_award",
+            joinColumns = @JoinColumn(
+                    name = "book_id",
+                    foreignKey = @ForeignKey(name = "book_award_book_id_fkey")
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "award_id",
+                    foreignKey = @ForeignKey(name = "book_award_award_id_fkey")
+            )
+    )
+    private Set<Award> awards = new HashSet<>();
 
     public Book(@NonNull String title, @NonNull Lang lang,
                 @NonNull String blurb, @NonNull Genre genre,

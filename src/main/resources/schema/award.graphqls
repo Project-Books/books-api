@@ -1,0 +1,6 @@
+type Award {
+    id: ID!
+    awardName: AwardName!
+    category: String
+    year: Int!
+} 

@@ -16,6 +16,7 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.award.AwardName;
 import com.karankumar.booksapi.model.genre.GenreName;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -28,7 +29,8 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     @Query(value =
             "SELECT b FROM Book b " +
             "LEFT JOIN FETCH b.authors " +
-            "LEFT JOIN FETCH b.publishers"
+            "LEFT JOIN FETCH b.publishers " +
+            "LEFT JOIN FETCH b.awards"
     )
     List<Book> findAllBooks();
   
@@ -51,4 +53,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     @Query("SELECT b FROM Book b WHERE b.genre.name LIKE ?1")
     List<Book> findByGenre(String genreName);
+
+    @Query("SELECT a.books FROM Award a where a.awardName=?1")
+    List<Book> findByAwardName(AwardName awardName);
 }
