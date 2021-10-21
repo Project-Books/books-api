@@ -35,6 +35,15 @@ public enum AwardName {
         return this.awardName;
     }
 
+    public static AwardName valueOfLabel(String label) {
+        for (AwardName e : values()) {
+            if (e.toString().equals(label)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     public static AwardName fromString(String inputName) {
         switch (inputName.toLowerCase()) {
             case "women's prize for fiction":
@@ -54,8 +63,7 @@ public enum AwardName {
             case "nobel prize in literature":
                 return AwardName.NOBEL_PRIZE;
             default:
-                throw new IllegalArgumentException("Literary Award [" + inputName
-                        + "] not available.");
+                return null;
         }
     }
 }

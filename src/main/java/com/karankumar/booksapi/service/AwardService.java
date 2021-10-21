@@ -17,6 +17,7 @@ package com.karankumar.booksapi.service;
 
 import com.karankumar.booksapi.model.award.Award;
 import com.karankumar.booksapi.repository.AwardRepository;
+import com.karankumar.booksapi.repository.NativeQueryRepository;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,11 @@ import java.util.Optional;
 @Service
 public class AwardService {
     private final AwardRepository awardRepository;
+    private final NativeQueryRepository nativeQueryRepository;
 
-    public AwardService(AwardRepository awardRepository) {
+    public AwardService(AwardRepository awardRepository, NativeQueryRepository nativeQueryRepository) {
         this.awardRepository = awardRepository;
+        this.nativeQueryRepository = nativeQueryRepository;
     }
 
     public Award save(@NonNull Award award) {
@@ -43,4 +46,8 @@ public class AwardService {
         return awardRepository.findAllAwards();
     }
 
+    public void deleteAward(@NonNull Award award) {
+        nativeQueryRepository.deleteAllAwardAssociations(award.getId());
+        awardRepository.deleteById(award.getId());
+    }
 }

@@ -3,4 +3,4 @@ type Award {
     awardName: AwardName!
     category: String
     year: Int!
-} 
+}

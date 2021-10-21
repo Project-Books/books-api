@@ -47,4 +47,10 @@ public class NativeQueryRepository {
                 .setParameter("authorId", authorId)
                 .getResultList());
     }
+
+    public void deleteAllAwardAssociations(Long awardId) {
+        entityManager.createNativeQuery("DELETE FROM book_award WHERE award_id = :awardId")
+                .setParameter("awardId", awardId)
+                .executeUpdate();
+    }
 }

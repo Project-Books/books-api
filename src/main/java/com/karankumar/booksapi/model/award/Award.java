@@ -16,21 +16,21 @@
 package com.karankumar.booksapi.model.award;
 
 import com.karankumar.booksapi.model.Book;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "award", schema = "public")
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Award {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(nullable=false)
@@ -45,6 +45,13 @@ public class Award {
     @ManyToMany(mappedBy="awards", fetch = FetchType.LAZY)
     private Set<Book> books = new HashSet<>();
 
+    public Award(@NonNull AwardName awardName, String category, int year, Set<Book> books) {
+        this.awardName = awardName;
+        this.category = category;
+        this.year = year;
+        books.forEach(this::addBook);
+    }
+
     public void addBook(@NonNull Book book) {
         books.add(book);
         book.getAwards().add(this);
@@ -53,12 +60,5 @@ public class Award {
     public void removeBook(@NonNull Book book) {
         books.remove(book);
         book.getAwards().remove(this);
-    }
-
-    public Award(@NonNull AwardName awardName, String category, int year, Set<Book> books) {
-        this.awardName = awardName;
-        this.category = category;
-        this.year = year;
-        books.forEach(this::addBook);
     }
 }

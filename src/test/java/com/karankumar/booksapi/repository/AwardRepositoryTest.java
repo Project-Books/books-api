@@ -31,7 +31,7 @@ class AwardRepositoryTest {
 
     @Test
     @DisplayName("find saved awards")
-    void findSavedAwards() {
+    void findAllSavedAwards() {
         // given
         Award award1 = createAndSaveAward(AwardName.NOBEL_PRIZE, "Crime", 2010);
         Award award2 = createAndSaveAward(AwardName.DYLAN_PRIZE, null, 1994);

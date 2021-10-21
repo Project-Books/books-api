@@ -98,6 +98,6 @@ public class BookService {
     }
 
     public List<Book> findByAward(@NonNull String awardName) {
-        return bookRepository.findByAwardName(AwardName.fromString(awardName.trim()));
+        return bookRepository.findByAwardName(AwardName.valueOfLabel(awardName));
     }
 }

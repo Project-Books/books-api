@@ -3,6 +3,7 @@ package com.karankumar.booksapi.service;
 import com.karankumar.booksapi.model.award.Award;
 import com.karankumar.booksapi.model.award.AwardName;
 import com.karankumar.booksapi.repository.AwardRepository;
+import com.karankumar.booksapi.repository.NativeQueryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,11 +20,13 @@ import static org.mockito.Mockito.*;
 class AwardServiceTest {
     private AwardService underTest;
     private AwardRepository awardRepository;
+    private NativeQueryRepository nativeQueryRepository;
 
     @BeforeEach
     void setUp() {
         awardRepository = mock(AwardRepository.class);
-        underTest = new AwardService(awardRepository);
+        nativeQueryRepository = mock(NativeQueryRepository.class);
+        underTest = new AwardService(awardRepository, nativeQueryRepository);
     }
 
     @Test
@@ -38,6 +41,13 @@ class AwardServiceTest {
         // then
         verify(awardRepository).save(awardArgumentCaptor.capture());
         assertThat(awardArgumentCaptor.getValue()).isEqualTo(expected);
+    }
+
+    @Test
+    void save_throwsNullPointerException_ifAwardIsNull() {
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(() -> underTest.save(null));
+        verify((awardRepository), never()).save(any());
     }
 
     @Test
@@ -65,5 +75,19 @@ class AwardServiceTest {
     void canFindAll() {
         underTest.findAll();
         verify(awardRepository).findAllAwards();
+    }
+
+    @Test
+    void delete_throwsNullPointerException_ifAwardIsNull() {
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(() -> underTest.deleteAward(null));
+        verify((awardRepository), never()).deleteById(anyLong());
+    }
+
+    @Test
+    void deleteById() {
+        Award expected = new Award(AwardName.NOBEL_PRIZE, null, 1994, new HashSet<>());
+        underTest.deleteAward(expected);
+        underTest.findById(1L);
     }
 }
