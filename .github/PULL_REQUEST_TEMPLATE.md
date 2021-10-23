@@ -22,6 +22,6 @@ Please keep this checklist in & ensure you have done the following:
 
 - [ ] Resolved any merge conflicts
 
-For any of the optional checkboxes (e.g. the screenshots one), still check it if it does not apply.
+For any checkbox that does not apply, still check it.
 
 If in doubt, get in touch with us via our Slack workspace or by creating a new [Q&A discussion on GitHub](https://github.com/Project-Books/books-api/discussions/categories/q-a)
