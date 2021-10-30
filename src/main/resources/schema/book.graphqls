@@ -10,6 +10,6 @@ type Book {
     publishers: [Publisher!]!
     lang: Lang!
     publishingFormat: PublishingFormat
-    cover: Cover
+    covers: [Cover]
 }
 

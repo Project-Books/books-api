@@ -7,15 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -34,16 +26,20 @@ public class Cover {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "small_file_type")
     private ImageFileType smallFileType;
 
     @OneToOne
+    @JoinColumn(name = "medium_file_type")
     private ImageFileType mediumFileType;
 
     @OneToOne
+    @JoinColumn(name = "large_file_type")
     private ImageFileType largeFileType;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book", nullable = false)
+    @ToString.Exclude
     private Book book;
 
     @Transient
@@ -73,15 +69,15 @@ public class Cover {
     }
 
     public String getPathToSmall() {
-        return PREFIX + id + SMALL_SUFFIX + getFileType(smallFileType);
+        return smallFileType!= null ? PREFIX + id + SMALL_SUFFIX + getFileType(smallFileType): null;
     }
 
     public String getPathToMedium() {
-        return PREFIX + id + MEDIUM_SUFFIX + getFileType(mediumFileType);
+        return mediumFileType!= null ? PREFIX + id + MEDIUM_SUFFIX + getFileType(mediumFileType): null;
     }
 
     public String getPathToLarge() {
-        return PREFIX + id + LARGE_SUFFIX + getFileType(largeFileType);
+        return largeFileType!= null ? PREFIX + id + LARGE_SUFFIX + getFileType(largeFileType): null;
     }
 
     @Override
