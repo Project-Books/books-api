@@ -3,5 +3,5 @@ CREATE TABLE IF NOT EXISTS image_file_type (
     file_type  VARCHAR(255) NOT NULL UNIQUE
 );
 
-INSERT INTO image_file_type (file_type) VALUES ('jpg');
-INSERT INTO image_file_type (file_type) VALUES ('png');
+INSERT INTO image_file_type (file_type) VALUES ('JPG');
+INSERT INTO image_file_type (file_type) VALUES ('PNG');

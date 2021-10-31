@@ -101,8 +101,8 @@ public class Book {
     private PublishingFormat publishingFormat;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
-    private Set<Cover> cover = new HashSet<>();
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
+    private Set<Cover> covers = new HashSet<>();
 
     public Book(@NonNull String title, @NonNull Lang lang,
                 @NonNull String blurb, @NonNull Genre genre,

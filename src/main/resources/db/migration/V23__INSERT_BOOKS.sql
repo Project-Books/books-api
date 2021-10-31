@@ -47,7 +47,6 @@ begin
       blurb,
       publisher,
       isbn10,
-      cover_id,
       lang_id,
       publishing_format_id
     )
@@ -59,7 +58,6 @@ begin
          'Was there a beginning of time? Could time run backwards? Is the universe infinite or does it have boundaries?',
          penguin_publisher_id,
          NULL,
-         1,
          english,
          paperback
     );
@@ -77,7 +75,6 @@ begin
         blurb,
         publisher,
         isbn10,
-        cover_id,
         lang_id,
         publishing_format_id
     )
@@ -89,7 +86,6 @@ begin
        '',
        penguin_publisher_id,
        NULL,
-       2,
        english,
        paperback
     );
@@ -112,7 +108,6 @@ begin
         blurb,
         publisher,
         isbn10,
-        cover_id,
         lang_id,
         publishing_format_id
     )
@@ -124,7 +119,6 @@ begin
        'First book in the Robert Langdon series',
        simon_and_schuster,
        NULL,
-       3,
        english,
        paperback
     );
@@ -147,7 +141,6 @@ begin
         blurb,
         publisher,
         isbn10,
-        cover_id,
         lang_id,
         publishing_format_id
     )
@@ -168,7 +161,6 @@ begin
        'to put this book down.',
        little_brown_publisher,
        NULL,
-       4,
        english,
        paperback
    );

@@ -46,7 +46,7 @@ Sample query:
         isbn13
         yearOfPublication
         blurb
-        publisher {
+        publishers {
             name
         }
         isbn10
@@ -59,10 +59,10 @@ Sample query:
         genre {
             name
         }
-        cover {
-            small
-            medium
-            large
+        covers {
+            pathToSmall
+            pathToMedium
+            pathToLarge
         }
         publishingFormat {
             formatName
