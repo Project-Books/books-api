@@ -3,4 +3,6 @@ type Mutation {
     addAuthor(fullName: String!): Author
     deleteBook(id: ID!): Book
     deleteAuthor(id: ID!): Author
+    addAward(awardName: AwardName!, category: String, year:Int!): Award
+    deleteAward(id: ID!): Award
 }

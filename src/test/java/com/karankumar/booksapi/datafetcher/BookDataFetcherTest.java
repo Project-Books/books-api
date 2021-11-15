@@ -17,6 +17,7 @@ package com.karankumar.booksapi.datafetcher;
 
 import com.acme.DgsConstants;
 import com.acme.client.*;
+import com.acme.types.AwardName;
 import com.karankumar.booksapi.datafetchers.BookDataFetcher;
 import com.karankumar.booksapi.model.Book;
 import com.karankumar.booksapi.model.Publisher;
@@ -274,5 +275,26 @@ class BookDataFetcherTest {
 
         // Then
         assertThat(actual).containsExactly(genreName.getGenre());
+    }
+
+    @Test
+    void findByAward_returnsEmptyList_whenBooksNotFound() {
+        // Given
+        given(bookService.findByAward(any(String.class))).willReturn(new ArrayList<>());
+        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
+                FindByAwardNameGraphQLQuery.newRequest()
+                        .awardName(AwardName.ORWELL_PRIZE)
+                        .build(),
+                new FindByAwardNameProjectionRoot().title()
+        );
+
+        // When
+        List<String> actual = queryExecutor.executeAndExtractJsonPath(
+                graphQLQueryRequest.serialize(),
+                ROOT + DgsConstants.QUERY.FindByAwardName + "[*]." + DgsConstants.AWARD.AwardName
+        );
+
+        // Then
+        assertThat(actual).isEmpty();
     }
 }

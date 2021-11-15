@@ -63,4 +63,8 @@ public class BookDataFetcher {
         return bookService.findByGenre(genreName);
     }
 
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByAwardName)
+    public List<Book> findByAward(@InputArgument(DgsConstants.AWARD.AwardName) String awardName) {
+        return bookService.findByAward(awardName);
+    }
 }

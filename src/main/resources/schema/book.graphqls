@@ -11,5 +11,6 @@ type Book {
     lang: Lang!
     publishingFormat: PublishingFormat
     covers: [Cover]
+    awards: [Award!]!
 }
 
