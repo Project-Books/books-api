@@ -32,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -106,8 +107,14 @@ class AwardServiceTest {
 
     @Test
     void deleteById() {
+        // given
         Award expected = new Award(AwardName.NOBEL_PRIZE, null, 1994, new HashSet<>());
+
+        // when
         underTest.deleteAward(expected);
-        underTest.findById(1L);
+
+        // then
+        verify(awardRepository, atMostOnce()).deleteById(expected.getId());
+        assertThat(underTest.findById(1L)).isEmpty();
     }
 }
