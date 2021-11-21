@@ -36,7 +36,7 @@ Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8
    - If using macOS or Windows, you'll need to first ensure Docker Desktop is running 
 3. Run `BooksApiApplication.java`
    - You may need to build the project first if you're seeing 'com.acme' (DGS codegen) errors
-4. Go to `localhost:8080/graphiql`
+4. Go to `localhost:8082/graphiql`
 
 Sample query:
 ```graphql
