@@ -16,6 +16,7 @@
 package com.karankumar.booksapi.repository;
 
 import com.karankumar.booksapi.model.Book;
+import com.karankumar.booksapi.model.genre.GenreName;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -47,4 +48,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
             nativeQuery = true
     )
     List<Book> findByPublisher(@Param("publisherName") String publisherName);
+
+    @Query("SELECT b FROM Book b WHERE b.genre.name LIKE ?1")
+    List<Book> findByGenre(String genreName);
 }

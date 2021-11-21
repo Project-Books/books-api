@@ -8,28 +8,28 @@ begin
     SELECT id
     INTO jpg_id
     FROM image_file_type
-    where file_type = 'jpg';
+    where file_type = 'JPG';
 
     SELECT id
     INTO png_id
     FROM image_file_type
-    WHERE file_type = 'png';
+    WHERE file_type = 'PNG';
 
 -- 1
-    INSERT INTO cover (small_file_type, medium_file_type, large_file_type)
-    VALUES (jpg_id, NULL, NULL);
+    INSERT INTO cover (small_file_type, medium_file_type, large_file_type, book)
+    VALUES (jpg_id, NULL, NULL, 1);
 
 -- 2
-    INSERT INTO cover (small_file_type, medium_file_type, large_file_type)
-    VALUES (jpg_id, NULL, NULL);
+    INSERT INTO cover (small_file_type, medium_file_type, large_file_type, book)
+    VALUES (jpg_id, NULL, NULL, 2);
 
 -- 3
-    INSERT INTO cover (small_file_type, medium_file_type, large_file_type)
-    VALUES (jpg_id, NULL, NULL);
+    INSERT INTO cover (small_file_type, medium_file_type, large_file_type, book)
+    VALUES (jpg_id, NULL, NULL, 3);
 
 -- 4
-    INSERT INTO cover (small_file_type, medium_file_type, large_file_type)
-    VALUES (png_id, NULL, NULL);
+    INSERT INTO cover (small_file_type, medium_file_type, large_file_type, book)
+    VALUES (png_id, NULL, NULL, 4);
 
 -- 5
     INSERT INTO cover (small_file_type, medium_file_type, large_file_type)

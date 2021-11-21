@@ -18,12 +18,10 @@ Please keep this checklist in & ensure you have done the following:
 
 - [ ] Filled in the summary, context (if applicable) and related issue section. Replace the square brackets and its placeholder content with your contents. For an example, see any merged in pull request
 
-- [ ] Created a branch that has a descriptive name (what your branch is for in a few words and includes the issue number at the end, e.g. `test-reading-goal-123`
-
 - [ ] Set this pull request to 'draft' if you are still working on it
 
 - [ ] Resolved any merge conflicts
 
-For any of the optional checkboxes (e.g. the screenshots one), still check it if it does not apply.
+For any checkbox that does not apply, still check it.
 
 If in doubt, get in touch with us via our Slack workspace or by creating a new [Q&A discussion on GitHub](https://github.com/Project-Books/books-api/discussions/categories/q-a)
