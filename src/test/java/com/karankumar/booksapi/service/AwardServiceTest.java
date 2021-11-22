@@ -41,12 +41,11 @@ import static org.mockito.Mockito.verify;
 class AwardServiceTest {
     private AwardService underTest;
     private AwardRepository awardRepository;
-    private NativeQueryRepository nativeQueryRepository;
 
     @BeforeEach
     void setUp() {
         awardRepository = mock(AwardRepository.class);
-        nativeQueryRepository = mock(NativeQueryRepository.class);
+        NativeQueryRepository nativeQueryRepository = mock(NativeQueryRepository.class);
         underTest = new AwardService(awardRepository, nativeQueryRepository);
     }
 
