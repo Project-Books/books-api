@@ -33,6 +33,7 @@ import org.springframework.context.annotation.Import;
 import java.util.Collections;
 import java.util.HashSet;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DataJpaIntegrationTest
@@ -60,7 +61,7 @@ public class AwardServiceIntegrationTest {
         this.bookRepository = bookRepository;
     }
 
-    private Book createBook(String title) {
+    private Book createBook() {
         Genre genre = new Genre(GenreName.SATIRE);
         genreRepository.save(genre);
         Lang lang = new Lang(LanguageName.ENGLISH);
@@ -68,7 +69,7 @@ public class AwardServiceIntegrationTest {
         PublishingFormat publishingFormat = new PublishingFormat(PublishingFormat.Format.HARDCOVER);
         publishingFormatRepository.save(publishingFormat);
         return new Book(
-                title,
+                "Test book",
                 lang,
                 "Test Blurb",
                 genre,
@@ -79,21 +80,27 @@ public class AwardServiceIntegrationTest {
     @Test
     public void deleteAward_whenAwardHasNoRelations() {
         // given
-        Award award = new Award(AwardName.PORTICO_PRIZE, null, 1994, Collections.emptySet());
+        Award award = new Award(
+                AwardName.PORTICO_PRIZE, null, 1994,
+                Collections.emptySet()
+        );
         awardRepository.save(award);
 
         // when
         underTest.deleteAward(award);
 
-        //then
-        Assertions.assertThat(awardRepository.findById(award.getId())).isNotPresent();
+        // then
+        assertThat(awardRepository.findById(award.getId())).isNotPresent();
     }
 
     @Test
     public void deleteAward_shouldNotDeleteBook() {
         // given
-        Book book = createBook("Test book");
-        Award award = new Award(AwardName.PORTICO_PRIZE, null, 1994, new HashSet<>(Collections.singletonList(book)));
+        Book book = createBook();
+        Award award = new Award(
+                AwardName.PORTICO_PRIZE, null, 1994,
+                new HashSet<>(Collections.singletonList(book))
+        );
         bookRepository.save(book);
         awardRepository.save(award);
 
