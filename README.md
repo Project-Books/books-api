@@ -50,25 +50,6 @@ export DOCKER_BUILDKIT=1
 
 ## Running the app
 
-### Building image
-
-Maven is used inside a docker container to build and package the jar. 
-The default maven goals are `clean package`. These defaults can be overriden as follows:
-
-##### docker-cli
-
-Modify the mvn_arg variable
-
-```bash
-docker-compose build --build-arg mvn_arg="clean package -DskipTests" booksapi
-```
-
-##### docker-compose
-
-Modify the mvn_arg parameter as required.
-
-### Quick Setup
-
 1. Import as a Maven project into your favourite IDE
 2. Run the docker-compose file (if using macOS or Windows, you'll need to first ensure Docker Desktop is running)
    - build the image with default values
