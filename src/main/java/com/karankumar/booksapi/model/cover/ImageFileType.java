@@ -50,7 +50,7 @@ public class ImageFileType {
         }
     }
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private FileType fileType;
 
     @Override

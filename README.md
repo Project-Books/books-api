@@ -76,15 +76,14 @@ Please note this does not check for *correctness of the details*. Only that they
 ### Quick Setup
 
 1. Import as a Maven project into your favourite IDE
-2. Run the docker-compose file
+2. Run the docker-compose file (if using macOS or Windows, you'll need to first ensure Docker Desktop is running)
    - build the image with default values
       - `docker-compose build booksapi` 
       - or with a custom mvn goal(s) `docker-compose build --build-arg mvn_arg="clean package -DskipTests" booksapi`
    - use `docker-compose up -d`
    - if you wish to view the output use `docker logs -f booksapi`
    - alternatively use `docker-compose up db booksapi` to launch the containers interactively
-3. Go to `http://localhost:8080/graphiql`
-
+3. Go to `http://localhost:8082/graphiql`
 
 Sample query:
 ```graphql
@@ -94,7 +93,7 @@ Sample query:
         isbn13
         yearOfPublication
         blurb
-        publisher {
+        publishers {
             name
         }
         isbn10
@@ -107,10 +106,10 @@ Sample query:
         genre {
             name
         }
-        cover {
-            small
-            medium
-            large
+        covers {
+            pathToSmall
+            pathToMedium
+            pathToLarge
         }
         publishingFormat {
             formatName
