@@ -3,6 +3,7 @@ version: '3.9'
 services:
   db:
     image: postgres:12 # 12 is the latest Flyway supported version
+    container_name: db
     restart: always
     environment:
       - POSTGRES_DB=books_api
@@ -10,3 +11,20 @@ services:
       - POSTGRES_PASSWORD=dbpassword
     ports:
       - "5432:5432"
+
+  booksapi:
+    image: booksapi
+    container_name: booksapi
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        mvn_arg: clean package
+    environment:
+      - POSTGRES_DATABASE=books_api
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=dbpassword
+      - POSTGRES_HOSTNAME=db
+      - POSTGRES_PORT=5432
+    ports:
+      - "8082:8082"

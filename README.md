@@ -29,14 +29,61 @@ Prerequisites:
 
 Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)
 
+
+## Before running the app
+
+### Buildkit
+
+As this Dockerfile caches the projects maven dependencies, please ensure docker buildkit is supported (Docker v18.09+) and is enabled.
+
+Use the following command to see if the environment variable is set.
+
+```bash
+echo $DOCKER_BUILDKIT
+``` 
+
+If the result returns a blank string or an 0 please use the following command to set it:
+
+```bash
+export DOCKER_BUILDKIT=1
+``` 
+
 ## Running the app
 
+### Building image
+
+Maven is used inside a docker container to build and package the jar. 
+The default maven goals are `clean package`. These defaults can be overriden as follows:
+
+##### docker-cli
+
+Modify the mvn_arg variable
+
+```bash
+docker-compose build --build-arg mvn_arg="clean package -DskipTests" booksapi
+```
+
+##### docker-compose
+
+Modify the mvn_arg parameter as required.
+
+### Container Environment Variables
+
+This container enforces a postgres connection by validating existance of the parameters for the postgres connection and if there is a a host reachable at the specified port.
+
+Please note this does not check for *correctness of the details*. Only that they exist/are entered.
+
+### Quick Setup
+
 1. Import as a Maven project into your favourite IDE
-2. Start the PostgreSQL Database or run the docker-compose file `docker-compose up -d` (you may need to add `sudo` to this command) 
-   - If using macOS or Windows, you'll need to first ensure Docker Desktop is running 
-3. Run `BooksApiApplication.java`
-   - You may need to build the project first if you're seeing 'com.acme' (DGS codegen) errors
-4. Go to `localhost:8082/graphiql`
+2. Run the docker-compose file (if using macOS or Windows, you'll need to first ensure Docker Desktop is running)
+   - build the image with default values
+      - `docker-compose build booksapi` 
+      - or with a custom mvn goal(s) `docker-compose build --build-arg mvn_arg="clean package -DskipTests" booksapi`
+   - use `docker-compose up -d`
+   - if you wish to view the output use `docker logs -f booksapi`
+   - alternatively use `docker-compose up db booksapi` to launch the containers interactively
+3. Go to `http://localhost:8082/graphiql`
 
 Sample query:
 ```graphql
