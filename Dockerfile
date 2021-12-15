@@ -27,6 +27,6 @@ ARG GID=1001
 RUN groupadd --gid $GID booksapiuser
 RUN useradd --system --create-home --shell /usr/sbin/nologin --uid $UID --gid $GID booksapiuser
 USER booksapiuser
-EXPOSE 8080
+EXPOSE 8082
 
 CMD ["/opt/booksapi/bin/start.sh"]

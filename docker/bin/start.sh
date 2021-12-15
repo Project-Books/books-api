@@ -209,7 +209,7 @@ resolve_postgresql() {
 echo "Starting the BooksApi"
 start_booksapi() {
 
-    exec java -jar -Dspring.profiles.active=$BOOKSAPI_PROFILE /opt/booksapi/app.jar --spring.config.name=jdbc --spring.config.location=file://"$BOOKSAPI_PROPERTIES"
+    exec java -jar -Dspring.profiles.active=$BOOKSAPI_PROFILE /opt/booksapi/app.jar --spring.config.name=jdbc --spring.config.location=file://"$BOOKSAPI_PROPERTIES" --server.port=8082
 
 }
 
