@@ -67,12 +67,6 @@ docker-compose build --build-arg mvn_arg="clean package -DskipTests" booksapi
 
 Modify the mvn_arg parameter as required.
 
-### Container Environment Variables
-
-This container enforces a postgres connection by validating existance of the parameters for the postgres connection and if there is a a host reachable at the specified port.
-
-Please note this does not check for *correctness of the details*. Only that they exist/are entered.
-
 ### Quick Setup
 
 1. Import as a Maven project into your favourite IDE
