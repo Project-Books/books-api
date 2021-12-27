@@ -1,6 +1,4 @@
-<p align="center">
-	<img src="https://raw.githubusercontent.com/Project-Books/book-project/master/media/banner/book_project_newlogo_2x.png" alt="Logo"/>
-</p>
+![books-api-logo](https://user-images.githubusercontent.com/11173328/147469184-91048518-e48a-47d7-b8f5-01a478c33f46.png)
 
 <p align="center">
   <a href="https://github.com/Project-Books/books-api/actions/workflows/build.yml">
@@ -17,6 +15,7 @@
 </p>
 
 GraphQL books API made using Spring Boot and [DGS](https://netflix.github.io/dgs/). This is a sibling project of the [Book Project](https://github.com/Project-Books/book-project).
+
 
 ## Setup
 
