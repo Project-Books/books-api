@@ -57,7 +57,8 @@ export DOCKER_BUILDKIT=1
    - use `docker-compose up -d`
    - if you wish to view the output use `docker logs -f booksapi`
    - alternatively use `docker-compose up db booksapi` to launch the containers interactively
-3. Go to `http://localhost:8082/graphiql`
+3. Wait for the server to start (macOS and Windows: you can check this on Docker desktop for the `booksapi` container if you used the detached flag earlier)
+4. Go to `http://localhost:8082/graphiql`
 
 Sample query:
 ```graphql
