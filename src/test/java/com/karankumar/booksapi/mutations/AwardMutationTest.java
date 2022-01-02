@@ -73,9 +73,11 @@ class AwardMutationTest {
 
         // then
         verify(awardService).save(awardArgumentCaptor.capture());
-        assertThat(awardArgumentCaptor.getValue().getAwardName()).isEqualTo(AwardName.PORTICO_PRIZE);
-        assertThat(awardArgumentCaptor.getValue().getCategory()).isEqualTo("test");
-        assertThat(awardArgumentCaptor.getValue().getYear()).isEqualTo(1994);
+        assertSoftly(softly -> {
+            softly.assertThat(awardArgumentCaptor.getValue().getAwardName()).isEqualTo(AwardName.PORTICO_PRIZE);
+            softly.assertThat(awardArgumentCaptor.getValue().getCategory()).isEqualTo("test");
+            softly.assertThat(awardArgumentCaptor.getValue().getYear()).isEqualTo(1994);
+        });
     }
 
     @Test

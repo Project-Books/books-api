@@ -60,7 +60,7 @@ $$
                           lang_id,
                           publishing_format_id)
         VALUES ('Piranesi',
-                '9781526622426',
+                '9781635575637',
                 fantasy,
                 2020,
                 'Piranesi''s house is no ordinary building: its rooms are infinite, its corridors endless, its walls are lined ' ||
@@ -89,12 +89,14 @@ $$
                 '0-00-723018-4',
                 historical_fiction,
                 2009,
-                'England in the 1520s is a heartbeat from disaster. If the king dies without a male heir, ' ||
-                'the country could be destroyed by civil war. Henry VIII wants to annul his marriage of twenty years ' ||
-                'and marry Anne Boleyn. The pope and most of Europe opposes him. Into this impasse steps ' ||
-                'Thomas Cromwell: a wholly original man, a charmer and a bully, both idealist and opportunist, ' ||
-                'astute in reading people, and implacable in his ambition. But Henry is volatile: one day tender, one day murderous. ' ||
-                'Cromwell helps him break the opposition, but what will be the price of his triumph?',
+                'England, the 1520s. Henry VIII is on the throne, but has no heir. Cardinal Wolsey is his chief advisor, ' ||
+                'charged with securing the divorce the pope refuses to grant. Into this atmosphere of distrust and need ' ||
+                'comes Thomas Cromwell, first as Wolsey’s clerk, and later his successor.' ||
+                '\n\n' ||
+                'Cromwell is a wholly original man: the son of a brutal blacksmith, a political genius, a briber, a charmer, a bully, ' ||
+                'a man with a delicate and deadly expertise in manipulating people and events. Ruthless in pursuit of his own interests, ' ||
+                'he is as ambitious in his wider politics as he is for himself. His reforming agenda is carried out in the grip ' ||
+                'of a self-interested parliament and a king who fluctuates between romantic passions and murderous rages.',
                 harper_collins,
                 NULL,
                 english,
