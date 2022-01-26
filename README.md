@@ -93,7 +93,9 @@ Sample query:
 }
 ```
 
-https://user-images.githubusercontent.com/11173328/141674111-ed0d30a8-10a3-4153-8ff9-24579db65bff.png
+#### Windows: error code 127
+
+![image](https://user-images.githubusercontent.com/11173328/141674111-ed0d30a8-10a3-4153-8ff9-24579db65bff.png)
 
 If you are using Powershell on Windows and are getting error code 127, you will need to update the line endings in the start.sh script. Run the command below in Powershell and then re-run the Docker commands in the running the app section.
 
