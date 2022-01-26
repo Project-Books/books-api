@@ -49,7 +49,6 @@ export DOCKER_BUILDKIT=1
 
 ## Running the app
 
-1. Import as a Maven project into your favourite IDE
 1. Ensure Docker Desktop is running if you are using macOS or Windows. If using Linux, ensure the Docker daemon is running
 1. Build the docker image:
    - With default values: `docker-compose build booksapi` , or
