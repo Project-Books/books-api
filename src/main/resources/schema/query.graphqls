@@ -5,4 +5,5 @@ type Query {
     findByTitleIgnoreCase(title: String!): Book
     findByPublisher(name: String!): [Book]!
     findByGenre(name: GenreName!): [Book]!
+    findByAwardName(awardName: AwardName!): [Book]
 }

@@ -88,6 +88,9 @@ Sample query:
         publishingFormat {
             formatName
         }
+        awards {
+            awardName
+        }
     }
 }
 ```
