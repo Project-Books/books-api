@@ -20,7 +20,6 @@ GraphQL books API made using Spring Boot and [DGS](https://netflix.github.io/dgs
 ## Setup
 
 Prerequisites: 
-- JDK 11 or higher
 - Configure [Lombok](https://github.com/Project-Books/book-project/wiki/Troubleshooting#cannot-find-log-statements-or-the-entities-do-not-have-constructors-lombok-errors)
 - PostgreSQL 12 or (better) Docker
   - For Linux users, install docker-compose 
