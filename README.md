@@ -17,20 +17,15 @@
 GraphQL books API made using Spring Boot and [DGS](https://netflix.github.io/dgs/). This is a sibling project of the [Book Project](https://github.com/Project-Books/book-project).
 
 
-## Setup
+## Prerequisites
 
-Prerequisites: 
-- Configure [Lombok](https://github.com/Project-Books/book-project/wiki/Troubleshooting#cannot-find-log-statements-or-the-entities-do-not-have-constructors-lombok-errors)
-- PostgreSQL 12 or (better) Docker
-  - For Linux users, install docker-compose 
+- Docker
+  - For Linux users, install docker-compose and Docker engine
   - For macOS and Windows users, install Docker Desktop
 
 Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)
 
-
-## Before running the app
-
-### Buildkit
+### Enable Buildkit
 
 As this Dockerfile caches the projects maven dependencies, please ensure docker buildkit is supported (Docker v18.09+) and is enabled.
 
