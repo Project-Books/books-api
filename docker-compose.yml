@@ -6,9 +6,9 @@ services:
     container_name: books_api_db
     restart: always
     environment:
-      - POSTGRES_DB=books_api
-      - POSTGRES_USER=dbuser
-      - POSTGRES_PASSWORD=dbpassword
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
       - "5432:5432"
 
@@ -20,12 +20,17 @@ services:
       dockerfile: ./Dockerfile
       args:
         mvn_arg: clean package
+        DB_HOSTNAME: db
+        DB_PORT: ${DB_PORT}
+        DB_NAME: ${DB_NAME}
+        DB_USERNAME: ${DB_USERNAME}
+        DB_PASSWORD: ${DB_PASSWORD}
     environment:
-      - POSTGRES_DATABASE=books_api
-      - POSTGRES_USER=dbuser
-      - POSTGRES_PASSWORD=dbpassword
+      - POSTGRES_DATABASE=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_HOSTNAME=db
-      - POSTGRES_PORT=5432
+      - POSTGRES_PORT=${DB_PORT}
     ports:
       - "8082:8082"
     depends_on:

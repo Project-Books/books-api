@@ -53,7 +53,7 @@ export DOCKER_BUILDKIT=1
 1. Build the docker image:
    - With default values: `docker-compose build booksapi` , or
    - with a custom mvn goal(s), e.g. `docker-compose build --build-arg mvn_arg="clean package" booksapi` to run the tests as well
-1. Run the docker-compose file: `docker-compose up -d`
+1. Run the docker-compose file: `docker-compose --env-file .env up -d`
    - if you wish to view the output use `docker logs -f booksapi`
    - alternatively use `docker-compose up db booksapi` to launch the containers interactively
 3. Wait for the server to start (macOS and Windows: you can check this on Docker desktop for the `booksapi` container if you used the detached flag earlier)
