@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . /app
 ARG mvn_arg="clean package"
 
-RUN --mount=type=cache,target=/root/.m2 mvn -f /app/pom.xml $mvn_arg
+RUN target=/root/.m2 mvn -f /app/pom.xml $mvn_arg
 
 RUN curl -LJO https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
 
