@@ -51,7 +51,7 @@ export DOCKER_BUILDKIT=1
 
 1. Ensure Docker Desktop is running if you are using macOS or Windows. If using Linux, ensure the Docker daemon is running
 1. Build the docker image:
-   - With default values: `docker-compose build booksapi` , or
+   - With default values: `docker-compose build` , or
    - with a custom mvn goal(s), e.g. `docker-compose build --build-arg mvn_arg="clean package" booksapi` to run the tests as well
 1. Run the docker-compose file: `docker-compose --env-file .env up -d`
    - if you wish to view the output use `docker logs -f booksapi`

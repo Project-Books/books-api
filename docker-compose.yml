@@ -20,6 +20,7 @@ services:
       dockerfile: ./Dockerfile
       args:
         mvn_arg: clean package
+        PROFILE: ${PROFILE}
         DB_HOSTNAME: db
         DB_PORT: ${DB_PORT}
         DB_NAME: ${DB_NAME}
