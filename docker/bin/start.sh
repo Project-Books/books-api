@@ -235,24 +235,6 @@ if [ -n "$POSTGRES_DATABASE" ] || [ -n "$POSTGRES_DATABASE_FILE" ]; then
 fi
 
 #
-# Validate that at least one backend is installed
-#
-
-if [ -z "$INSTALLED_DB" ] && [ -z "$BOOKSAPI_HOME_TEMPLATE" ]; then
-    cat <<END
-FATAL: No authentication configured
--------------------------------------------------------------------------------
-The Booksapi Docker container needs at least one db present in
-order to function, such as a PostgreSQL database.
-Please specify at least the POSTGRES_DATABASE, 
-or check Booksapi's Docker
-documentation regarding configuring the DB.
-END
-    exit 1;
-fi
-
-
-#
 # Finally start Booksapi (under JAVA)
 #
 
