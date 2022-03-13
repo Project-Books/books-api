@@ -19,7 +19,7 @@ BOOKSAPI_HOME="$HOME/.booksapi"
 # BOOKSAPI_EXT="$BOOKSAPI_HOME/extensions"
 # BOOKSAPI_LIB="$BOOKSAPI_HOME/lib"
 BOOKSAPI_PROPERTIES="$BOOKSAPI_HOME/booksapi.properties"
-BOOKSAPI_PROFILE="dev"
+BOOKSAPI_PROFILE="local"
 SPRINGBOOT_DIALECT="org.hibernate.dialect.PostgreSQLDialect"
 SPRINGBOOT_DATASOURCE="jdbc:"
 SPRINGBOOT_DB_DRIVER="org.postgresql.Driver"
@@ -180,13 +180,6 @@ END
        set_property "spring.datasource.driver-class-name" "$SPRINGBOOT_DB_DRIVER"
     else
        postgres_missing_vars
-       exit 1
-    fi
-
-    if [ $BOOKSAPI_PROFILE == "dev" ]; then
-        echo "$(cat "$BOOKSAPI_PROPERTIES")"
-    else
-       echo "Container isn't ready for production. Please wait for newer release. https://github.com/Project-Books/books-api"
        exit 1
     fi
 }
