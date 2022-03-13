@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:experimental
 FROM maven:3.8.3-openjdk-11-slim AS builder
 WORKDIR /app
 COPY . /app
