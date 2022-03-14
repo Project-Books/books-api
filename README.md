@@ -45,9 +45,9 @@ export DOCKER_BUILDKIT=1
 
 1. Ensure Docker Desktop is running if you are using macOS or Windows. If using Linux, ensure the Docker daemon is running
 1. Build the docker image:
-   - With default values: `docker-compose build booksapi` , or
-   - with a custom mvn goal(s), e.g. `docker-compose build --build-arg mvn_arg="clean package -DskipTests" booksapi` 
-1. Run the docker-compose file: `docker-compose up -d`
+   - With default values: `docker-compose build` , or
+   - with a custom mvn goal(s), e.g. `docker-compose build --build-arg mvn_arg="clean package" booksapi` to run the tests as well
+1. Run the docker-compose file: `docker-compose --env-file .env up -d`
    - if you wish to view the output use `docker logs -f booksapi`
    - alternatively use `docker-compose up db booksapi` to launch the containers interactively
 3. Wait for the server to start (macOS and Windows: you can check this on Docker desktop for the `booksapi` container if you used the detached flag earlier)
@@ -117,3 +117,5 @@ For example, in IntelliJ ultimate or DataGrip:
 ## Contributing
 
 If you wish to contribute (thanks!), please first see the [contributing document](https://github.com/Project-Books/books-api/blob/main/CONTRIBUTING.md).
+
+> Note: we skip tests in our Docker builds for convenience, but please ensure you run the tests and they pass before pushing. 

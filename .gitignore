@@ -37,3 +37,5 @@ data/
 postgres-data
 
 .jpb/
+
+.env.*
