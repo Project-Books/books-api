@@ -5,13 +5,7 @@ ARG mvn_arg="clean package -DskipTests"
 
 RUN target=/root/.m2 mvn -f /app/pom.xml $mvn_arg
 
-RUN curl -LJO https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
-
 FROM openjdk:11-jre-slim
-
-COPY --from=builder /app/wait-for-it.sh /opt/booksapi/bin/wait-for-it.sh
-
-RUN chmod +x /opt/booksapi/bin/wait-for-it.sh 
 
 # Override the docker maven jar with user supplied one, else default to docker-maven's one.
 ARG JAR_FILE=/app/target/booksapi*.jar

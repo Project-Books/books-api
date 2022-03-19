@@ -16,7 +16,6 @@
 package com.karankumar.booksapi.model;
 
 import com.karankumar.booksapi.model.award.Award;
-import com.karankumar.booksapi.model.cover.Cover;
 import com.karankumar.booksapi.model.genre.Genre;
 import com.karankumar.booksapi.model.language.Lang;
 import lombok.AccessLevel;
