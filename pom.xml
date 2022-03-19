@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.karankumar</groupId>
 	<artifactId>booksapi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>booksApi</name>
 	<description>GraphQL Books API</description>
 	<properties>
