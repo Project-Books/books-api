@@ -1,3 +1,5 @@
+-- For local development only
+
 -- A brief history of time
 INSERT INTO cover(medium_url)
 VALUES ('https://penguin.co.uk/content/dam/prh/books/100/1008130/9780857501004.jpg.transform/PRHDesktopWide_small/image.jpg');
