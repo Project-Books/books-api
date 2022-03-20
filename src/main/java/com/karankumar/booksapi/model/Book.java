@@ -101,7 +101,7 @@ public class Book {
     private PublishingFormat publishingFormat;
 
     @OneToOne
-    private Cover covers = new Cover();
+    private Cover covers;
 
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
