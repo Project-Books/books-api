@@ -25,10 +25,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.FetchType;
 import java.util.Objects;
 
 /**
@@ -49,11 +46,6 @@ public class Cover {
     private String smallUrl;
     private String mediumUrl;
     private String largeUrl;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book", nullable = false)
-    @ToString.Exclude
-    private Book book;
 
     @Override
     public boolean equals(Object o) {

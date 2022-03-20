@@ -100,9 +100,8 @@ public class Book {
     @OneToOne
     private PublishingFormat publishingFormat;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
-    private Set<Cover> covers = new HashSet<>();
+    @OneToOne
+    private Cover covers = new Cover();
 
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
