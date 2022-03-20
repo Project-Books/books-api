@@ -40,7 +40,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Book findBookByIsbn13(String isbn13);
 
     @Query(value = "SELECT b FROM Book b WHERE lower(b.title) = lower(:title)")
-    Book findByTitleIgnoreCase(String title);
+    List<Book> findByTitleIgnoreCase(String title);
     
     @Query(value =
             "SELECT b.* FROM book b " +
