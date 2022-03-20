@@ -1,0 +1,5 @@
+ALTER TABLE book
+ADD COLUMN cover_id INTEGER;
+
+ALTER TABLE book
+ADD FOREIGN KEY (cover_id) REFERENCES Cover(id);
