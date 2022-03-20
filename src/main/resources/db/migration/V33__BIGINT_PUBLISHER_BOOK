@@ -1,0 +1,5 @@
+ALTER TABLE publisher_book
+ALTER COLUMN book_id TYPE bigint;
+
+ALTER TABLE publisher_book
+ALTER COLUMN publisher_id TYPE bigint;
