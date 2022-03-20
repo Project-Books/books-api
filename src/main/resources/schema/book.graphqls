@@ -10,7 +10,7 @@ type Book {
     publishers: [Publisher!]!
     lang: Lang!
     publishingFormat: PublishingFormat
-    covers: [Cover]
+    cover: Cover
     awards: [Award!]!
 }
 
