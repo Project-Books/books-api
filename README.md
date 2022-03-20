@@ -41,7 +41,9 @@ If the result returns a blank string or an 0 please use the following command to
 export DOCKER_BUILDKIT=1
 ``` 
 
-## Running the app
+## Running the app locally
+
+### With Docker
 
 1. Ensure Docker Desktop is running if you are using macOS or Windows. If using Linux, ensure the Docker daemon is running
 1. Build the docker image:
@@ -52,6 +54,13 @@ export DOCKER_BUILDKIT=1
    - alternatively use `docker-compose up db booksapi` to launch the containers interactively
 3. Wait for the server to start (macOS and Windows: you can check this on Docker desktop for the `booksapi` container if you used the detached flag earlier)
 4. Go to `http://localhost:8082/graphiql`
+
+### In your IDE
+
+To run the backend in your IDE, follow the instructions on what to comment out and uncomment in the application.properties file.
+You will still need to build and run the backend container:
+- `docker-compose build` and `docker compose up db -d`
+
 
 Sample query:
 ```graphql
