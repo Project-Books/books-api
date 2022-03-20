@@ -85,7 +85,7 @@ public class BookService {
      * @param title to search by
      * @return a matching Book or null otherwise
      */
-    public Book findByTitle(@NonNull String title) {
+    public List<Book> findByTitle(@NonNull String title) {
         return bookRepository.findByTitleIgnoreCase(title);
     }
 

@@ -204,54 +204,6 @@ class BookDataFetcherTest {
     }
 
     @Test
-    void findByTitle_returnsNullBook_whenTitleNotFound() {
-        // Given
-        String title = "title";
-        given(bookService.findByTitle(title)).willReturn(null);
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindByTitleIgnoreCaseGraphQLQuery.newRequest()
-                                                 .title(title)
-                                                 .build(),
-                new FindByTitleIgnoreCaseProjectionRoot().title()
-        );
-
-        // When
-        String actual = queryExecutor.executeAndExtractJsonPath(
-                graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.FindByTitleIgnoreCase
-        );
-
-        // Then
-        assertThat(actual).isNull();
-    }
-
-    @Test
-    void findByTitle_returnsNonNullBook_whenTitleFound() {
-        // Given
-        String title = "title";
-        Book book = new Book(
-                title, new Lang(LanguageName.ENGLISH), "blurb", new Genre(GenreName.CRIME),
-                new PublishingFormat()
-        );
-        given(bookService.findByTitle(title)).willReturn(book);
-        GraphQLQueryRequest graphQLQueryRequest = new GraphQLQueryRequest(
-                FindByTitleIgnoreCaseGraphQLQuery.newRequest()
-                                                 .title(title)
-                                                 .build(),
-                new FindByTitleIgnoreCaseProjectionRoot().title()
-        );
-
-        // When
-        String actual = queryExecutor.executeAndExtractJsonPath(
-                graphQLQueryRequest.serialize(),
-                ROOT + DgsConstants.QUERY.FindByTitleIgnoreCase + ".title"
-        );
-
-        // Then
-        assertThat(actual).isNotNull();
-    }
-
-    @Test
     void findByGenre_returnsNonNullBook_whenGenreFound() {
         // Given
         GenreName genreName = GenreName.MYSTERY;

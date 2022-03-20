@@ -176,10 +176,10 @@ class BookRepositoryTest {
         bookRepository.save(book);
 
         // when
-        Book result = bookRepository.findByTitleIgnoreCase(TITLE);
+        List<Book> result = bookRepository.findByTitleIgnoreCase(TITLE);
 
         // then
-        assertThat(result).isEqualTo(book);
+        assertThat(result.get(0)).isEqualTo(book);
     }
 
     @Test
@@ -201,10 +201,10 @@ class BookRepositoryTest {
         bookRepository.save(book);
 
         // when
-        Book result = bookRepository.findByTitleIgnoreCase(TITLE.toLowerCase());
+        List<Book> result = bookRepository.findByTitleIgnoreCase(TITLE.toLowerCase());
 
         // then
-        assertThat(result).isEqualTo(book);
+        assertThat(result.get(0)).isEqualTo(book);
     }
 
   @Test
