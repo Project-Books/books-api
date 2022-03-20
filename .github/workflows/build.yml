@@ -7,9 +7,22 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/**/*.java'
+      - 'src/**/pom.xml'
+      - 'src/**/*.sql'
+      - 'src/**/*.properties'
+      - 'src/**/*.graphqls'
+
   pull_request:
     branches:
       - main
+    paths:
+      - 'src/**/*.java'
+      - 'src/**/pom.xml'
+      - 'src/**/*.sql'
+      - 'src/**/*.properties'
+      - 'src/**/*.graphqls'
 
 jobs:
   build:
