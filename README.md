@@ -63,43 +63,6 @@ To run the backend in your IDE, follow the instructions on what to comment out a
 You will still need to build and run the backend container:
 - `docker-compose build` and `docker compose up db -d`
 
-
-Sample query:
-```graphql
-{
-    findAllBooks {
-        title
-        isbn13
-        yearOfPublication
-        blurb
-        publishers {
-            name
-        }
-        isbn10
-        authors {
-            fullName
-        }
-        lang {
-            name
-        }
-        genre {
-            name
-        }
-        covers {
-            pathToSmall
-            pathToMedium
-            pathToLarge
-        }
-        publishingFormat {
-            formatName
-        }
-        awards {
-            awardName
-        }
-    }
-}
-```
-
 #### Windows: error code 127
 
 ![image](https://user-images.githubusercontent.com/11173328/141674111-ed0d30a8-10a3-4153-8ff9-24579db65bff.png)
