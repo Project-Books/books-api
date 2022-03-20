@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021  Karan Kumar
+ * Copyright (C) 2022 Karan Kumar
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -15,64 +15,38 @@
 
 package com.karankumar.booksapi.model;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
+/**
+ * We store a partial path in our blob storage and then dynamically add the prefix needed.
+ * We only accept the .jpg image file type
+ */
+@Table(name = "cover", schema = "public")
 @Entity
-@Table(name = "publisher", schema = "public")
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Publisher {
+@NoArgsConstructor
+public class Cover {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String name;
-
-    @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "publisher_book",
-            joinColumns = @JoinColumn(
-                    name = "publisher_id",
-                    foreignKey = @ForeignKey(name = "publisher_book_publisher_id_fk")
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "book_id",
-                    foreignKey = @ForeignKey(name = "publisher_book_book_id_fk")
-            )
-    )
-    private Set<Book> books = new HashSet<>();
-
-    public Publisher(@NonNull String name) {
-        this.name = name;
-    }
-
-    public void addBook(@NonNull Book book) {
-        books.add(book);
-        book.getPublishers().add(this);
-    }
+    private String smallUrl;
+    private String mediumUrl;
+    private String largeUrl;
 
     @Override
     public boolean equals(Object o) {
@@ -82,8 +56,8 @@ public class Publisher {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
             return false;
         }
-        Publisher publisher = (Publisher) o;
-        return Objects.equals(id, publisher.id);
+        Cover bookCover = (Cover) o;
+        return Objects.equals(id, bookCover.id);
     }
 
     @Override

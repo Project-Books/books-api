@@ -16,7 +16,6 @@
 package com.karankumar.booksapi.model;
 
 import com.karankumar.booksapi.model.award.Award;
-import com.karankumar.booksapi.model.cover.Cover;
 import com.karankumar.booksapi.model.genre.Genre;
 import com.karankumar.booksapi.model.language.Lang;
 import lombok.AccessLevel;
@@ -101,9 +100,8 @@ public class Book {
     @OneToOne
     private PublishingFormat publishingFormat;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
-    private Set<Cover> covers = new HashSet<>();
+    @OneToOne
+    private Cover cover;
 
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)

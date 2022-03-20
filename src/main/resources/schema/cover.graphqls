@@ -1,6 +1,6 @@
 type Cover {
     id: ID!
-    pathToSmall: String
-    pathToMedium: String
-    pathToLarge: String
+    smallUrl: String
+    mediumUrl: String
+    largeUrl: String
 }
