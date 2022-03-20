@@ -23,7 +23,9 @@ GraphQL books API made using Spring Boot and [DGS](https://netflix.github.io/dgs
   - For Linux users, install docker-compose and Docker engine
   - For macOS and Windows users, install Docker Desktop
 
-Recommended IntelliJ plugin: [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)
+Recommended IntelliJ plugins: 
+- [DGS](https://plugins.jetbrains.com/plugin/17852-dgs)
+- [JS GraphQL](https://plugins.jetbrains.com/plugin/8097-js-graphql)
 
 ### Enable Buildkit
 
