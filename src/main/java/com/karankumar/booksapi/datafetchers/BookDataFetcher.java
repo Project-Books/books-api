@@ -27,7 +27,7 @@ import java.util.List;
 
 @DgsComponent
 public class BookDataFetcher {
-    private final BookService bookService;
+        private final BookService bookService;
 
     public BookDataFetcher(BookService bookService) {
         this.bookService = bookService;
