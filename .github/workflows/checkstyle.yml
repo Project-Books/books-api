@@ -1,9 +1,7 @@
 name: checkstyle
 
-on:
-  pull_request:
-    branches:
-      - main
+on: pull_request
+
 jobs:
   checkstyle_job:
     runs-on: ubuntu-latest
@@ -16,4 +14,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: 'github-pr-check'
-          tool_name: 'testtool'
+          fail_on_error: true
