@@ -27,44 +27,46 @@ import java.util.List;
 
 @DgsComponent
 public class BookDataFetcher {
-    private final BookService bookService;
 
-    public BookDataFetcher(BookService bookService) {
-        this.bookService = bookService;
-    }
+  private final BookService bookService;
 
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindAllBooks)
-    public List<Book> findAllBooks() {
-        return bookService.findAll();
-    }
+  public BookDataFetcher(BookService bookService) {
+    this.bookService = bookService;
+  }
 
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindBookByIsbn13)
-    public Book findBookByIsbn13(@InputArgument(DgsConstants.BOOK.Isbn13) String isbn13) {
-        return bookService.findBookByIsbn13(isbn13);
-    }
+  @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindAllBooks)
+  public List<Book> findAllBooks() {
+    return bookService.findAll();
+  }
 
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByAuthor)
-    public List<Book> findByAuthor(@InputArgument(DgsConstants.AUTHOR.FullName) String fullName) {
-        return bookService.findByAuthor(fullName);
-    }
+  @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindBookByIsbn13)
+  public Book findBookByIsbn13(@InputArgument(DgsConstants.BOOK.Isbn13) String isbn13) {
+    return bookService.findBookByIsbn13(isbn13);
+  }
 
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByPublisher)
-    public List<Book> findByPublisher(@InputArgument(DgsConstants.PUBLISHER.Name) String publisherName) {
-        return bookService.findByPublisher(publisherName);
-    }
+  @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByAuthor)
+  public List<Book> findByAuthor(@InputArgument(DgsConstants.AUTHOR.FullName) String fullName) {
+    return bookService.findByAuthor(fullName);
+  }
 
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByTitleIgnoreCase)
-    public List<Book> findByTitle(@InputArgument(DgsConstants.BOOK.Title) String title) {
-        return bookService.findByTitle(title);
-    }
+  @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByPublisher)
+  public List<Book> findByPublisher(
+      @InputArgument(DgsConstants.PUBLISHER.Name) String publisherName) {
+    return bookService.findByPublisher(publisherName);
+  }
 
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByGenre)
-    public List<Book> findByGenre(@InputArgument(DgsConstants.GENRE.Name) GenreName genreName) {
-        return bookService.findByGenre(genreName);
-    }
+  @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByTitleIgnoreCase)
+  public List<Book> findByTitle(@InputArgument(DgsConstants.BOOK.Title) String title) {
+    return bookService.findByTitle(title);
+  }
 
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByAwardName)
-    public List<Book> findByAward(@InputArgument(DgsConstants.AWARD.AwardName) String awardName) {
-        return bookService.findByAward(awardName);
-    }
+  @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByGenre)
+  public List<Book> findByGenre(@InputArgument(DgsConstants.GENRE.Name) GenreName genreName) {
+    return bookService.findByGenre(genreName);
+  }
+
+  @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.FindByAwardName)
+  public List<Book> findByAward(@InputArgument(DgsConstants.AWARD.AwardName) String awardName) {
+    return bookService.findByAward(awardName);
+  }
 }
